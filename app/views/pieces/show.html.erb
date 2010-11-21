@@ -10,6 +10,26 @@
   <%= @piece.description %>
 </p>
 
+<p>
+  <b>Attack:</b>
+  <%= @piece.attack %>
+</p>
+
+<p>
+  <b>Defense:</b>
+  <%= @piece.defense %>
+</p>
+
+<p>
+  <b>Movement:</b>
+  <%= @piece.movement %>
+</p>
+
+<p>
+  <b>Cost:</b>
+  <%= @piece.cost %>
+</p>
+
 
 <%= link_to 'Edit', edit_piece_path(@piece) %> |
 <%= link_to 'Back', pieces_path %>

@@ -4,6 +4,10 @@
   <tr>
     <th>Name</th>
     <th>Description</th>
+    <th>Attack</th>
+    <th>Defense</th>
+    <th>Movement</th>
+    <th>Cost</th>                
     <th></th>
     <th></th>
     <th></th>
@@ -13,6 +17,10 @@
   <tr>
     <td><%= piece.name %></td>
     <td><%= piece.description %></td>
+    <td><%= piece.attack %></td>
+    <td><%= piece.defense %></td>
+    <td><%= piece.movement %></td>
+    <td><%= piece.cost %></td>                
     <td><%= link_to 'Show', piece %></td>
     <td><%= link_to 'Edit', edit_piece_path(piece) %></td>
     <td><%= link_to 'Destroy', piece, :confirm => 'Are you sure?', :method => :delete %></td>
