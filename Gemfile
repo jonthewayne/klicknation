@@ -28,5 +28,6 @@ group :development, :test do
    gem 'sqlite3-ruby', :require => 'sqlite3'
 end
 
-gem "paperclip", "2.3.5"
+# gem "paperclip", "2.3.5" 
+gem "paperclip", :git => "git://github.com/lightyear/paperclip.git"
 gem "aws-s3", :require => 'aws/s3'
