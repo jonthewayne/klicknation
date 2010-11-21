@@ -16,7 +16,7 @@
 
 <% @pieces.each do |piece| %>
   <tr>
-    <td><%= image_tag @product.photo.url(:small) %></td>
+    <td><%= image_tag piece.image.url(:small) %></td>
     <td><%= piece.name %></td>
     <td><%= piece.description %></td>
     <td><%= piece.attack %></td>
