@@ -6,7 +6,7 @@ class Piece < ActiveRecord::Base
   validates_numericality_of :cost, :only_integer => true, :message => "can only be whole number."
   
   
-  has_attached_file :image, :styles => { :small => "50x50#", :medium => "100x100#" }, :storage => :s3,
+  has_attached_file :image, :styles => { :small => "50x50>", :medium => "100x100>" }, :storage => :s3,
                     :s3_credentials => { :access_key_id => S3[:key], :secret_access_key => S3[:secret] },
                     :bucket => S3[:bucket],
                     :path => ":class/:attachment/:style/:id.:extension"
