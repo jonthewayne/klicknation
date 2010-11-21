@@ -2,7 +2,7 @@ class PiecesController < ApplicationController
   # GET /pieces
   # GET /pieces.xml
   def index
-    @pieces = Piece.all
+    @pieces = Piece.all.paginate(:per_page => 1, :page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
