@@ -5,11 +5,6 @@ class PiecesController < ApplicationController
   # GET /pieces.xml
   def index
     @pieces = Piece.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 1, :page => params[:page])
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @pieces }
-    end
   end
 
   # GET /pieces/1
@@ -77,6 +72,9 @@ class PiecesController < ApplicationController
     @piece = Piece.find(params[:id])
     @piece.destroy
 
+    #@pieces = Piece.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 1, :page => params[:page])
+    
+    #render 'pieces/index'    
     respond_to do |format|
       format.html { redirect_to(pieces_url) }
       format.xml  { head :ok }

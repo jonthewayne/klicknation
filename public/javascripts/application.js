@@ -1,5 +1,5 @@
 $(function() {
-  $("#pieces th a, #pieces .pagination a").live("click", function() {
+  $("#pieces th a, #pieces .pagination a, #pieces td a").live("click", function() {
     $.getScript(this.href);
     return false;
   });

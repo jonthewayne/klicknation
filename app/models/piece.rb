@@ -11,7 +11,7 @@ class Piece < ActiveRecord::Base
                     :bucket => S3[:bucket],
                     :path => ":class/:attachment/:style/:id.:extension"
 
-  validates_attachment_presence :image
+  #validates_attachment_presence :image
   validates_attachment_size :image, :less_than => 5.megabytes
   validates_attachment_content_type :image, :content_type => ['image/jpeg', 'image/png'] 
   
