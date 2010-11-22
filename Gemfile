@@ -32,3 +32,4 @@ end
 gem "paperclip", :git => "git://github.com/lightyear/paperclip.git"
 gem "aws-s3", :require => 'aws/s3'
 gem "will_paginate"
+gem "jquery-rails"

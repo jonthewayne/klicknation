@@ -4,7 +4,7 @@ class PiecesController < ApplicationController
   # GET /pieces
   # GET /pieces.xml
   def index
-    @pieces = Piece.order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])
+    @pieces = Piece.order(sort_column + " " + sort_direction).paginate(:per_page => 1, :page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

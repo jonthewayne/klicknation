@@ -1,4 +1,4 @@
-<h1>Game Piece Admin</h1>
+<h1><%= link_to "Game Piece Admin", pieces_path %></h1>
 
 <table>
   <tr>
@@ -31,11 +31,11 @@
   </tr>
 <% end %>
 </table>
-
-<br />
+<%= will_paginate @pieces %>
+<br /><br /><br />
 
 <%= link_to 'New Piece', new_piece_path %>
 
-<br /><br />
 
-<%= will_paginate @pieces %>
+
+
