@@ -1,37 +1,14 @@
 <h1><%= link_to "Game Piece Admin", pieces_path %></h1>
+<br />
 
-<table>
-  <tr>
-    <th>Image</th>
-    <th><%= sortable "name" %></th>
-    <th>Description</th>
-    <th><%= sortable "attack" %></th>
-    <th><%= sortable "defense" %></th>
-    <th><%= sortable "movement" %></th>
-    <th><%= sortable "cost" %></th>                
-    <th><%= sortable "created_at", "Created On" %></th>      
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @pieces.each do |piece| %>
-  <tr>
-    <td><%= image_tag piece.image.url(:small) %></td>
-    <td><%= piece.name %></td>
-    <td><%= piece.description %></td>
-    <td><%= piece.attack %></td>
-    <td><%= piece.defense %></td>
-    <td><%= piece.movement %></td>
-    <td><%= piece.cost %></td>                
-    <td><%= piece.created_at.strftime("%B %e, %Y") %></td>           
-    <td><%= link_to 'Show', piece %></td>
-    <td><%= link_to 'Edit', edit_piece_path(piece) %></td>
-    <td><%= link_to 'Destroy', piece, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+<%= form_tag pieces_path, :method => 'get', :id => "pieces_search" do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+  <div id="pieces"><%= render 'pieces' %></div>
 <% end %>
-</table>
-<%= will_paginate @pieces %>
+
 <br /><br /><br />
 
 <%= link_to 'New Piece', new_piece_path %>

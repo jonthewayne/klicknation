@@ -1,0 +1,35 @@
+<%= hidden_field_tag :direction, params[:direction] %>
+<%= hidden_field_tag :sort, params[:sort] %>
+
+<table>
+  <tr>
+    <th>Image</th>
+    <th><%= sortable "name" %></th>
+    <th>Description</th>
+    <th><%= sortable "attack" %></th>
+    <th><%= sortable "defense" %></th>
+    <th><%= sortable "movement" %></th>
+    <th><%= sortable "cost" %></th>                
+    <th><%= sortable "created_at", "Created On" %></th>      
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @pieces.each do |piece| %>
+  <tr>
+    <td><%= image_tag piece.image.url(:small) %></td>
+    <td><%= piece.name %></td>
+    <td><%= piece.description %></td>
+    <td><%= piece.attack %></td>
+    <td><%= piece.defense %></td>
+    <td><%= piece.movement %></td>
+    <td><%= piece.cost %></td>                
+    <td><%= piece.created_at.strftime("%B %e, %Y") %></td>           
+    <td><%= link_to 'Show', piece %></td>
+    <td><%= link_to 'Edit', edit_piece_path(piece) %></td>
+    <td><%= link_to 'Destroy', piece, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+<%= will_paginate @pieces %>

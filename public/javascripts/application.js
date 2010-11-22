@@ -1,2 +1,10 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
+$(function() {
+  $("#pieces th a, #pieces .pagination a").live("click", function() {
+    $.getScript(this.href);
+    return false;
+  });
+  $("#pieces_search input").keyup(function() {
+    $.get($("#pieces_search").attr("action"), $("#pieces_search").serialize(), null, "script");
+    return false;
+  });
+});
