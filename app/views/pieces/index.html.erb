@@ -3,12 +3,13 @@
 <table>
   <tr>
     <th>Image</th>
-    <th>Name</th>
+    <th><%= sortable "name" %></th>
     <th>Description</th>
-    <th>Attack</th>
-    <th>Defense</th>
-    <th>Movement</th>
-    <th>Cost</th>                
+    <th><%= sortable "attack" %></th>
+    <th><%= sortable "defense" %></th>
+    <th><%= sortable "movement" %></th>
+    <th><%= sortable "cost" %></th>                
+    <th><%= sortable "created_at", "Created On" %></th>      
     <th></th>
     <th></th>
     <th></th>
@@ -23,6 +24,7 @@
     <td><%= piece.defense %></td>
     <td><%= piece.movement %></td>
     <td><%= piece.cost %></td>                
+    <td><%= piece.created_at.strftime("%B %e, %Y") %></td>           
     <td><%= link_to 'Show', piece %></td>
     <td><%= link_to 'Edit', edit_piece_path(piece) %></td>
     <td><%= link_to 'Destroy', piece, :confirm => 'Are you sure?', :method => :delete %></td>
