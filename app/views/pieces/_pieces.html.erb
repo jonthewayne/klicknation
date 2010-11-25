@@ -1,35 +1,248 @@
-<%= hidden_field_tag :direction, params[:direction] %>
-<%= hidden_field_tag :sort, params[:sort] %>
+    <% # text_field_tag :search, params[:search] %>
 
-<table>
-  <tr>
-    <th>Image</th>
-    <th><%= sortable "name" %></th>
-    <th>Description</th>
-    <th><%= sortable "attack" %></th>
-    <th><%= sortable "defense" %></th>
-    <th><%= sortable "movement" %></th>
-    <th><%= sortable "cost" %></th>                
-    <th><%= sortable "created_at", "Created On" %></th>      
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+	<!-- Content -->
+	<article class="container_12">
+		
 
-<% @pieces.each do |piece| %>
-  <tr>
-    <td><%= image_tag piece.image.url(:small) %></td>
-    <td><%= piece.name %></td>
-    <td><%= piece.description %></td>
-    <td><%= piece.attack %></td>
-    <td><%= piece.defense %></td>
-    <td><%= piece.movement %></td>
-    <td><%= piece.cost %></td>                
-    <td><%= piece.created_at.strftime("%B %e, %Y") %></td>           
-    <td><%= link_to 'Show', piece %></td>
-    <td><%= link_to 'Edit', edit_piece_path(piece) %></td>
-    <td><%= link_to 'Destroy', piece, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
+		<div class="clear"></div>
+		
+		<section class="grid_12">
+			<div class="block-border"><% form_tag pieces_path, :method => 'get', :id => "pieces_search", :class => "block-content form" do %>
+				<h1>Table
+        <%= link_to image_tag("icons/fugue/plus-circle-blue.png", :size => "16x16", :alt => "Add new game piece") + " add", new_piece_path %>
+        </h1>
+
+				
+				<div class="block-controls">
+					
+					<ul class="controls-buttons">
+						<li><a href="#" title="Previous"><img src="images/icons/fugue/navigation-180.png" width="16" height="16"> Prev</a></li>
+						<li><a href="#" title="Page 1"><b>1</b></a></li>
+						<li><a href="#" title="Page 2" class="current"><b>2</b></a></li>
+						<li><a href="#" title="Page 3"><b>3</b></a></li>
+
+						<li><a href="#" title="Page 4"><b>4</b></a></li>
+						<li><a href="#" title="Page 5"><b>5</b></a></li>
+						<li><a href="#" title="Next">Next <img src="images/icons/fugue/navigation.png" width="16" height="16"></a></li>
+						<li class="sep"></li>
+						<li><a href="#"><img src="images/icons/fugue/arrow-circle.png" width="16" height="16"></a></li>
+					</ul>
+					
+				</div>
+
+			
+				<div class="no-margin"><table class="table" cellspacing="0" width="100%">
+					<thead>
+						<tr>
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up active"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+								</span>
+
+								Image
+							</th>
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+								</span>
+
+								Name
+							</th>              
+							<th scope="col">Description</th>
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+								</span>
+
+								Attack
+							</th>   
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+								</span>
+
+								Defense
+							</th>    
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+								</span>
+
+								Movement
+							</th>     
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+								</span>
+
+								Cost
+							</th>                                                                                      
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+
+								</span>
+								Date Created
+							</th>
+							<th scope="col" class="table-actions">Actions</th>
+						</tr>
+					</thead>
+					
+					<tbody>       
+            <% @pieces.each do |piece| %>            
+						<tr>
+							<td><%= link_to image_tag(piece.image.url(:medium), :alt => "Click to see large " + "#{piece.name}"), piece %></td>
+							<td><%= piece.name %></td>
+							<td><%= piece.description %></td>
+							<td><%= piece.attack %></td>
+							<td><%= piece.defense %></td>
+							<td><%= piece.movement %></td>
+							<td><%= piece.cost %></td>
+							<td><%= piece.created_at.strftime("%B %e, %Y") %></td>                                                                      
+
+							<td class="table-actions">
+        			  <%= link_to image_tag("icons/fugue/pencil.png", :size => "16x16", :alt => "Edit game piece"), edit_piece_path(piece) %>
+								<%= link_to image_tag("icons/fugue/cross-circle.png", :size => "16x16", :alt => "Delete game piece"), piece, :confirm => 'Are you sure?', :method => :delete %>
+							</td>
+						</tr>
+            <% end %>
+					</tbody>
+				
+				</table></div>
+				
+				<ul class="message no-margin">
+					<li><%= page_entries_info @pieces %></li>
+				</ul>
+      </div>
+		</section>
+        <%= hidden_field_tag :direction, params[:direction] %>
+        <%= hidden_field_tag :sort, params[:sort] %>				
+				<% end %>
+        
+		<div class="clear"></div>
+		
+	</article>
+  
+
+  
+  
 <%= will_paginate @pieces %>
+
+<br clear="left" />
+		<section class="grid_12">
+			<div class="block-border"><form class="block-content form" id="table_form" method="post" action="">
+				<h1>Table         <%= link_to image_tag("icons/fugue/plus-circle-blue.png", :size => "16x16", :alt => "Add new game piece") + " add", new_piece_path %></h1>
+
+				
+				<div class="block-controls">
+					
+					<ul class="controls-buttons">
+						<li><a href="#" title="Previous"><img src="images/icons/fugue/navigation-180.png" width="16" height="16"> Prev</a></li>
+						<li><a href="#" title="Page 1"><b>1</b></a></li>
+						<li><a href="#" title="Page 2" class="current"><b>2</b></a></li>
+						<li><a href="#" title="Page 3"><b>3</b></a></li>
+
+						<li><a href="#" title="Page 4"><b>4</b></a></li>
+						<li><a href="#" title="Page 5"><b>5</b></a></li>
+						<li><a href="#" title="Next">Next <img src="images/icons/fugue/navigation.png" width="16" height="16"></a></li>
+						<li class="sep"></li>
+						<li><a href="#"><img src="images/icons/fugue/arrow-circle.png" width="16" height="16"></a></li>
+					</ul>
+					
+				</div>
+
+			
+				<div class="no-margin"><table class="table" cellspacing="0" width="100%">
+				
+					<thead>
+						<tr>
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up active"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+								</span>
+
+								Title
+							</th>
+							<th scope="col">Keywords</th>
+							<th scope="col">Preview</th>
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+
+								</span>
+								Date
+							</th>
+							<th scope="col">
+								<span class="column-sort">
+									<a href="#" title="Sort up" class="sort-up"></a>
+									<a href="#" title="Sort down" class="sort-down"></a>
+								</span>
+								Size
+							</th>
+
+							<th scope="col" class="table-actions">Actions</th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						
+						<tr>
+							<td>Lorem ipsum sit amet</td>
+							<td><ul class="keywords">
+
+								<li><a href="#">Ocean</a></li>
+								<li class="orange-keyword"><a href="#">Sun</a></li>
+							</ul></td>
+							<td><a href="#"><small><img src="images/icons/fugue/image.png" width="16" height="16" class="picto"> jpg | 12 Ko</small></a></td>
+							<td>02-05-2010</td>
+							<td>320 x 240</td>
+
+							<td class="table-actions">
+								<a href="#" title="Edit" class="with-tip"><img src="images/icons/fugue/pencil.png" width="16" height="16"></a>
+								<a href="#" title="Delete" class="with-tip"><img src="images/icons/fugue/cross-circle.png" width="16" height="16"></a>
+							</td>
+						</tr>
+						
+					</tbody>
+				
+				</table></div>
+				
+				<ul class="message no-margin">
+					<li>Results 1 - 5 out of 23</li>
+
+				</ul>
+				
+				<div class="block-footer">
+					<div class="float-right">
+						<label for="table-display" style="display:inline">Display mode</label>
+						<select name="table-display" id="table-display" class="small">
+							<option value="table">Table</option>
+							<option value="grid">Grid</option>
+
+						</select>
+					</div>
+					
+					<img src="images/icons/fugue/arrow-curve-000-left.png" width="16" height="16" class="picto"> 
+					<a href="#" class="button">Select All</a> 
+					<a href="#" class="button">Unselect All</a>
+					<span class="sep"></span>
+					<select name="table-action" id="table-action" class="small">
+						<option value="">Action for selected...</option>
+
+						<option value="validate">Validate</option>
+						<option value="delete">Delete</option>
+					</select>
+					<button type="submit" class="small">Ok</button>
+				</div>
+					
+			</form></div>
+		</section>

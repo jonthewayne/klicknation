@@ -1,17 +1,9 @@
-<h1><%= link_to "Game Piece Admin", pieces_path %></h1>
-<br />
+<div id="pieces"><%= render 'pieces' %></div>
 
-<%= form_tag pieces_path, :method => 'get', :id => "pieces_search" do %>
-  <p>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search", :name => nil %>
-  </p>
-  <div id="pieces"><%= render 'pieces' %></div>
-<% end %>
 
-<br /><br /><br />
 
-<%= link_to 'New Piece', new_piece_path %>
+
+
 
 
 

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Klicknation</title>
-  <%= stylesheet_link_tag :all, :cache => true %>
-  <%= javascript_include_tag :all, :cache => true %>
+  <title>Klicknation Admin</title>
+  <%= stylesheet_link_tag "reset", "common", "form", "standard", "960.gs.fluid", "simple-lists", "block-lists", "table" %>
+  <%= javascript_include_tag :all %>
   <%= csrf_meta_tag %>
+  <meta charset="utf-8">
 </head>
 <body>
   
@@ -14,10 +15,13 @@
 	<div id="status-bar"><div class="container_12">
 	
 		<ul id="status-infos">
-			<li class="spaced"><strong>Klicknation Game Admin</strong></li>
+			<li><a href="#" class="button" title="Click to find out about this project">About</a></li>
 		</ul>
 		
-		<ul id="breadcrumb"></ul>
+		<ul id="breadcrumb">
+		  <li><a href="#">Klicknation Admin</a></li>
+      <li><%= link_to "Game Pieces", pieces_path %></li>
+		</ul>
 	
 	</div></div>
 	<!-- End status bar -->
