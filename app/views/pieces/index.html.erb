@@ -1,4 +1,41 @@
-<div id="pieces"><%= render 'pieces' %></div>
+	<!-- Content -->
+	<article class="container_12">
+		
+
+		<div class="clear"></div>
+		
+		<section class="grid_12">
+			<%= form_tag pieces_path, :method => 'get', :id => "pieces_search", :class => "block-border form" do %>
+				<div class="block-content">
+        <h1>Game Pieces<%= link_to image_tag("icons/fugue/plus-circle-blue.png", :size => "16x16", :alt => "Add new game piece") + " add", new_piece_path %></h1>
+				
+				<div class="block-controls">
+					
+					<ul class="controls-buttons">
+						<li><span class="input-type-text margin-right relative"><%= text_field_tag :search, params[:search] %><%= image_tag("icons/fugue/magnifier.png", :size => "16x16", :alt => "Search") %></span></li>					  
+						<li class="sep"></li>				
+            <% # will_paginate(@pieces, :container => false, :renderer => PaginationListLinkRenderer, :previous_label => image_tag("icons/fugue/navigation-180.png", :size => "16x16", :alt => "Add new game piece") + " prev", ) %>	  
+						<%= will_paginate(@pieces, :container => false) %>
+					</ul>
+					
+				</div>
+
+				<div class="no-margin" id="pieces">			
+          <%= render 'pieces' %>
+        </div>
+				
+				<ul class="message no-margin">
+					<li><%= page_entries_info @pieces %></li>
+				</ul>
+      </div>
+		</section>
+        <%= hidden_field_tag :direction, params[:direction] %>
+        <%= hidden_field_tag :sort, params[:sort] %>				
+				<% end %>
+        
+		<div class="clear"></div>
+		
+	</article>
 
 
 
