@@ -32,50 +32,44 @@
 							</th>
 							<th scope="col">
 								<span class="column-sort">
-									<a href="#" title="Sort up" class="sort-up"></a>
-									<a href="#" title="Sort down" class="sort-down"></a>
+								  <%= sortable "name", "sort-up", "Alphabetical" %>
+								  <%= sortable "name", "sort-down", "Reverse Alphabetical" %>   
 								</span>
-
 								Name
 							</th>              
 							<th scope="col">Description</th>
 							<th scope="col">
 								<span class="column-sort">
-									<a href="#" title="Sort up" class="sort-up"></a>
-									<a href="#" title="Sort down" class="sort-down"></a>
+								  <%= sortable "attack", "sort-up", "Least Attack Points First" %>
+								  <%= sortable "attack", "sort-down", "Most Attack Points First" %>   
 								</span>
-
 								Attack
 							</th>   
 							<th scope="col">
 								<span class="column-sort">
-									<a href="#" title="Sort up" class="sort-up"></a>
-									<a href="#" title="Sort down" class="sort-down"></a>
+								  <%= sortable "defense", "sort-up", "Least Defense Points First" %>
+								  <%= sortable "defense", "sort-down", "Most Defense Points First" %>   
 								</span>
-
 								Defense
 							</th>    
 							<th scope="col">
 								<span class="column-sort">
-									<a href="#" title="Sort up" class="sort-up"></a>
-									<a href="#" title="Sort down" class="sort-down"></a>
+								  <%= sortable "movement", "sort-up", "Least Movement Points First" %>
+								  <%= sortable "movement", "sort-down", "Most Movement Points First" %>   
 								</span>
-
 								Movement
 							</th>     
 							<th scope="col">
 								<span class="column-sort">
-									<a href="#" title="Sort up" class="sort-up"></a>
-									<a href="#" title="Sort down" class="sort-down"></a>
+								  <%= sortable "cost", "sort-up", "Lowest Price First" %>
+								  <%= sortable "cost", "sort-down", "Highest Price First" %>   
 								</span>
-
 								Cost
 							</th>                                                                                      
 							<th scope="col">
 								<span class="column-sort">
-									<a href="#" title="Sort up" class="sort-up"></a>
-									<a href="#" title="Sort down" class="sort-down"></a>
-
+								  <%= sortable "created_at", "sort-up", "Oldest First" %>
+								  <%= sortable "created_at", "sort-down", "Newest First" %>                  
 								</span>
 								Date Created
 							</th>

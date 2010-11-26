@@ -1,8 +1,7 @@
 module ApplicationHelper
-  def sortable(column, title = nil)
-    title ||= column.titleize
-    css_class = column == sort_column ? "current #{sort_direction}" : nil
-    direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
-    link_to title, params.merge(:sort => column, :direction => direction, :page => nil), {:class => css_class}
+  def sortable(column, css_class, title)
+    direction = css_class == "sort-down" ? "desc" : "asc"    
+    css_class = column == sort_column && direction == sort_direction ? "#{css_class} active" : css_class
+    link_to "", params.merge(:sort => column, :direction => direction, :page => nil), {:title => title, :class => css_class}
   end  
 end
