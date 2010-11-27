@@ -15,7 +15,7 @@
 						<li><span class="input-type-text margin-right relative"><%= text_field_tag :search, params[:search] %><%= image_tag("icons/fugue/magnifier.png", :size => "16x16", :alt => "Search") %></span></li>					  
 						<li class="sep"></li>				
             <% # will_paginate(@pieces, :container => false, :renderer => PaginationListLinkRenderer, :previous_label => image_tag("icons/fugue/navigation-180.png", :size => "16x16", :alt => "Add new game piece") + " prev", ) %>	  
-						<%= will_paginate(@pieces, :container => false) %>
+						<% # will_paginate(@pieces, :container => false) %>
 					</ul>
 					
 				</div>
@@ -27,13 +27,106 @@
 				<ul class="message no-margin">
 					<li><%= page_entries_info @pieces %></li>
 				</ul>
-      </div>
+      </div>        
+      <%= hidden_field_tag :direction, params[:direction] %>
+      <%= hidden_field_tag :sort, params[:sort] %>				
+			<% end %>
 		</section>
-        <%= hidden_field_tag :direction, params[:direction] %>
-        <%= hidden_field_tag :sort, params[:sort] %>				
-				<% end %>
+
         
 		<div class="clear"></div>
+    
+<section class="grid_12">
+<form accept-charset="UTF-8" action="/pieces" class="block-border form" id="pieces_search" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
+				<div class="block-content">
+        <h1>Game Pieces<a href="/pieces/new"><img alt="Add new game piece" height="16" src="/images/icons/fugue/plus-circle-blue.png?1290505124" width="16" /> add</a></h1>
+
+				
+				<div class="block-controls">
+					
+					<ul class="controls-buttons">
+						<li><span class="input-type-text margin-right relative"><input id="search" name="search" type="text" /><img alt="Search" height="16" src="/images/icons/fugue/magnifier.png?1290505124" width="16" /></span></li>					  
+						<li class="sep"></li>	
+					</ul>
+					
+				</div>
+			
+				<div class="no-margin" id="pieces"><table cellspacing="0" width="100%" class="table">
+				
+					<thead>
+						<tr>
+							<th scope="col">Image</th>					
+							<th scope="col">
+								<span class="column-sort">
+								  <a href="/pieces?direction=asc&amp;sort=name" class="sort-up" title="Alphabetical"></a>
+								  <a href="/pieces?direction=desc&amp;sort=name" class="sort-down" title="Reverse Alphabetical"></a>   
+								</span>
+								Titles
+							</th>                        
+							<th scope="col">Keywords</th>
+							<th scope="col">
+								<span class="column-sort">
+								  <a href="/pieces?direction=asc&amp;sort=name" class="sort-up" title="Alphabetical"></a>
+								  <a href="/pieces?direction=desc&amp;sort=name" class="sort-down" title="Reverse Alphabetical"></a>   
+								</span>
+								Titles
+							</th>                
+							<th scope="col">
+								<span class="column-sort">
+								  <a href="/pieces?direction=asc&amp;sort=name" class="sort-up" title="Alphabetical"></a>
+								  <a href="/pieces?direction=desc&amp;sort=name" class="sort-down" title="Reverse Alphabetical"></a>   
+								</span>
+								Titles
+							</th>                
+							<th scope="col">Preview</th>
+							<th scope="col">
+								<span class="column-sort">
+									<a class="sort-up" title="Sort up" href="#"></a>
+									<a class="sort-down" title="Sort down" href="#"></a>
+								</span>
+								Date
+							</th>
+							<th scope="col">
+								<span class="column-sort">
+									<a class="sort-up" title="Sort up" href="#"></a>
+									<a class="sort-down" title="Sort down" href="#"></a>
+								</span>
+								Size
+							</th>
+							<th class="table-actions" scope="col">Actions</th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						
+						<tr>
+<td><a href="/pieces/8"><img alt="Click to see large Quick test 1" src="/images/icons/fugue/question-white.png?1290505124" /></a></td>
+
+							<td>Call Hanz when you absolutely need someone to die. He makes milk curdle just by looking at it. He also wins awards for his awesome hair, but doesn't like to talk about it. </td>
+							<td>as</td>                   
+							<td><a href="#"><small><img height="16" width="16" class="picto" src="images/icons/fugue/image.png"> jpg | 12 Ko</small></a></td>
+							<td>02-05-2010</td>
+							<td>02-05-2010</td>
+							<td>02-05-2010</td>              
+							<td>320 x 240</td>
+							<td class="table-actions">
+								<a  title="Edit" href="#"><img height="16" width="16" src="images/icons/fugue/pencil.png"></a>
+								<a  title="Delete" href="#"><img height="16" width="16" src="images/icons/fugue/cross-circle.png"></a>
+							</td>
+						</tr>
+					
+					</tbody>
+				
+				</table></div>
+				
+				<ul class="message no-margin">
+					<li>Results 1 - 5 out of 23</li>
+				</ul>
+				
+
+					
+			</div></form>
+		</section>    
 		
 	</article>
 
