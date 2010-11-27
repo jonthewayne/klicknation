@@ -15,7 +15,7 @@
 						<li><span class="input-type-text margin-right relative"><%= text_field_tag :search, params[:search] %><%= image_tag("icons/fugue/magnifier.png", :size => "16x16", :alt => "Search") %></span></li>					  
 						<li class="sep"></li>				
             <% # will_paginate(@pieces, :container => false, :renderer => PaginationListLinkRenderer, :previous_label => image_tag("icons/fugue/navigation-180.png", :size => "16x16", :alt => "Add new game piece") + " prev", ) %>	  
-						<% will_paginate(@pieces, :container => false) %>
+						<%= will_paginate(@pieces, :container => false) %>
 					</ul>
 					
 				</div>
