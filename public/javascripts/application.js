@@ -3,6 +3,10 @@ $(function() {
     $.getScript(this.href);
     return false;
   });
+  $(".close-bt").live("click", function() {
+    $('#message').remove();
+    return false;
+  });  
   $("#pieces_search input").keyup(function() {
     $.get($("#pieces_search").attr("action"), $("#pieces_search").serialize(), null, "script");
     return false;
