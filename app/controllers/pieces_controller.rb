@@ -89,8 +89,16 @@ class PiecesController < ApplicationController
   def get_pieces
     @pieces = Piece.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 2, :page => params[:page])    
     
-    # if @pieces is empty and we're specifying greater than page 1
-    
+    if @pieces.empty? && (params[:page].to_i > 1)
+      # if @pieces is empty and we're specifying greater than page 1, in most cases we need the page just before
+      params[:page] = (params[:page].to_i - 1)
+      @pieces = Piece.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 2, :page => params[:page])        
+      # if @pieces is still empty, we should just do the query to get the last available page
+      if @pieces.empty?      
+        params[:page] = @pieces.total_pages
+        @pieces = Piece.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 2, :page => params[:page])            
+      end
+    end    
   end
 end
 
