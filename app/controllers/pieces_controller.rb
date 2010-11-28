@@ -41,7 +41,7 @@ class PiecesController < ApplicationController
 
     respond_to do |format|
       if @piece.save
-        format.html { redirect_to(pieces_url, :notice => 'Piece was successfully created.') }
+        format.html { redirect_to(pieces_url, :notice => 'Game Piece was successfully created.') }
         format.xml  { render :xml => @piece, :status => :created, :location => @piece }
       else
         format.html { render :action => "new" }
@@ -57,7 +57,7 @@ class PiecesController < ApplicationController
 
     respond_to do |format|
       if @piece.update_attributes(params[:piece])
-        format.html { redirect_to(pieces_url, :notice => "Piece was successfully updated.") }
+        format.html { redirect_to(pieces_url, :notice => "Game Piece was successfully updated.") }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -88,6 +88,9 @@ class PiecesController < ApplicationController
   end
   def get_pieces
     @pieces = Piece.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 2, :page => params[:page])    
+    
+    # if @pieces is empty and we're specifying greater than page 1
+    
   end
 end
 

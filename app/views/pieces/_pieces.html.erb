@@ -74,7 +74,7 @@
 
 							<td class="table-actions">
         			  <%= link_to image_tag("icons/fugue/pencil.png", :size => "16x16", :alt => "Edit game piece"), edit_piece_path(piece) %>
-								<%= link_to image_tag("icons/fugue/cross-circle.png", :size => "16x16", :alt => "Delete game piece"), piece_path(piece, :direction => sort_direction, :sort => sort_column, :page => params[:page]), :class => 'remote-delete' %>
+								<%= link_to image_tag("icons/fugue/cross-circle.png", :size => "16x16", :alt => "Delete game piece"), piece_path(piece, :direction => sort_direction, :sort => sort_column, :page => params[:page], :search => params[:search]), :class => 'remote-delete' %>
 							</td>
 						</tr>
             <% end %>
