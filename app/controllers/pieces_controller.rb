@@ -4,7 +4,7 @@ class PiecesController < ApplicationController
   # GET /pieces
   # GET /pieces.xml
   def index
-    @pieces = Piece.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 2, :page => params[:page])
+    get_pieces
   end
 
   # GET /pieces/1
@@ -57,7 +57,7 @@ class PiecesController < ApplicationController
 
     respond_to do |format|
       if @piece.update_attributes(params[:piece])
-        format.html { redirect_to(pieces_url, :notice => 'Piece was successfully updated.') }
+        format.html { redirect_to(pieces_url, :notice => "Piece was successfully updated.") }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -72,13 +72,9 @@ class PiecesController < ApplicationController
     @piece = Piece.find(params[:id])
     @piece.destroy
 
-    #@pieces = Piece.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])
+    get_pieces
     
-    #render 'pieces/index'    
-    respond_to do |format|
-      format.html { redirect_to(pieces_url) }
-      format.xml  { head :ok }
-    end
+    render 'pieces/index'    
   end
 
   private
@@ -89,6 +85,9 @@ class PiecesController < ApplicationController
   
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+  end
+  def get_pieces
+    @pieces = Piece.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 2, :page => params[:page])    
   end
 end
 
