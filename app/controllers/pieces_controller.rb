@@ -41,7 +41,7 @@ class PiecesController < ApplicationController
 
     respond_to do |format|
       if @piece.save
-        format.html { redirect_to(@piece, :notice => 'Piece was successfully created.') }
+        format.html { redirect_to(pieces_url, :notice => 'Piece was successfully created.') }
         format.xml  { render :xml => @piece, :status => :created, :location => @piece }
       else
         format.html { render :action => "new" }
@@ -57,7 +57,7 @@ class PiecesController < ApplicationController
 
     respond_to do |format|
       if @piece.update_attributes(params[:piece])
-        format.html { redirect_to(@piece, :notice => 'Piece was successfully updated.') }
+        format.html { redirect_to(pieces_url, :notice => 'Piece was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

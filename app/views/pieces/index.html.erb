@@ -3,8 +3,13 @@
 		
 
 		<div class="clear"></div>
-		
+    
+      <ul class="message success grid_12">
+			  <li><%= notice %></li>
+		  </ul>   	
+      	
 		<section class="grid_12">
+		  
 			<%= form_tag pieces_path, :method => 'get', :id => "pieces_search", :class => "block-border form" do %>
 				<div class="block-content">
         <h1>Game Pieces<%= link_to image_tag("icons/fugue/plus-circle-blue.png", :size => "16x16", :alt => "Add new game piece") + " add", new_piece_path %></h1>
