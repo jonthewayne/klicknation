@@ -63,7 +63,7 @@
 					<tbody>       
             <% @pieces.each do |piece| %>            
 						<tr>
-							<td><%= link_to image_tag(piece.image.url(:medium), :alt => "Click to see large " + "#{piece.name}"), piece %></td>
+							<td><%= link_to image_tag(piece.image.url(:medium), :alt => "Click to see large " + "#{piece.name}"), edit_piece_path(piece) %></td>
 							<td><%= piece.name %></td>
 							<td><%= piece.description %></td>
 							<td><%= piece.attack %></td>

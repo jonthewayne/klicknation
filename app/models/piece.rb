@@ -1,5 +1,5 @@
 class Piece < ActiveRecord::Base
-  validates_presence_of :name
+  validates_presence_of :name, :attack, :defense, :movement, :cost
 
   validates_numericality_of :attack, :only_integer => true, :greater_than_or_equal_to => 0, :message => "can only be a whole positive number greater than or equal to 0."
   validates_numericality_of :defense, :only_integer => true, :greater_than_or_equal_to => 0, :message => "can only be a whole positive number greater than or equal to 0."
@@ -20,7 +20,7 @@ class Piece < ActiveRecord::Base
   
   def self.search(search)
     if search
-      # basic postgre db on heroku uses ILIKE for case-insensitive searching
+      # postgre db on heroku uses ILIKE for case-insensitive searching
       if Rails.env.production?
         where('name ILIKE ?', "%#{search}%") 
       elsif Rails.env.development?  

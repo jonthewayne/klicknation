@@ -1,4 +1,22 @@
-	<!-- Content -->
+	<!-- Status bar -->
+	<div id="status-bar"><div class="container_12">
+	
+		<ul id="status-infos">
+			<li><a href="mailto:jonthewayne@gmail.com" class="button" title="Click to get help.">Help</a></li>
+		</ul>
+		
+		<ul id="breadcrumb">
+		  <li><a href="#">Klicknation Admin</a></li>
+      <li><%= link_to "Game Pieces", pieces_path %></li>
+		</ul>
+	
+	</div></div>
+	<!-- End status bar -->
+	
+	<div id="header-shadow"></div>
+	<!-- End header -->	
+  
+  <!-- Content -->
 	<article class="container_12">
 		
 
@@ -18,7 +36,7 @@
 		  
 			<%= form_tag pieces_path, :method => 'get', :id => "pieces_search", :class => "block-border form" do %>
 				<div class="block-content">
-        <h1>Game Pieces<%= link_to image_tag("icons/fugue/plus-circle-blue.png", :size => "16x16", :alt => "Add new game piece") + " add", new_piece_path %></h1>
+        <h1>Game Pieces<%= link_to image_tag("icons/fugue/plus-circle-blue.png", :size => "16x16", :alt => "Add new game piece") + " new", new_piece_path %></h1>
 				
 				<div class="block-controls">
 					<span id="pagination"><%= render 'pagination' %></span>

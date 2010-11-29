@@ -11,11 +11,7 @@ class PiecesController < ApplicationController
   # GET /pieces/1.xml
   def show
     @piece = Piece.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @piece }
-    end
+    redirect_to(edit_piece_url(@piece))
   end
 
   # GET /pieces/new
@@ -41,7 +37,7 @@ class PiecesController < ApplicationController
 
     respond_to do |format|
       if @piece.save
-        format.html { redirect_to(pieces_url, :notice => 'Game Piece was successfully created.') }
+        format.html { redirect_to(edit_piece_url(@piece), :notice => 'Game Piece was successfully created.') }
         format.xml  { render :xml => @piece, :status => :created, :location => @piece }
       else
         format.html { render :action => "new" }
@@ -57,7 +53,7 @@ class PiecesController < ApplicationController
 
     respond_to do |format|
       if @piece.update_attributes(params[:piece])
-        format.html { redirect_to(pieces_url, :notice => "Game Piece was successfully updated.") }
+        format.html { redirect_to(edit_piece_url(@piece), :notice => "Game Piece was successfully updated.") }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -87,16 +83,16 @@ class PiecesController < ApplicationController
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   end
   def get_pieces
-    @pieces = Piece.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 2, :page => params[:page])    
+    @pieces = Piece.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])    
     
     if @pieces.empty? && (params[:page].to_i > 1)
       # if @pieces is empty and we're specifying greater than page 1, in most cases we need the page just before
       params[:page] = (params[:page].to_i - 1)
-      @pieces = Piece.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 2, :page => params[:page])        
+      @pieces = Piece.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])        
       # if @pieces is still empty, we should just do the query to get the last available page
       if @pieces.empty?      
         params[:page] = @pieces.total_pages
-        @pieces = Piece.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 2, :page => params[:page])            
+        @pieces = Piece.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])            
       end
     end    
   end
