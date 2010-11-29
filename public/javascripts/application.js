@@ -14,11 +14,11 @@ $(function() {
   $('a.remote-delete').live("click", function() {
     // we just need to add the key/value pair for the DELETE method
     // as the second argument to the JQuery $.post() call
-    //if (confirm("Are you sure?")) {
+    if (confirm("Are you sure?")) {
       $.post(this.href, {
         _method: 'delete'
       }, null, "script");
-    //}
+    }
     return false;
   });  
 });
