@@ -2,11 +2,12 @@
 <html>
 <head>
   <title>Klicknation Admin</title>
+  <meta charset="utf-8">  
   <%= stylesheet_link_tag "reset", "common", "form", "standard", "960.gs.fluid", "simple-lists", "block-lists", "table" %>
-  <%= javascript_include_tag "application", "common", "html5", "jquery", "jquery.min", "rails", "standard" %>
+  <%= javascript_include_tag "html5", "jquery.min", "common", "standard", "rails", "application" %>  
   <!--[if lte IE 8]><%= javascript_include_tag "standard.ie" %><![endif]-->
+  
   <%= csrf_meta_tag %>
-  <meta charset="utf-8">
 </head>
 <body>
 <!--[if lt IE 9]><div class="ie"><![endif]-->
