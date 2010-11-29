@@ -82,17 +82,20 @@ class PiecesController < ApplicationController
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   end
+  def pieces_search
+    @pieces = Piece.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])          
+  end
   def get_pieces
-    @pieces = Piece.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])    
+    pieces_search
     
     if @pieces.empty? && (params[:page].to_i > 1)
       # if @pieces is empty and we're specifying greater than page 1, in most cases we need the page just before
       params[:page] = (params[:page].to_i - 1)
-      @pieces = Piece.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])        
+      pieces_search
       # if @pieces is still empty, we should just do the query to get the last available page
       if @pieces.empty?      
         params[:page] = @pieces.total_pages
-        @pieces = Piece.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])            
+        pieces_search
       end
     end    
   end
