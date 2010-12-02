@@ -1287,6 +1287,15 @@ section {
 		border-top-left-radius: 0.167em;
 		border-top-right-radius: 0.167em;
 	}
+  /* CUSTOM style so input field is spaced correctly in table header */
+  .controls-buttons input[type=text],
+  .controls-buttons input[type=password],
+  .controls-buttons .input-type-text,
+  .controls-buttons select {
+       margin-top: -0.5em;
+       margin-bottom: -0.5em;
+  }
+ 
 	/* IE class */
 	.block-content.no-title .message.no-margin.first-child,
 	.block-content.no-padding .message.first-child {

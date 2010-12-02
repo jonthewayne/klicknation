@@ -83,7 +83,7 @@ class PiecesController < ApplicationController
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   end
   def pieces_search
-    @pieces = Piece.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])          
+    @pieces = Piece.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 1, :page => params[:page])          
   end
   def get_pieces
     pieces_search
