@@ -1,4 +1,6 @@
 Klicknation::Application.routes.draw do
+  devise_for :admin_tool_users
+
   resources :pieces
 
   # The priority is based upon order of creation:

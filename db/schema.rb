@@ -10,12 +10,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101121160420) do
+ActiveRecord::Schema.define(:version => 0) do
+
+# Could not dump table "admin_tool_users" because of following Mysql2::Error
+#   Invalid date: BTREE
 
 # Could not dump table "cities" because of following Mysql2::Error
 #   Invalid date: BTREE
 
-# Could not dump table "pieces" because of following Mysql2::Error
+# Could not dump table "items" because of following Mysql2::Error
 #   Invalid date: BTREE
 
 end

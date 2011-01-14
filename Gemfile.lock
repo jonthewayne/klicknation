@@ -41,7 +41,11 @@ GEM
       builder
       mime-types
       xml-simple
+    bcrypt-ruby (2.1.4-x86-mingw32)
     builder (2.1.2)
+    devise (1.1.5)
+      bcrypt-ruby (~> 2.1.2)
+      warden (~> 1.0.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
     i18n (0.5.0)
@@ -76,6 +80,8 @@ GEM
     treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.23)
+    warden (1.0.3)
+      rack (>= 1.0.0)
     will_paginate (3.0.pre2)
     xml-simple (1.0.12)
 
@@ -84,6 +90,7 @@ PLATFORMS
 
 DEPENDENCIES
   aws-s3
+  devise
   mysql2
   paperclip!
   rails (= 3.0.3)
