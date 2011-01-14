@@ -12,19 +12,10 @@
 
 ActiveRecord::Schema.define(:version => 20101121160420) do
 
-  create_table "pieces", :force => true do |t|
-    t.string   "name",               :null => false
-    t.text     "description"
-    t.integer  "attack"
-    t.integer  "defense"
-    t.integer  "movement"
-    t.integer  "cost"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+# Could not dump table "cities" because of following Mysql2::Error
+#   Invalid date: BTREE
+
+# Could not dump table "pieces" because of following Mysql2::Error
+#   Invalid date: BTREE
 
 end

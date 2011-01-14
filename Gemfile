@@ -25,7 +25,8 @@ gem 'rails', '3.0.3'
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-   gem 'sqlite3-ruby', :require => 'sqlite3'
+   #gem 'sqlite3-ruby', :require => 'sqlite3'
+   gem 'mysql2'
 end
 
 # gem "paperclip", "2.3.5" 
