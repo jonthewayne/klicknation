@@ -7,6 +7,13 @@
 	// Standard template setup for IE
 	$.fn.addTemplateSetup(function()
 	{
+		// Clean existing classes
+		this.find('.first-child').removeClass('first-child');
+		this.find('.last-child').removeClass('last-child');
+		this.find('.last-of-type').removeClass('last-of-type');
+		this.find('.even').removeClass('even');
+		this.find('.odd').removeClass('odd');
+		
 		// Missing selectors
 		this.find(':first-child').addClass('first-child');
 		this.find(':last-child').addClass('last-child');
@@ -23,6 +30,9 @@
 		// IE 7
 		if ($.browser.version < 8)
 		{
+			// Clean existing classes
+			this.find('.after-h1').removeClass('after-h1');
+			
 			this.find('.block-content h1:first-child, .block-content .h1:first-child').next().addClass('after-h1');
 			this.find('.calendar .add-event').prepend('<span class="before"></span>');
 		}

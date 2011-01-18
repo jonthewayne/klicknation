@@ -47,6 +47,11 @@
 	$.fn.addTemplateSetup(function()
 	{
 		// Collapsible fieldsets
+		this.find('fieldset legend > a, .fieldset .legend > a').click(function(event)
+		{
+			$(this).toggleFieldsetOpen();
+			event.preventDefault();
+		});
 		this.find('fieldset.collapse, .fieldset.collapse').toggleFieldsetOpen().removeClass('collapse');
 		
 		// Equalize tab content-blocks heights
@@ -62,23 +67,9 @@
 		this.find('input[type=radio].mini-switch, input[type=checkbox].mini-switch').hide().after('<span class="mini-switch-replace"></span>').next().click(function() {
 			$(this).prev().click();
 		});
-	});
-	
-	// Document initial setup
-	$(document).ready(function()
-	{
-		// Collapsible fieldsets
-		$('fieldset legend > a, .fieldset .legend > a').live('click', function(event)
-		{
-			$(this).toggleFieldsetOpen();
-			event.preventDefault();
-		});
-		
-		// Template setup
-		$(document.body).applyTemplateSetup();
 		
 		// Tabs links behaviour
-		$('.js-tabs a[href^="#"]').live('click', function(event)
+		this.find('.js-tabs a[href^="#"]').click(function(event)
 		{
 			event.preventDefault();
 			
@@ -138,6 +129,13 @@
 				li.parent().updateTabs();
 			}
 		});
+	});
+	
+	// Document initial setup
+	$(document).ready(function()
+	{
+		// Template setup
+		$(document.body).applyTemplateSetup();
 		
 		// Listener
 		$(window).bind('hashchange', function()
@@ -277,6 +275,23 @@
 	 * @var boolean
 	 */
 	$.fn.updateTabs.enabledHash = true;
+	
+	/**
+	 * Reset tab content blocks heights
+	 */
+	$.fn.resetTabContentHeight = function()
+	{
+		this.find('a[href^="#"]').each(function(i)
+		{
+			var hash = $.trim($(this).attr('href').substring(1));
+			if (hash.length > 0)
+			{
+				$('#'+hash).css('height', '');
+			}
+		});
+		
+		return this;
+	}
 	
 	/**
 	 * Equalize tab content blocks heights

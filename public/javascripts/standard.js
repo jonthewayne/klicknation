@@ -28,17 +28,24 @@
 			// Remove in case of future window resizing
 			$(this).children('ul').removeClass('reverted');
 		});
+		
+		// Scroll top button
+		$('a[href="#top"]').click(function(event)
+		{
+			event.preventDefault();
+			$('html, body').animate({scrollTop:0});
+		});
+	});
+	
+	// Close buttons
+	$('.close-bt').live('click', function()
+	{
+		$(this).parent().fadeAndRemove();
 	});
 	
 	// Document initial setup
 	$(document).ready(function()
 	{
-		// Close buttons
-		$('.close-bt').live('click', function()
-		{
-			$(this).parent().fadeAndRemove();
-		});
-		
 		// Notifications blocks
 		var notifications = $('<ul id="notifications"></ul>').appendTo(document.body);
 		var notificationsTop = parseInt(notifications.css('top'));
@@ -98,13 +105,6 @@
 				});
 				
 			}).bind('mouseenter', convertDropLists);
-			
-			// Scroll top button
-			$('a[href="#top"]').live('click', function(event)
-			{
-				event.preventDefault();
-				$('html, body').animate({scrollTop:0});
-			});
 			
 			// Fixed control bar
 			var controlBar = $('#control-bar');
