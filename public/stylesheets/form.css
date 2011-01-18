@@ -5,6 +5,7 @@
 	padding: 1em 1.667em 1.667em 1.667em;
 	-moz-border-radius: 0.25em;
 	-webkit-border-radius: 0.25em;
+	-webkit-background-clip: padding-box;
 	border-radius: 0.25em;
 	margin-bottom: 1.667em;
 	}
@@ -115,6 +116,7 @@
 		border-width: 1px 0 1px 0;
 		-moz-border-radius: 0;
 		-webkit-border-radius: 0;
+		-webkit-background-clip: padding-box;
 		border-radius: 0;
 		}
 		.form fieldset.no-margin legend,
@@ -267,6 +269,7 @@
 		), white;
 		-moz-border-radius: 0.417em;
 		-webkit-border-radius: 0.417em;
+		-webkit-background-clip: padding-box;
 		border-radius: 0.417em;
 		}
 		.form input[type=text],
@@ -298,6 +301,7 @@
 			background: none;
 			-moz-border-radius: 0;
 			-webkit-border-radius: 0;
+			-webkit-background-clip: padding-box;
 			border-radius: 0;
 			margin: 0 0 1px 0;
 		}
@@ -317,6 +321,7 @@
 		border: 1px solid #89bad3;
 		-moz-border-radius: 0.417em;
 		-webkit-border-radius: 0.417em;
+		-webkit-background-clip: padding-box;
 		border-radius: 0.417em;
 		}
 		.form textarea {
@@ -348,6 +353,7 @@
 		padding: 0.167em;
 		-moz-border-radius: 0.25em;
 		-webkit-border-radius: 0.25em;
+		-webkit-background-clip: padding-box;
 		border-radius: 0.25em;
 		}
 		.form input[type=text].small,
@@ -362,6 +368,7 @@
 		padding: 0;
 		-moz-border-radius: 0;
 		-webkit-border-radius: 0;
+		-webkit-background-clip: padding-box;
 		border-radius: 0;
 	}
 	.form input[type=text].big,
@@ -484,6 +491,7 @@
 			border: 1px solid #cccccc;
 			-moz-border-radius: 0.25em;
 			-webkit-border-radius: 0.25em;
+			-webkit-background-clip: padding-box;
 			border-radius: 0.25em;
 			padding-left: 0.75em;
 			padding-right: 0.75em;

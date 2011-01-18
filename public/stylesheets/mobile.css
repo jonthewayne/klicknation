@@ -55,6 +55,7 @@ ul.edgeToEdge {
 		padding: 0.063em 0.375em 0.125em;
 		line-height: 1em;
 		-webkit-border-radius: 0.5em;
+		-webkit-background-clip: padding-box;
 		-moz-border-radius: 0.5em;
 		border-radius: 0.5em;
 	}
@@ -65,6 +66,7 @@ ul.roundRectangle {
 	background-color: white;
 	border: 1px solid rgb(217,217,217);
 	-webkit-border-radius: 0.5em;
+	-webkit-background-clip: padding-box;
 	-moz-border-radius: 0.5em;
 	border-radius: 0.5em;
 	}
@@ -159,6 +161,7 @@ header {
 	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#9faab6), to(#465a6e));
 	-moz-border-radius: 0.313em;
 	-webkit-border-radius: 0.313em;
+	-webkit-background-clip: padding-box;
 	border-radius: 0.313em;
 	color: white;
 	padding: 0.063em;
@@ -177,6 +180,7 @@ header {
 		text-transform: uppercase;
 		-moz-border-radius: 0.286em;
 		-webkit-border-radius: 0.286em;
+		-webkit-background-clip: padding-box;
 		border-radius: 0.286em;
 		background: #1d2a36 url(../images/old-browsers-bg/subnav-bt-bg.png) repeat-x;
 		-webkit-background-size: 100% 100%;
@@ -424,6 +428,7 @@ article {
 	line-height: 1.214em;
 	-moz-border-radius: 0.286em;
 	-webkit-border-radius: 0.286em;
+	-webkit-background-clip: padding-box;
 	border-radius: 0.286em;
 	}
 	ul.message {

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Klicknation Admin</title>
+  <title>Klicknation Admin <%= yield(:title)%></title>
   <meta charset="utf-8">  
   <%= stylesheet_link_tag "reset", "common", "form", "standard", "960.gs.fluid", "simple-lists", "block-lists", "table" %>
   <%= javascript_include_tag "html5", "jquery-1.4.2.min", "rails", "application", "common", "standard" %>  

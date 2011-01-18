@@ -155,6 +155,7 @@ header {
 		box-shadow: 0 0 5px rgba(0, 0, 0, 0.65);
 		-moz-border-radius: 0 0 0.4em 0.4em;
 		-webkit-border-radius: 0.4em;
+		-webkit-background-clip: padding-box;
 		-webkit-border-top-left-radius: 0;
 		-webkit-border-top-right-radius: 0;
 		border-radius: 0 0 0.4em 0.4em;
@@ -288,6 +289,7 @@ nav {
 					margin-right: 0.5em;
 					-moz-border-radius: 0.417em;
 					-webkit-border-radius: 0.417em;
+					-webkit-background-clip: padding-box;
 					border-radius: 0.417em;
 					color: white;
 					text-transform: uppercase;
@@ -341,6 +343,7 @@ nav {
 						text-decoration: none;
 						-moz-border-radius: 0.3em;
 						-webkit-border-radius: 0.3em;
+						-webkit-background-clip: padding-box;
 						border-radius: 0.3em;
 						font-weight: normal;
 						-moz-transition: all 1s;
@@ -468,7 +471,7 @@ nav {
 			float: left;
 			margin-left: 0.5em;
 			position: relative;
-			z-index: 88;
+			z-index: 90;
 			}
 			#status-infos > li.spaced {
 				padding-right: 0.5em;
@@ -480,6 +483,7 @@ nav {
 		border-color: #0099cc #006699 #003366;
 		-moz-border-radius: 0.417em;
 		-webkit-border-radius: 0.417em;
+		-webkit-background-clip: padding-box;
 		border-radius: 0.417em;
 		-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 		-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
@@ -562,13 +566,14 @@ nav {
 /***************** Result block *****************/
 .result-block {
 	position: absolute;
-	z-index: 89;
+	z-index: 90;
 	top: 1.667em;
 	right: -0.25em;
 	min-width: 20em;
 	background: white;
 	-moz-border-radius: 0.5em;
 	-webkit-border-radius: 0.5em;
+	-webkit-background-clip: padding-box;
 	border-radius: 0.5em;
 	-moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
 	-webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
@@ -771,6 +776,7 @@ nav {
 			border-top: 1px solid #999999;
 			-moz-border-radius: 0.5em;
 			-webkit-border-radius: 0.5em;
+			-webkit-background-clip: padding-box;
 			border-radius: 0.5em;
 		}
 		/* IE class */
@@ -792,7 +798,7 @@ nav {
 #search-form {
 	display: inline;
 	position: relative;
-	z-index: 89;
+	z-index: 91;
 }
 
 /********** Always visible control bar **********/
@@ -840,6 +846,7 @@ nav {
 		border: 0;
 		-moz-border-radius: 0;
 		-webkit-border-radius: 0;
+		-webkit-background-clip: padding-box;
 		border-radius: 0;
 		-moz-box-shadow: none;
 		-webkit-box-shadow: none;
@@ -867,6 +874,7 @@ article {
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 	-moz-border-radius: 0.278em;
 	-webkit-border-radius: 0.278em;
+	-webkit-background-clip: padding-box;
 	border-radius: 0.278em;
 	}
 	/* IE class */
@@ -884,6 +892,7 @@ article {
 		box-shadow: none;
 		-moz-border-radius: 0;
 		-webkit-border-radius: 0;
+		-webkit-background-clip: padding-box;
 		border-radius: 0;
 		padding: 0;
 	}
@@ -922,6 +931,7 @@ article {
 		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 		-moz-border-radius: 0.286em;
 		-webkit-border-radius: 0.286em;
+		-webkit-background-clip: padding-box;
 		border-radius: 0.286em;
 		line-height: 1.143em;
 		padding: 0.5em 0.571em;
@@ -1120,9 +1130,18 @@ article {
 	overflow: hidden;
 	padding-top: 2em;
 	}
+	.block-border > .action-tabs,
+	.block-content > .action-tabs {
+		margin-right: 1px;
+	}
 	.action-tabs.right {
 		right: auto;
 		left: 100%;
+	}
+	.block-border > .action-tabs.right,
+	.block-content > .action-tabs.right {
+		margin-right: 0;
+		margin-left: 1px;
 	}
 	.action-tabs li {
 		float: right;
@@ -1320,6 +1339,7 @@ article {
 	.content-columns .message:last-child {
 		-moz-border-radius: 0;
 		-webkit-border-radius: 0;
+		-webkit-background-clip: padding-box;
 		border-radius: 0;
 		border-bottom: 0;
 	}
@@ -1423,6 +1443,7 @@ article {
 		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
 		-moz-border-radius: 0 0.25em 0.25em 0.25em;
 		-webkit-border-radius: 0.25em;
+		-webkit-background-clip: padding-box;
 		-webkit-border-top-left-radius: 0;
 		border-radius: 0 0.25em 0.25em 0.25em;
 		}
@@ -1432,6 +1453,7 @@ article {
 		.menu ul.reverted {
 			-moz-border-radius: 0.25em 0 0.25em 0.25em;
 			-webkit-border-radius: 0.25em;
+			-webkit-background-clip: padding-box;
 			-webkit-border-top-right-radius: 0;
 			border-radius: 0.25em 0 0.25em 0.25em;
 		}
@@ -1459,6 +1481,7 @@ article {
 			box-shadow: none;
 			-moz-border-radius: 0;
 			-webkit-border-radius: 0;
+			-webkit-background-clip: padding-box;
 			border-radius: 0;
 			}
 			.menu ul li ul li {
@@ -1732,6 +1755,7 @@ article {
 		margin: -1em 0 0 -1em;
 		-moz-border-radius: 1em;
 		-webkit-border-radius: 1em;
+		-webkit-background-clip: padding-box;
 		border-radius: 1em;
 		background: rgba(255, 255, 255, 0.5);
 		}
@@ -1758,6 +1782,7 @@ article {
 		margin-bottom: 1em;
 		-moz-border-radius: 0.417em;
 		-webkit-border-radius: 0.417em;
+		-webkit-background-clip: padding-box;
 		border-radius: 0.417em;
 		-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 		-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
@@ -1788,6 +1813,7 @@ footer {
 	footer .float-right .button {
 		-moz-border-radius: 0;
 		-webkit-border-radius: 0;
+		-webkit-background-clip: padding-box;
 		border-radius: 0;
 		margin: 0;
 		display: block;
@@ -1817,6 +1843,135 @@ footer {
 			-moz-border-radius-topleft: 0.417em;
 			-webkit-border-top-left-radius: 0.417em;
 			border-top-left-radius: 0.417em;
+		}
+
+/****************** Modal window ****************/
+#modal {
+	background: url(../images/old-browsers-bg/black50.png);
+	background: rgba(0, 0, 0, 0.5);
+	position: fixed;
+	z-index: 999980;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	}
+	div.modal-window {
+		position: absolute;
+		left: 0;
+		top: 0;
+		-moz-box-shadow: 0 1px 7px rgba(0, 0, 0, 0.75);
+		-webkit-box-shadow: 0 1px 7px rgba(0, 0, 0, 0.75);
+		box-shadow: 0 1px 7px rgba(0, 0, 0, 0.75);
+	}
+	.modal-content {
+		overflow: hidden;
+		margin: -2.833em -1.667em -1.667em;
+		padding: 2.833em 1.667em 1.667em;
+		}
+		.no-title .modal-content {
+			margin-top: -1.667em;
+			padding-top: 1.667em;
+		}
+		.modal-content + .block-footer {
+			margin-top: 1.667em;
+		}
+		.modal-content.modal-scroll {
+			overflow: auto;
+		}
+	#modal > .block-border > .block-content {
+		z-index: 90;
+	}
+	#modal h1 {
+		cursor: move;
+		-webkit-user-select:none;
+		-moz-user-select:none;
+	}
+	
+	.modal-loading {
+		background: url(../images/arbo-loader.gif) no-repeat center 3em;
+		height: 4em;
+		padding-top: 4.5em;
+		color: #999999;
+		text-align: center;
+	}
+	
+	#modal .block-border > .action-tabs.right {
+		padding-top: 1em;
+	}
+	#modal .block-content > .action-tabs.right {
+		padding-top: 0;
+		margin-top: -2em;
+	}
+	
+	/* Resizing zones */
+	.modal-resize-tl,
+	.modal-resize-t,
+	.modal-resize-tr,
+	.modal-resize-r,
+	.modal-resize-br,
+	.modal-resize-b,
+	.modal-resize-bl,
+	.modal-resize-l {
+		background: url(../images/trans.png);
+		position: absolute;
+		z-index: 89;
+		}
+		.modal-resize-tl {
+			top: 0;
+			left: 0;
+			width: 2em;
+			height: 1em;
+			cursor: nw-resize;
+		}
+		.modal-resize-t {
+			top: 0;
+			left: 2em;
+			right: 2em;
+			height: 1em;
+			cursor: n-resize;
+		}
+		.modal-resize-tr {
+			top: 0;
+			right: 0;
+			width: 2em;
+			height: 1em;
+			cursor: ne-resize;
+		}
+		.modal-resize-r {
+			top: 1em;
+			right: 0;
+			width: 1em;
+			bottom: 1em;
+			cursor: e-resize;
+		}
+		.modal-resize-br {
+			bottom: 0;
+			right: 0;
+			width: 2em;
+			height: 1em;
+			cursor: se-resize;
+		}
+		.modal-resize-b {
+			bottom: 0;
+			left: 2em;
+			right: 2em;
+			height: 1em;
+			cursor: s-resize;
+		}
+		.modal-resize-bl {
+			bottom: 0;
+			left: 0;
+			width: 2em;
+			height: 1em;
+			cursor: sw-resize;
+		}
+		.modal-resize-l {
+			top: 1em;
+			left: 0;
+			width: 1em;
+			bottom: 1em;
+			cursor: w-resize;
 		}
 
 /* http://perishablepress.com/press/2008/02/05/lessons-learned-concerning-the-clearfix-css-hack */

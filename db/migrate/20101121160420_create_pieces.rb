@@ -1,6 +1,6 @@
 class CreatePieces < ActiveRecord::Migration
   def self.up
-    create_table :pieces do |t|
+    create_table :pieces, :options => "DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci" do |t|
       t.string :name, :null => false
       t.text :description
       t.integer :attack

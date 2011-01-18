@@ -104,6 +104,7 @@
 			padding-bottom: 9px;
 			-moz-border-radius: 0.417em;
 			-webkit-border-radius: 0.417em;
+			-webkit-background-clip: padding-box;
 			border-radius: 0.417em;
 			}
 			body.dark .shortcuts-list li a {
@@ -198,6 +199,7 @@
 				background: #e0e0e0;
 				-moz-border-radius: 0.333em;
 				-webkit-border-radius: 0.333em;
+				-webkit-background-clip: padding-box;
 				border-radius: 0.333em;
 				}
 				body.dark .files li a:hover {
@@ -257,6 +259,7 @@ ul.grid > li {
 	border: 1px solid white;
 	-moz-border-radius: 0.417em;
 	-webkit-border-radius: 0.417em;
+	-webkit-background-clip: padding-box;
 	border-radius: 0.417em;
 	padding: 0.75em;
 	-moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
@@ -370,6 +373,7 @@ ul.grid > li {
 	z-index: 89;
 	-moz-border-radius: 0.25em;
 	-webkit-border-radius: 0.25em;
+	-webkit-background-clip: padding-box;
 	border-radius: 0.25em;
 	color: #666666;
 	line-height: 1.25em;

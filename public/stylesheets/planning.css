@@ -115,6 +115,7 @@
 			height: 1.5em;
 			-moz-border-radius: 0.167em;
 			-webkit-border-radius: 0.167em;
+			-webkit-background-clip: padding-box;
 			border-radius: 0.167em;
 			background: #e5e5e5 url(../images/old-browsers-bg/planning-bar-bg.png) repeat-x top;
 			-webkit-background-size: 100% 100%;
@@ -166,6 +167,7 @@
 				height: 2.5em;
 				-moz-border-radius: 0;
 				-webkit-border-radius: 0;
+				-webkit-background-clip: padding-box;
 				border-radius: 0;
 			}
 			.planning > li:nth-child(odd) > ul > li.lunch {
@@ -189,6 +191,7 @@
 				height: 2.5em;
 				-moz-border-radius: 0;
 				-webkit-border-radius: 0;
+				-webkit-background-clip: padding-box;
 				border-radius: 0;
 				width: 0;
 				border-left: 1px solid red;
@@ -209,6 +212,7 @@
 				border: 1px solid #666666;
 				-moz-border-radius: 0.25em;
 				-webkit-border-radius: 0.25em;
+				-webkit-background-clip: padding-box;
 				border-radius: 0.25em;
 				-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 				-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
@@ -341,108 +345,108 @@
 	);
 }
 
-.from-7-30, .at-7-30 { left: 0; }
-.from-7-45, .at-7-45 { left: 1.92%; }
-.from-8, .at-8, .from-8-00, .at-8-00 { left: 3.85%; }
-.from-8-15, .at-8-15 { left: 5.77%; }
-.from-8-30, .at-8-30 { left: 7.69%; }
-.from-8-45, .at-8-45 { left: 9.62%; }
-.from-9, .at-9, .from-9-00, .at-9-00 { left: 11.54%; }
-.from-9-15, .at-9-15 { left: 13.46%; }
-.from-9-30, .at-9-30 { left: 15.38%; }
-.from-9-45, .at-9-45 { left: 17.31%; }
-.from-10, .at-10, .from-10-00, .at-10-00 { left: 19.23%; }
-.from-10-15, .at-10-15 { left: 21.15%; }
-.from-10-30, .at-10-30 { left: 23.08%; }
-.from-10-45, .at-10-45 { left: 25%; }
-.from-11, .at-11, .from-11-00, .at-11-00 { left: 26.92%; }
-.from-11-15, .at-11-15 { left: 28.85%; }
-.from-11-30, .at-11-30 { left: 30.77%; }
-.from-11-45, .at-11-45 { left: 32.69%; }
-.from-12, .at-12, .from-12-00, .at-12-00 { left: 34.62%; }
-.from-12-15, .at-12-15 { left: 36.54%; }
-.from-12-30, .at-12-30 { left: 38.46%; }
-.from-12-45, .at-12-45 { left: 40.38%; }
-.from-13, .at-13, .from-13-00, .at-13-00 { left: 42.31%; }
-.from-13-15, .at-13-15 { left: 44.23%; }
-.from-13-30, .at-13-30 { left: 46.15%; }
-.from-13-45, .at-13-45 { left: 48.08%; }
-.from-14, .at-14, .from-14-00, .at-14-00 { left: 50%; }
-.from-14-15, .at-14-15 { left: 51.92%; }
-.from-14-30, .at-14-30 { left: 53.85%; }
-.from-14-45, .at-14-45 { left: 55.77%; }
-.from-15, .at-15, .from-15-00, .at-15-00 { left: 57.69%; }
-.from-15-15, .at-15-15 { left: 59.62%; }
-.from-15-30, .at-15-30 { left: 61.54%; }
-.from-15-45, .at-15-45 { left: 63.46%; }
-.from-16, .at-16, .from-16-00, .at-16-00 { left: 65.38%; }
-.from-16-15, .at-16-15 { left: 67.31%; }
-.from-16-30, .at-16-30 { left: 69.23%; }
-.from-16-45, .at-16-45 { left: 71.15%; }
-.from-17, .at-17, .from-17-00, .at-17-00 { left: 73.08%; }
-.from-17-15, .at-17-15 { left: 75%; }
-.from-17-30, .at-17-30 { left: 76.92%; }
-.from-17-45, .at-17-45 { left: 78.85%; }
-.from-18, .at-18, .from-18-00, .at-18-00 { left: 80.77%; }
-.from-18-15, .at-18-15 { left: 82.69%; }
-.from-18-30, .at-18-30 { left: 84.62%; }
-.from-18-45, .at-18-45 { left: 86.54%; }
-.from-19, .at-19, .from-19-00, .at-19-00 { left: 88.46%; }
-.from-19-15, .at-19-15 { left: 90.38%; }
-.from-19-30, .at-19-30 { left: 92.31%; }
-.from-19-45, .at-19-45 { left: 94.23%; }
-.from-20, .at-20, .from-20-00, .at-20-00 { left: 96.15%; }
-.from-20-15, .at-20-15 { left: 98.08%; }
+.planning .from-7-30, .planning .at-7-30 { left: 0; }
+.planning .from-7-45, .planning .at-7-45 { left: 1.92%; }
+.planning .from-8, .planning .at-8, .planning .from-8-00, .planning .at-8-00 { left: 3.85%; }
+.planning .from-8-15, .planning .at-8-15 { left: 5.77%; }
+.planning .from-8-30, .planning .at-8-30 { left: 7.69%; }
+.planning .from-8-45, .planning .at-8-45 { left: 9.62%; }
+.planning .from-9, .planning .at-9, .planning .from-9-00, .planning .at-9-00 { left: 11.54%; }
+.planning .from-9-15, .planning .at-9-15 { left: 13.46%; }
+.planning .from-9-30, .planning .at-9-30 { left: 15.38%; }
+.planning .from-9-45, .planning .at-9-45 { left: 17.31%; }
+.planning .from-10, .planning .at-10, .planning .from-10-00, .planning .at-10-00 { left: 19.23%; }
+.planning .from-10-15, .planning .at-10-15 { left: 21.15%; }
+.planning .from-10-30, .planning .at-10-30 { left: 23.08%; }
+.planning .from-10-45, .planning .at-10-45 { left: 25%; }
+.planning .from-11, .planning .at-11, .planning .from-11-00, .planning .at-11-00 { left: 26.92%; }
+.planning .from-11-15, .planning .at-11-15 { left: 28.85%; }
+.planning .from-11-30, .planning .at-11-30 { left: 30.77%; }
+.planning .from-11-45, .planning .at-11-45 { left: 32.69%; }
+.planning .from-12, .planning .at-12, .planning .from-12-00, .planning .at-12-00 { left: 34.62%; }
+.planning .from-12-15, .planning .at-12-15 { left: 36.54%; }
+.planning .from-12-30, .planning .at-12-30 { left: 38.46%; }
+.planning .from-12-45, .planning .at-12-45 { left: 40.38%; }
+.planning .from-13, .planning .at-13, .planning .from-13-00, .planning .at-13-00 { left: 42.31%; }
+.planning .from-13-15, .planning .at-13-15 { left: 44.23%; }
+.planning .from-13-30, .planning .at-13-30 { left: 46.15%; }
+.planning .from-13-45, .planning .at-13-45 { left: 48.08%; }
+.planning .from-14, .planning .at-14, .planning .from-14-00, .planning .at-14-00 { left: 50%; }
+.planning .from-14-15, .planning .at-14-15 { left: 51.92%; }
+.planning .from-14-30, .planning .at-14-30 { left: 53.85%; }
+.planning .from-14-45, .planning .at-14-45 { left: 55.77%; }
+.planning .from-15, .planning .at-15, .planning .from-15-00, .planning .at-15-00 { left: 57.69%; }
+.planning .from-15-15, .planning .at-15-15 { left: 59.62%; }
+.planning .from-15-30, .planning .at-15-30 { left: 61.54%; }
+.planning .from-15-45, .planning .at-15-45 { left: 63.46%; }
+.planning .from-16, .planning .at-16, .planning .from-16-00, .planning .at-16-00 { left: 65.38%; }
+.planning .from-16-15, .planning .at-16-15 { left: 67.31%; }
+.planning .from-16-30, .planning .at-16-30 { left: 69.23%; }
+.planning .from-16-45, .planning .at-16-45 { left: 71.15%; }
+.planning .from-17, .planning .at-17, .planning .from-17-00, .planning .at-17-00 { left: 73.08%; }
+.planning .from-17-15, .planning .at-17-15 { left: 75%; }
+.planning .from-17-30, .planning .at-17-30 { left: 76.92%; }
+.planning .from-17-45, .planning .at-17-45 { left: 78.85%; }
+.planning .from-18, .planning .at-18, .planning .from-18-00, .planning .at-18-00 { left: 80.77%; }
+.planning .from-18-15, .planning .at-18-15 { left: 82.69%; }
+.planning .from-18-30, .planning .at-18-30 { left: 84.62%; }
+.planning .from-18-45, .planning .at-18-45 { left: 86.54%; }
+.planning .from-19, .planning .at-19, .planning .from-19-00, .planning .at-19-00 { left: 88.46%; }
+.planning .from-19-15, .planning .at-19-15 { left: 90.38%; }
+.planning .from-19-30, .planning .at-19-30 { left: 92.31%; }
+.planning .from-19-45, .planning .at-19-45 { left: 94.23%; }
+.planning .from-20, .planning .at-20, .planning .from-20-00, .planning .at-20-00 { left: 96.15%; }
+.planning .from-20-15, .planning .at-20-15 { left: 98.08%; }
 
-.to-7-30 { right: 100%; }
-.to-7-45 { right: 98.08%; }
-.to-8, .to-8-00 { right: 96.15%; }
-.to-8-15 { right: 94.23%; }
-.to-8-30 { right: 92.31%; }
-.to-8-45 { right: 90.38%; }
-.to-9, .to-9-00 { right: 88.46%; }
-.to-9-15 { right: 86.54%; }
-.to-9-30 { right: 84.62%; }
-.to-9-45 { right: 82.69%; }
-.to-10, .to-10-00 { right: 80.77%; }
-.to-10-15 { right: 78.85%; }
-.to-10-30 { right: 76.92%; }
-.to-10-45 { right: 75%; }
-.to-11, .to-11-00 { right: 73.08%; }
-.to-11-15 { right: 71.15%; }
-.to-11-30 { right: 69.23%; }
-.to-11-45 { right: 67.31%; }
-.to-12, .to-12-00 { right: 65.38%; }
-.to-12-15 { right: 63.46%; }
-.to-12-30 { right: 61.54%; }
-.to-12-45 { right: 59.62%; }
-.to-13, .to-13-00 { right: 57.69%; }
-.to-13-15 { right: 55.77%; }
-.to-13-30 { right: 53.85%; }
-.to-13-45 { right: 51.92%; }
-.to-14, .to-14-00 { right: 50%; }
-.to-14-15 { right: 48.08%; }
-.to-14-30 { right: 46.15%; }
-.to-14-45 { right: 44.23%; }
-.to-15, .to-15-00 { right: 42.31%; }
-.to-15-15 { right: 40.38%; }
-.to-15-30 { right: 38.46%; }
-.to-15-45 { right: 36.54%; }
-.to-16, .to-16-00 { right: 34.62%; }
-.to-16-15 { right: 32.69%; }
-.to-16-30 { right: 30.77%; }
-.to-16-45 { right: 28.85%; }
-.to-17, .to-17-00 { right: 26.92%; }
-.to-17-15 { right: 25%; }
-.to-17-30 { right: 23.08%; }
-.to-17-45 { right: 21.15%; }
-.to-18, .to-18-00 { right: 19.23%; }
-.to-18-15 { right: 17.31%; }
-.to-18-30 { right: 15.38%; }
-.to-18-45 { right: 13.46%; }
-.to-19, .to-19-00 { right: 11.54%; }
-.to-19-15 { right: 9.62%; }
-.to-19-30 { right: 7.69%; }
-.to-19-45 { right: 5.77%; }
-.to-20, .to-20-00 { right: 3.85%; }
-.to-20-15 { right: 1.92%; }
+.planning .to-7-30 { right: 100%; }
+.planning .to-7-45 { right: 98.08%; }
+.planning .to-8, .planning .to-8-00 { right: 96.15%; }
+.planning .to-8-15 { right: 94.23%; }
+.planning .to-8-30 { right: 92.31%; }
+.planning .to-8-45 { right: 90.38%; }
+.planning .to-9, .planning .to-9-00 { right: 88.46%; }
+.planning .to-9-15 { right: 86.54%; }
+.planning .to-9-30 { right: 84.62%; }
+.planning .to-9-45 { right: 82.69%; }
+.planning .to-10, .planning .to-10-00 { right: 80.77%; }
+.planning .to-10-15 { right: 78.85%; }
+.planning .to-10-30 { right: 76.92%; }
+.planning .to-10-45 { right: 75%; }
+.planning .to-11, .planning .to-11-00 { right: 73.08%; }
+.planning .to-11-15 { right: 71.15%; }
+.planning .to-11-30 { right: 69.23%; }
+.planning .to-11-45 { right: 67.31%; }
+.planning .to-12, .planning .to-12-00 { right: 65.38%; }
+.planning .to-12-15 { right: 63.46%; }
+.planning .to-12-30 { right: 61.54%; }
+.planning .to-12-45 { right: 59.62%; }
+.planning .to-13, .planning .to-13-00 { right: 57.69%; }
+.planning .to-13-15 { right: 55.77%; }
+.planning .to-13-30 { right: 53.85%; }
+.planning .to-13-45 { right: 51.92%; }
+.planning .to-14, .planning .to-14-00 { right: 50%; }
+.planning .to-14-15 { right: 48.08%; }
+.planning .to-14-30 { right: 46.15%; }
+.planning .to-14-45 { right: 44.23%; }
+.planning .to-15, .planning .to-15-00 { right: 42.31%; }
+.planning .to-15-15 { right: 40.38%; }
+.planning .to-15-30 { right: 38.46%; }
+.planning .to-15-45 { right: 36.54%; }
+.planning .to-16, .planning .to-16-00 { right: 34.62%; }
+.planning .to-16-15 { right: 32.69%; }
+.planning .to-16-30 { right: 30.77%; }
+.planning .to-16-45 { right: 28.85%; }
+.planning .to-17, .planning .to-17-00 { right: 26.92%; }
+.planning .to-17-15 { right: 25%; }
+.planning .to-17-30 { right: 23.08%; }
+.planning .to-17-45 { right: 21.15%; }
+.planning .to-18, .planning .to-18-00 { right: 19.23%; }
+.planning .to-18-15 { right: 17.31%; }
+.planning .to-18-30 { right: 15.38%; }
+.planning .to-18-45 { right: 13.46%; }
+.planning .to-19, .planning .to-19-00 { right: 11.54%; }
+.planning .to-19-15 { right: 9.62%; }
+.planning .to-19-30 { right: 7.69%; }
+.planning .to-19-45 { right: 5.77%; }
+.planning .to-20, .planning .to-20-00 { right: 3.85%; }
+.planning .to-20-15 { right: 1.92%; }

@@ -7,6 +7,7 @@
  * 999900 : tooltip
  * 999910 : menu
  * 999950 : fixed control bar
+ * 999980 : modal windows
  * 999990 : notifications
  */
 html {
@@ -148,6 +149,7 @@ hr.last-child {
 .box {
 	-moz-border-radius: 0.25em;
 	-webkit-border-radius: 0.25em;
+	-webkit-background-clip: padding-box;
 	border-radius: 0.25em;
 	-moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
 	-webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
@@ -205,6 +207,7 @@ hr.last-child {
 	text-align: center;
 	-moz-border-radius: 0.25em;
 	-webkit-border-radius: 0.25em;
+	-webkit-background-clip: padding-box;
 	border-radius: 0.25em;
 	margin-right: 0.5em;
 	background: #3399cc;
@@ -247,6 +250,7 @@ hr.last-child {
 		padding: 0.417em 0.5em;
 		-moz-border-radius: 0.333em;
 		-webkit-border-radius: 0.333em;
+		-webkit-background-clip: padding-box;
 		border-radius: 0.333em;
 	}
 .dark-grey-gradient {
@@ -374,6 +378,7 @@ article h1 {
 	border: 1px solid white;
 	-moz-border-radius: 0.417em;
 	-webkit-border-radius: 0.417em;
+	-webkit-background-clip: padding-box;
 	border-radius: 0.417em;
 	-moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
 	-webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
@@ -500,7 +505,8 @@ article h1 {
 	}
 
 /******************** Button ********************/
-button {
+button,
+.big-button {
 	display: inline-block;
 	border: 1px solid;
 	border-color: #50a3c8 #297cb4 #083f6f;
@@ -524,6 +530,7 @@ button {
 	);
 	-moz-border-radius: 0.333em;
 	-webkit-border-radius: 0.333em;
+	-webkit-background-clip: padding-box;
 	border-radius: 0.333em;
 	color: white;
 	-moz-text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
@@ -548,10 +555,12 @@ button {
 		padding-bottom: 0.214em;
 		line-height: 1.143em;
 	}
-	button img {
+	button img,
+	.big-button img {
 		margin-bottom: -3px;
 	}
-	button:hover {
+	button:hover,
+	.big-button:hover {
 		border-color: #1eafdc #1193d5 #035592;
 		background: #057fdb url(../images/old-browsers-bg/button-element-hover-bg.png) repeat-x left top;
 		background: -moz-linear-gradient(
@@ -568,7 +577,8 @@ button {
 			color-stop(0.03, #2bcef3)
 		);
 	}
-	button:active {
+	button:active,
+	.big-button:active {
 		border-color: #5b848b #b2def1 #b2def1 #68a6ba;
 		background: #3dbfed url(../images/old-browsers-bg/button-element-active-bg.png) repeat-x top;
 		background: -moz-linear-gradient(
@@ -588,7 +598,9 @@ button {
 	}
 	
 	button.red,
-	.red button {
+	.red button,
+	.big-button.red,
+	.red .big-button {
 		color: white;
 		border-color: #bf3636 #5d0000 #0a0000;
 		background: #790000 url(../images/old-browsers-bg/button-element-red-bg.png) repeat-x top;
@@ -607,7 +619,9 @@ button {
 		);
 		}
 		button.red:hover,
-		.red button:hover {
+		.red button:hover,
+		.big-button.red:hover,
+		.red .big-button:hover {
 			border-color: #c24949 #9d3d3d #590909;
 			background: #9d0404 url(../images/old-browsers-bg/button-element-red-hover-bg.png) repeat-x top;
 			background: -moz-linear-gradient(
@@ -625,7 +639,9 @@ button {
 			);
 		}
 		button.red:active,
-		.red button:active {
+		.red button:active,
+		.big-button.red:active,
+		.red .big-button:active {
 			border-color: #7c5656 #f7cbcb #f7cbcb #a15151;
 			background: #ff5252 url(../images/old-browsers-bg/button-element-red-active-bg.png) repeat-x top;
 			background: -moz-linear-gradient(
@@ -642,7 +658,9 @@ button {
 		}
 	
 	button:disabled,
-	button:disabled:hover {
+	button:disabled:hover,
+	.big-button.disabled,
+	.big-button.disabled:hover {
 		color: #bfbfbf;
 		border-color: #e9f2f6 #c4c3c3 #a2a2a2 #e3e2e2;
 		background: #c8c8c8 url(../images/old-browsers-bg/button-element-disabled-bg.png) repeat-x top;
@@ -674,7 +692,8 @@ button {
 		cursor: auto;
 	}
 	
-	button.grey {
+	button.grey,
+	.big-button.grey {
 		color: white;
 		border-color: #a1a7ae #909498 #6b7076;
 		background: #9fa7b0 url(../images/old-browsers-bg/button-element-grey-bg.png) repeat-x top;
@@ -698,7 +717,8 @@ button {
 		-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 		}
-		button.grey:hover {
+		button.grey:hover,
+		.big-button.grey:hover {
 			border-color: #a1a7b0 #939798 #6e7275;
 			background: #b1b5ba url(../images/old-browsers-bg/button-element-grey-hover-bg.png) repeat-x top;
 			background: -moz-linear-gradient(
@@ -715,7 +735,8 @@ button {
 				color-stop(0.03, #d6dadc)
 			);
 		}
-		button.grey:active {
+		button.grey:active
+		.big-button.grey:active {
 			border-color: #666666 #ffffff #ffffff #979898;
 			background: #dddddd url(../images/old-browsers-bg/button-element-grey-active-bg.png) repeat-x top;
 			background: -moz-linear-gradient(
@@ -731,7 +752,8 @@ button {
 			);
 		}
 	
-	button.small {
+	button.small,
+	.big-button.small {
 		font-size: 0.833em;
 		padding: 0.2em 0.3em 0.3em 0.2em;
 		vertical-align: 0.2em;
@@ -754,6 +776,7 @@ section {
 	border: 1px solid #999999;
 	-moz-border-radius: 0.25em;
 	-webkit-border-radius: 0.25em;
+	-webkit-background-clip: padding-box;
 	border-radius: 0.25em;
 	padding: 1.667em;
 	background: white;
@@ -790,6 +813,7 @@ section {
 	background: rgba(255, 255, 255, 0.2);
 	-moz-border-radius: 0.8em;
 	-webkit-border-radius: 0.8em;
+	-webkit-background-clip: padding-box;
 	border-radius: 0.8em;
 	-moz-box-shadow: 0 0 4px rgba(50, 50, 50, 0.5);
 	-webkit-box-shadow: 0 0 4px rgba(50, 50, 50, 0.5);
@@ -814,6 +838,11 @@ section {
 	.block-content dl.no-margin + .no-margin {
 		margin-top: -1.667em;
 	}
+	/* Recursion prevention */
+	.block-content .no-margin > .no-margin {
+		margin-left: 0;
+		margin-right: 0;
+	}
 .block-content .no-margin:last-child {
 	margin-bottom: -1.667em;
 	-moz-border-radius-bottomleft: 0.167em;
@@ -822,11 +851,25 @@ section {
 	-webkit-border-bottom-right-radius: 0.167em;
 	border-bottom-left-radius: 0.167em;
 	border-bottom-right-radius: 0.167em;
-}
+	}
+	/* Recursion prevention */
+	.block-content .no-margin > .no-margin:last-child {
+		margin-bottom: 0;
+		-moz-border-radius-bottomleft: 0;
+		-moz-border-radius-bottomright: 0;
+		-webkit-border-bottom-left-radius: 0;
+		-webkit-border-bottom-right-radius: 0;
+		border-bottom-left-radius: 0;
+		border-bottom-right-radius: 0;
+	}
 /* IE class */
 .block-content .no-margin.last-child {
 	margin-bottom: -1.667em;
-}
+	}
+	/* Recursion prevention */
+	.block-content .no-margin > .no-margin.last-child {
+		margin-bottom: 0;
+	}
 
 .block-content hr.no-margin {
 	margin-bottom: 1.667em;
@@ -849,8 +892,8 @@ section {
 		margin-bottom: 0;
 	}
 	/* IE class */
-	.block-content .no-margin.last-child {
-		margin-bottom: -1.667em;
+	.block-content.no-padding .no-margin.last-child {
+		margin-bottom: 0;
 	}
 
 /***************** Block header *****************/
@@ -937,6 +980,10 @@ section {
 	margin: 0 -1.667em 1.667em -1.667em;
 	padding: 1em;
 	}
+	.no-margin .block-controls:first-child {
+		margin-left: 0;
+		margin-right: 0;
+	}
 	
 	.block-controls:first-child {
 		margin-top: -1.667em;
@@ -953,17 +1000,23 @@ section {
 		border-bottom: 0;
 	}
 	
-	ul.controls-buttons {
+	ul.controls-buttons,
+	div.controls-buttons {
 		float: right;
 		}
-		ul.controls-buttons li {
+		ul.controls-buttons li,
+		div.controls-buttons > div,
+		div.controls-buttons > span,
+		div.controls-buttons > a {
 			display: block;
 			float: left;
 			margin: -1px 0 -1px 0.5em;
 			line-height: 1.333em;
 			padding: 0.333em 0.25em;
 			}
-			ul.controls-buttons li.sep {
+			ul.controls-buttons li.sep,
+			div.controls-buttons > div.sep,
+			div.controls-buttons > span.sep {
 				padding: 0;
 				width: 2px;
 				height: 4em;
@@ -976,13 +1029,17 @@ section {
 				background-size: 100% 100%;
 				-moz-border-radius: 0;
 				-webkit-border-radius: 0;
+				-webkit-background-clip: padding-box;
 				border-radius: 0;
 				-moz-box-shadow: none;
 				-webkit-box-shadow: none;
 				box-shadow: none;
 			}
 			ul.controls-buttons li.controls-block,
-			ul.controls-buttons li a {
+			ul.controls-buttons li a,
+			div.controls-buttons > div,
+			div.controls-buttons > span,
+			div.controls-buttons > a {
 				display: block;
 				color: #333333;
 				min-width: 1.083em;
@@ -991,6 +1048,7 @@ section {
 				border: 1px solid white;
 				-moz-border-radius: 0.5em;
 				-webkit-border-radius: 0.5em;
+				-webkit-background-clip: padding-box;
 				border-radius: 0.5em;
 				background: #e7e7e7 url(../images/old-browsers-bg/controls-bt-bg.png) repeat-x top;
 				-webkit-background-size: 100% 100%;
@@ -1017,19 +1075,110 @@ section {
 					margin: -0.333em -0.25em;
 					line-height: 1.333em;
 				}
+				div.controls-buttons > div div,
+				div.controls-buttons > div span,
+				div.controls-buttons > div a {
+					color: #333333;
+					display: block;
+					height: 1.333em;
+					line-height: 1.333em;
+					float: left;
+					min-width: 1.083em;
+					padding: 0.333em 0.5em;
+					margin: -0.333em 0;
+					text-align: center;
+					text-transform: uppercase;
+					}
+					div.controls-buttons > div:hover div,
+					div.controls-buttons > div:hover span,
+					div.controls-buttons > div:hover a {
+						color: white;
+					}
+					div.controls-buttons > div div:first-child,
+					div.controls-buttons > div span:first-child,
+					div.controls-buttons > div a:first-child {
+						margin-left: -0.5em;
+						}
+						/* IE class */
+						div.controls-buttons > div div.first-child,
+						div.controls-buttons > div span.first-child,
+						div.controls-buttons > div a.first-child {
+							margin-left: -0.5em;
+						}
+						div.controls-buttons > div > div:first-child,
+						div.controls-buttons > div > span:first-child,
+						div.controls-buttons > div > a:first-child {
+							-moz-border-radius-topleft: 0.417em;
+							-moz-border-radius-bottomleft: 0.417em;
+							-webkit-border-top-left-radius: 0.417em;
+							-webkit-border-bottom-left-radius: 0.417em;
+							-webkit-background-clip: padding-box;
+							border-top-left-radius: 0.417em;
+							border-bottom-left-radius: 0.417em;
+						}
+					div.controls-buttons > div div:last-child,
+					div.controls-buttons > div span:last-child,
+					div.controls-buttons > div a:last-child {
+						margin-right: -0.5em;
+						}
+						/* IE class */
+						div.controls-buttons > div div.last-child,
+						div.controls-buttons > div span.last-child,
+						div.controls-buttons > div a.last-child {
+							margin-right: -0.5em;
+						}
+						div.controls-buttons > div > div:last-child,
+						div.controls-buttons > div > span:last-child,
+						div.controls-buttons > div > a:last-child {
+							-moz-border-radius-topright: 0.417em;
+							-moz-border-radius-bottomright: 0.417em;
+							-webkit-border-top-right-radius: 0.417em;
+							-webkit-border-bottom-right-radius: 0.417em;
+							-webkit-background-clip: padding-box;
+							border-top-right-radius: 0.417em;
+							border-bottom-right-radius: 0.417em;
+						}
+					
+					div.controls-buttons > div .control-first,
+					div.controls-buttons > div .control-prev,
+					div.controls-buttons > div .control-next,
+					div.controls-buttons > div .control-last {
+						min-width: auto;
+						width: 16px;
+						overflow: hidden;
+						text-indent: 100px;
+						background-repeat: no-repeat;
+						background-position: center;
+					}
+					div.controls-buttons > div .control-first {
+						background-image: url(../images/icons/fugue/control-double-180.png);
+					}
+					div.controls-buttons > div .control-prev {
+						background-image: url(../images/icons/fugue/control-180.png);
+					}
+					div.controls-buttons > div .control-next {
+						background-image: url(../images/icons/fugue/control.png);
+					}
+					div.controls-buttons > div .control-last {
+						background-image: url(../images/icons/fugue/control-double.png);
+					}
+					
 				/* IE class */
 				.ie ul.controls-buttons li.controls-block,
-				.ie ul.controls-buttons li a {
+				.ie ul.controls-buttons li a,
+				.ie div.controls-buttons > div,
+				.ie div.controls-buttons > span,
+				.ie div.controls-buttons > a {
 					border-color: #cccccc;
 				}
 				ul.controls-buttons li a:hover,
-				ul.controls-buttons li a.current {
+				ul.controls-buttons li a.current,
+				div.controls-buttons > div:hover,
+				div.controls-buttons > span:hover,
+				div.controls-buttons > a:hover,
+				div.controls-buttons > .current {
 					border-color: #1eafdc #1193d5 #035592;
 					background: #057fdb url(../images/old-browsers-bg/block-control-hover-bg.png) repeat-x;
-					-webkit-background-size: 100% 100%;
-					-moz-background-size: 100% 100%;
-					-o-background-size: 100% 100%;
-					background-size: 100% 100%;
 					background: -moz-linear-gradient(
 						top,
 						white,
@@ -1046,32 +1195,82 @@ section {
 					color: white;
 					}
 					ul.controls-buttons li a:hover strong,
-					ul.controls-buttons li a.current strong {
+					ul.controls-buttons li a.current strong,
+					div.controls-buttons > div:hover strong,
+					div.controls-buttons > span:hover strong,
+					div.controls-buttons > a:hover strong,
+					div.controls-buttons > .current strong {
 						color: white;
 					}
-				ul.controls-buttons li img {
+					
+					div.controls-buttons > div.sub-hover:hover {
+						border: 1px solid white;
+						background: #e7e7e7 url(../images/old-browsers-bg/controls-bt-bg.png) repeat-x top;
+						background: -moz-linear-gradient(
+							top,
+							#f8f8f8,
+							#e7e7e7
+						);
+						background: -webkit-gradient(
+							linear,
+							left top, left bottom,
+							from(#f8f8f8),
+							to(#e7e7e7)
+						);
+						color: #333333;
+						}
+						div.controls-buttons > div.sub-hover:hover strong {
+							color: #333333;
+						}
+						div.controls-buttons > div.sub-hover:hover div,
+						div.controls-buttons > div.sub-hover:hover span,
+						div.controls-buttons > div.sub-hover:hover a {
+							color: #333333;
+						}
+						div.controls-buttons > div div:hover,
+						div.controls-buttons > div span:hover,
+						div.controls-buttons > div a:hover {
+							background-color: #e0e0e0;
+							background-color: rgba(0, 0, 0, 0.1);
+							color: white;
+							}
+							div.controls-buttons > div.sub-hover div:hover,
+							div.controls-buttons > div.sub-hover span:hover,
+							div.controls-buttons > div.sub-hover a:hover {
+								color: #333333;
+							}
+						
+						div.controls-buttons > div .disabled {
+							opacity: 0.5;
+							filter: alpha(opacity=50);
+							}
+							div.controls-buttons > div .disabled:hover {
+								background-color: transparent;
+							}
+					
+				.controls-buttons img {
 					margin: -0.25em 0;
 					}
 					/* IE class */
-					.ie7 ul.controls-buttons li img {
+					.ie7 .controls-buttons img {
 						margin: 0;
 						vertical-align: middle;
 					}
-					ul.controls-buttons li img:first-child {
+					.controls-buttons img:first-child {
 						margin-left: -0.085em;
 					}
 					/* IE class */
-					ul.controls-buttons li img.first-child {
+					.controls-buttons img.first-child {
 						margin-left: -0.085em;
 					}
-					ul.controls-buttons li img:last-child {
+					.controls-buttons img:last-child {
 						margin-right: -0.085em;
 					}
 					/* IE class */
-					ul.controls-buttons li img.last-child {
+					.controls-buttons img.last-child {
 						margin-right: -0.085em;
 					}
-				ul.controls-buttons li .progress-bar {
+				.controls-buttons .progress-bar {
 					margin: -0.25em 0;
 				}
 	
@@ -1117,6 +1316,15 @@ section {
 				top: 50%;
 				margin: -11px 0 0 -12px;
 			}
+      
+      /* CUSTOM style so input field is spaced correctly in table header */
+      .controls-buttons input[type=text],
+      .controls-buttons input[type=password],
+      .controls-buttons .input-type-text,
+      .controls-buttons select {
+          margin-top: -0.5em;
+         margin-bottom: -0.5em;
+      }
 
 /***************** Block footer *****************/
 .block-footer {
@@ -1149,7 +1357,23 @@ section {
 	line-height: 2em;
 	color: #4d4d4d;
 	}
-	section .no-margin + .block-footer {
+	section .no-margin > .block-footer {
+		margin-right: 0;
+		margin-left: 0;
+		margin-bottom: 0;
+		-moz-border-radius: 0;
+		-webkit-border-radius: ;
+		border-radius: 0;
+		}
+		section .no-margin:last-child > .block-footer:last-child {
+			-moz-border-radius: 0 0 0.167em 0.167em;
+			-webkit-border-bottom-left-radius: 0.167em;
+			-webkit-border-bottom-right-radius: 0.167em;
+			border-radius: 0 0 0.167em 0.167em;
+		}
+	section .block-header + .block-footer,
+	section .message.no-margin + .block-footer,
+	section .with-head.no-margin + .block-footer {
 		margin-top: -1.667em;
 	}
 	.block-footer .sep {
@@ -1218,6 +1442,7 @@ section {
 	background: #F0F0F0;
 	-moz-border-radius: 0.333em;
 	-webkit-border-radius: 0.333em;
+	-webkit-background-clip: padding-box;
 	border-radius: 0.333em;
 	-moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 	-webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
@@ -1236,6 +1461,7 @@ section {
 			background-repeat: no-repeat;
 			background-position: 0.8em 0.1em;
 		}
+	div.message,
 	p.message {
 		padding: 0.583em 0.833em 0.75em 2.5em;
 		background-repeat: no-repeat;
@@ -1259,7 +1485,8 @@ section {
 	.block-content .message.no-margin {
 		margin: 0 -1.667em 1.667em -1.667em;
 	}
-	.block-content.no-padding .message.no-margin {
+	.block-content.no-padding .message.no-margin,
+	.block-content .no-margin > .message.no-margin {
 		margin-left: 0;
 		margin-right: 0;
 	}
@@ -1267,18 +1494,19 @@ section {
 	.block-content.no-padding .message {
 		-moz-border-radius: 0;
 		-webkit-border-radius: 0;
+		-webkit-background-clip: padding-box;
 		border-radius: 0;
 		border-width: 1px 0;
 	}
-	.block-content.no-title .message.no-margin:first-child {
+	.block-content.no-title > .message.no-margin:first-child {
 		margin-top: -1.667em;
 	}
 	/* IE class */
-	.block-content.no-title .message.no-margin.first-child {
+	.block-content.no-title > .message.no-margin.first-child {
 		margin-top: -1.667em;
 	}
-	.block-content.no-title .message.no-margin:first-child,
-	.block-content.no-padding .message:first-child {
+	.block-content.no-title > .message.no-margin:first-child,
+	.block-content.no-padding > .message:first-child {
 		border-top: none;
 		-moz-border-radius-topleft: 0.167em;
 		-moz-border-radius-topright: 0.167em;
@@ -1287,29 +1515,20 @@ section {
 		border-top-left-radius: 0.167em;
 		border-top-right-radius: 0.167em;
 	}
-  /* CUSTOM style so input field is spaced correctly in table header */
-  .controls-buttons input[type=text],
-  .controls-buttons input[type=password],
-  .controls-buttons .input-type-text,
-  .controls-buttons select {
-       margin-top: -0.5em;
-       margin-bottom: -0.5em;
-  }
- 
 	/* IE class */
-	.block-content.no-title .message.no-margin.first-child,
-	.block-content.no-padding .message.first-child {
+	.block-content.no-title > .message.no-margin.first-child,
+	.block-content.no-padding > .message.first-child {
 		border-top: none;
 	}
-	.block-content .message.no-margin:last-child {
+	.block-content > .message.no-margin:last-child {
 		margin-bottom: -1.667em;
 	}
 	/* IE class */
-	.block-content .message.no-margin.last-child {
+	.block-content > .message.no-margin.last-child {
 		margin-bottom: -1.667em;
 	}
-	.block-content .message.no-margin:last-child,
-	.block-content.no-padding .message:last-child {
+	.block-content > .message.no-margin:last-child,
+	.block-content.no-padding > .message:last-child {
 		border-bottom: none;
 		-moz-border-radius-bottomleft: 0.167em;
 		-moz-border-radius-bottomright: 0.167em;
@@ -1319,8 +1538,8 @@ section {
 		border-bottom-right-radius: 0.167em;
 	}
 	/* IE class */
-	.block-content .message.no-margin.last-child,
-	.block-content.no-padding .message.last-child {
+	.block-content > .message.no-margin.last-child,
+	.block-content.no-padding > .message.last-child {
 		border-bottom: none;
 	}
 	section .block-controls + .message.no-margin,
@@ -1352,33 +1571,40 @@ section {
 	}
 	
 	.message li,
+	div.message,
 	p.message {
 		background-image: url(../images/icons/fugue/information-ocre.png);
 		color: #576a73;
 		}
 		.message li strong,
+		div.message strong,
 		p.message strong {
 			color: #576a73;
 		}
 	.message.warning li,
+	div.message.warning,
 	p.message.warning {
 		background-image: url(../images/icons/fugue/balloon.png);
 		color: #56563e;
 		}
 		.message.warning li strong,
+		div.message.warning strong,
 		p.message.warning strong {
 			color: #56563e;
 		}
 	.message.error li,
+	div.message.error,
 	p.message.error {
 		background-image: url(../images/icons/fugue/cross-circle.png);
 		color: #563f3e;
 		}
 		.message.error li strong,
+		div.message.error strong,
 		p.message.error strong {
 			color: #563f3e;
 		}
 	.message.success li,
+	div.message.success,
 	p.message.success {
 		background-image: url(../images/icons/fugue/tick-circle.png);
 		color: #194a19;
@@ -1388,6 +1614,7 @@ section {
 			color: #194a19;
 		}
 	.message.loading li,
+	div.message.loading,
 	p.message.loading {
 		background-image: url(../images/info-loader.gif);
 		color: #1e5774;
@@ -1395,10 +1622,12 @@ section {
 		.message.loading li {
 			background-position: 0.8em 0.4em;
 		}
+		div.message.loading,
 		p.message.loading {
 			background-position: 0.667em 0.917em;
 		}
 		.message.loading li strong,
+		div.message.loading strong,
 		p.message.loading strong {
 			color: #1e5774;
 		}
@@ -1421,6 +1650,7 @@ ul.message li.close-bt {
 	cursor: pointer;
 	-moz-border-radius: 0.333em;
 	-webkit-border-radius: 0.333em;
+	-webkit-background-clip: padding-box;
 	border-radius: 0.333em;
 	opacity: 0.5;
 	filter: alpha(opacity=0.5);
@@ -1628,6 +1858,7 @@ ul.side-tabs {
 	box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 	-moz-border-radius: 0.25em;
 	-webkit-border-radius: 0.25em;
+	-webkit-background-clip: padding-box;
 	border-radius: 0.25em;
 	padding: 1.667em;
 	}
@@ -1738,6 +1969,7 @@ ul.side-tabs {
 	border: 1px solid #a6a6a6;
 	-moz-border-radius: 0.333em;
 	-webkit-border-radius: 0.333em;
+	-webkit-background-clip: padding-box;
 	border-radius: 0.333em;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 0.75em;
@@ -1851,6 +2083,7 @@ ul.side-tabs {
 	border: 1px solid #b6b6b6;
 	-moz-border-radius: 0.25em;
 	-webkit-border-radius: 0.25em;
+	-webkit-background-clip: padding-box;
 	border-radius: 0.25em;
 	color: white;
 	padding: 0.5em 0.75em;
@@ -1864,6 +2097,7 @@ ul.side-tabs {
 		border-width: 1px 0;
 		-moz-border-radius: 0;
 		-webkit-border-radius: 0;
+		-webkit-background-clip: padding-box;
 		border-radius: 0;
 		-moz-box-shadow: none;
 		-webkit-box-shadow: none;
@@ -1912,6 +2146,7 @@ ul.side-tabs {
 		background: black url(../images/mask-loader.gif) no-repeat center 17px;
 		-moz-border-radius: 0.5em;
 		-webkit-border-radius: 0.5em;
+		-webkit-background-clip: padding-box;
 		border-radius: 0.5em;
 		-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 		-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
@@ -1938,6 +2173,7 @@ ul.side-tabs {
 	padding: 0;
 	-moz-border-radius: 0.167em;
 	-webkit-border-radius: 0.167em;
+	-webkit-background-clip: padding-box;
 	border-radius: 0.167em;
 	color: #333333;
 	border: 1px solid #808080;
@@ -2019,6 +2255,7 @@ ul.side-tabs {
 		margin: 0;
 		-moz-border-radius: 0.11em;
 		-webkit-border-radius: 0.11em;
+		-webkit-background-clip: padding-box;
 		-moz-text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 		-webkit-text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
