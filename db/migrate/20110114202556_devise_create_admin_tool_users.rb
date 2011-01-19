@@ -17,8 +17,8 @@ class DeviseCreateAdminToolUsers < ActiveRecord::Migration
     end
     
     # Add the following two indices manually to get around local migration bug
-    #add_index :admin_tool_users, :email,                :unique => true
-    #add_index :admin_tool_users, :reset_password_token, :unique => true
+    add_index :admin_tool_users, :email,                :unique => true
+    add_index :admin_tool_users, :reset_password_token, :unique => true
 
     # add_index :admin_tool_users, :confirmation_token,   :unique => true
     # add_index :admin_tool_users, :unlock_token,         :unique => true
