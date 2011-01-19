@@ -2,6 +2,8 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.3'
 
+gem 'mysql2'
+   
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -26,7 +28,6 @@ gem 'rails', '3.0.3'
 # and rake tasks are available in development mode:
 group :development, :test do
    #gem 'sqlite3-ruby', :require => 'sqlite3'
-   gem 'mysql2'
 end
 
 # gem "paperclip", "2.3.5" 
