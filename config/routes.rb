@@ -1,4 +1,6 @@
 Klicknation::Application.routes.draw do
+  resources :users
+
   devise_for :admin_tool_users
 
   resources :pieces
