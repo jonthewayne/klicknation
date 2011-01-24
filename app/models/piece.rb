@@ -20,12 +20,7 @@ class Piece < ActiveRecord::Base
   
   def self.search(search)
     if search
-      # postgre db on heroku uses ILIKE for case-insensitive searching
-      if Rails.env.production?
-        where('name ILIKE ?', "%#{search}%") 
-      elsif Rails.env.development?  
-        where('name LIKE ?', "%#{search}%") 
-      end
+      where('name LIKE ?', "%#{search}%") 
     else
       scoped
     end

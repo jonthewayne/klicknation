@@ -1,10 +1,10 @@
 $(function() {
-  $("#pieces th a, #pagination a").live("click", function() {
+  $("#resources th a, #pagination a").live("click", function() {
     $.getScript(this.href);
     return false;
   }); 
-  $("#pieces_search input").keyup(function() {
-    $.get($("#pieces_search").attr("action"), $("#pieces_search").serialize(), null, "script");
+  $("#resources_search input").keyup(function() {
+    $.get($("#resources_search").attr("action"), $("#resources_search").serialize(), null, "script");
     return false;
   });
 });

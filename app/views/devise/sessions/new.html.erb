@@ -1,17 +1,65 @@
-<h2>Sign in</h2>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Klicknation Admin <%= yield(:title)%></title>
+  <meta charset="utf-8">  
+  <%= stylesheet_link_tag "reset", "common", "form", "standard", "960.gs.fluid", "simple-lists", "block-lists", "table", "app", "special-pages" %>
+  <%= javascript_include_tag "html5", "jquery-1.4.2.min", "rails", "application", "common", "standard", "jquery.tip" %>  
+  <!--[if lte IE 8]><%= javascript_include_tag "standard.ie" %><![endif]-->
+  
+  <%= csrf_meta_tag %>
+</head>
+<body class="special-page login-bg">
+<!--[if lt IE 9]><div class="ie"><![endif]-->
+<!--[if lt IE 8]><div class="ie7"><![endif]-->
 
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <p><%= f.label :email %><br />
-  <%= f.text_field :email %></p>
+  
+  <section id="login-block">
+		<div class="block-border"><div class="block-content">
+			
+			<!--
+			IE7 compatibility: if you want to remove the <h1>, 
+			add style="zoom:1" to the above .block-content div
+			-->
+			<h1>Admin</h1>
+			<div class="block-header">Please login</div>
+			
+      
 
-  <p><%= f.label :password %><br />
-  <%= f.password_field :password %></p>
-
-  <% if devise_mapping.rememberable? -%>
-    <p><%= f.check_box :remember_me %> <%= f.label :remember_me %></p>
-  <% end -%>
-
-  <p><%= f.submit "Sign in" %></p>
-<% end %>
-
-<%= render :partial => "devise/shared/links" %>
+      <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:id => "login-form", :name => "login-form", :class => "form with-margin"}) do |f| %>	        
+        <p class="inline-small-label">
+				  <%= f.label :email, '<span class="big">Email</span>'.html_safe %>
+          <%= f.text_field :email, :class => "full-width" %>
+				</p>
+				<p class="inline-small-label">
+           <%= f.label :password, '<span class="big">Password</span>'.html_safe %>
+           <%= f.password_field :password, :class => "full-width" %>				  
+				</p>
+				
+				<button class="float-right" type="submit">Login</button>
+        <% if devise_mapping.rememberable? -%>    
+				<p class="input-height">
+				  <%= f.check_box :remember_me, :class => 'mini-switch', :checked => 'checked' %>
+          <%= f.label :remember_me, :class => "inline" %>
+				</p>
+        <% end -%>          
+			<% end %>
+      
+ 
+			<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => {:id => 'password-recovery', :class => 'form'}) do |f| %>
+				<fieldset class="grey-bg no-margin collapsed">
+					<legend><a href="#">Lost password?</a></legend>
+					<p class="input-with-button">
+						<%= f.label :email, 'Enter your e-mail address' %>
+						<%= f.text_field :email %>
+            <button type="submit">Send</button>
+					</p>
+				</fieldset>
+			<% end %> 
+		</div></div>
+	</section>
+  
+<!--[if lt IE 8]></div><![endif]-->
+<!--[if lt IE 9]></div><![endif]-->
+</body>
+</html>

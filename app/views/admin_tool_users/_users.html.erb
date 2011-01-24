@@ -1,0 +1,54 @@
+      <%= hidden_field_tag :direction, params[:direction] %>
+      <%= hidden_field_tag :sort, params[:sort] %>	
+      
+      <table class="table" cellspacing="0" width="100%">
+					<thead>
+						<tr>
+							<th scope="col" width="130">
+								<span class="column-sort">
+								  <%= sortable "first_name", "sort-up", "Alphabetical" %>
+								  <%= sortable "first_name", "sort-down", "Reverse Alphabetical" %>   
+								</span>
+								First Name
+							</th>              
+							<th scope="col" width="130">
+								<span class="column-sort">
+								  <%= sortable "last_name", "sort-up", "Alphabetical" %>
+								  <%= sortable "last_name", "sort-down", "Reverse Alphabetical" %>   
+								</span>
+								Last Name
+							</th>   
+							<th scope="col" width="300">
+								Email
+							</th>    
+							<th scope="col" >
+								Roles
+							</th>     
+							<th scope="col" width="120">
+								<span class="column-sort">
+								  <%= sortable "created_at", "sort-up", "Oldest First" %>
+								  <%= sortable "created_at", "sort-down", "Newest First" %>                  
+								</span>
+								Created On
+							</th>              
+							<th scope="col" class="table-actions" width="50">Actions</th>
+						</tr>
+					</thead>
+					
+					<tbody>       
+            <% @admin_tool_users.each do |user| %>            
+						<tr>
+							<td><%= user.first_name %></td>
+							<td><%= user.last_name %></td>
+							<td><%= user.email %></td>
+              <td><% for role in user.roles %><%= role.humanize.titleize %><br /><% end %></td>              
+							<td><%= user.created_at.strftime("%B %e, %Y") %></td>                                                                      
+							<td class="table-actions">
+        			  <%= link_to image_tag("icons/fugue/pencil.png", :size => "16x16", :alt => "Edit user"), edit_admin_tool_user_path(user) %>
+								<%= link_to image_tag("icons/fugue/cross-circle.png", :size => "16x16", :alt => "Delete user"), admin_tool_user_path(user, :direction => sort_direction, :sort => sort_column, :page => params[:page], :search => params[:search]), :confirm => 'Are you sure?', :method => :delete, :remote => true %>
+							</td>
+						</tr>
+            <% end %>
+					</tbody>
+				
+				</table>

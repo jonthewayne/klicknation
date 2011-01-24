@@ -1,0 +1,37 @@
+<%= form_for @admin_tool_user, :html => { :class => "form" } do |f| %>  
+  <fieldset>    
+      <div class="columns">
+			  <p class="colx2-left">
+          <%= f.label :first_name %>
+          <%= f.text_field :first_name, :class => "full-width" %>
+				</p>
+			  <p class="colx2-right">
+          <%= f.label :last_name %>
+          <%= f.text_field :last_name, :class => "full-width" %>
+			  </p>
+			</div>
+      <p>
+        <%= f.label :email %>
+        <%= f.text_field :email, :class => "full-width" %>
+      </p> 
+      <div class="columns">
+			  <p class="colx2-left">
+          <%= f.label :password %>
+          <%= f.password_field :password, :class => "full-width" %>
+				</p>
+			  <p class="colx2-right">
+          <%= f.label :password_confirmation %>
+          <%= f.password_field :password_confirmation, :class => "full-width" %>
+			  </p>
+			</div>            
+      <p>
+        <%= f.label "Roles" %>
+        <% for role in AdminToolUser::ROLES %>
+          <%= check_box_tag "admin_tool_user[roles][]", role, @admin_tool_user.roles.include?(role) %>
+          <%= role.humanize.titleize %><br />
+        <% end %>
+        <%= hidden_field_tag "admin_tool_user[roles][]", "" %>
+      </p> 
+      <p><button type="submit">Save User</button>          
+  </fieldset>  
+<% end %>

@@ -1,9 +1,10 @@
 Klicknation::Application.routes.draw do
-  resources :users
 
-  devise_for :admin_tool_users
+  devise_for :admin_tool_users, :path => "", :path_names => { :sign_in => 'login', :sign_out => 'logout' }
 
   resources :pieces
+  
+  resources :admin_tool_users, :path => 'users'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -54,7 +55,7 @@ Klicknation::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => "pieces#index"
+  root :to => "admin_tool_users#index"
 
   # See how all your routes lay out with "rake routes"
 

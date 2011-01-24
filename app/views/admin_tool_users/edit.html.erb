@@ -1,0 +1,63 @@
+	<!-- Status bar -->
+	<div id="status-bar"><div class="container_12">
+	
+		<ul id="status-infos">
+			<li><a href="mailto:jonthewayne@gmail.com" class="button" title="Click to get help.">Help</a></li>
+		</ul>
+		
+		<ul id="breadcrumb">
+      <li><%= link_to "Admin Users", admin_tool_users_path %></li>
+      <li><%= link_to "Editing #{@admin_tool_user.first_name} #{@admin_tool_user.last_name}", edit_admin_tool_user_path(@admin_tool_user) %></li>      
+		</ul>
+	
+	</div></div>
+	<!-- End status bar -->
+	
+	<div id="header-shadow"></div>
+	<!-- End header -->	
+  
+  <!-- Content -->
+	<article class="container_12">
+		
+
+		<div class="clear"></div>
+    
+    <% if notice %>
+    <div id="message">
+      <ul class="message success grid_12">
+			  <li><%= notice %></li>
+        <li class="close-bt"></li>
+		  </ul>
+      <div class="clear"></div>
+    </div>   	
+    <% end %>
+        
+    <% if @admin_tool_user.errors.any? %>
+    <div id="message">
+      <ul class="message error grid_12">
+			  <li><%= pluralize(@admin_tool_user.errors.count, "error") %> prohibited this admin user from being saved:</li>
+        <% @admin_tool_user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>        
+        <li class="close-bt"></li>
+		  </ul>
+      <div class="clear"></div>
+    </div>   	
+    <% end %>
+
+    <!-- form -->
+		<section class="grid_6">
+		  <div class="block-border">  
+				<div class="block-content" id="edit_user">			
+          <h1>Admin User #<%= @admin_tool_user.id %><%= link_to image_tag("icons/fugue/plus-circle-blue.png", :size => "16x16", :alt => "Add new admin user") + " new", new_admin_tool_user_path %></a></h1>
+          <%= render 'form' %>
+        </div>
+      </div>    			
+		</section>
+    
+        
+		<div class="clear"></div>      
+		  
+
+
+
