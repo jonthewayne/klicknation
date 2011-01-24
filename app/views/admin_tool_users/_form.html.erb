@@ -23,7 +23,8 @@
           <%= f.label :password_confirmation %>
           <%= f.password_field :password_confirmation, :class => "full-width" %>
 			  </p>
-			</div>            
+			</div>  
+      <% if can? :manage, @admin_tool_user %>          
       <p>
         <%= f.label "Roles" %>
         <% for role in AdminToolUser::ROLES %>
@@ -32,6 +33,7 @@
         <% end %>
         <%= hidden_field_tag "admin_tool_user[roles][]", "" %>
       </p> 
+      <% end %>
       <p><button type="submit">Save User</button>          
   </fieldset>  
 <% end %>

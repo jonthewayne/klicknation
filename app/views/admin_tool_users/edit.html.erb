@@ -1,13 +1,17 @@
-	<!-- Status bar -->
+	<%= render 'header' %>
+  
+  <!-- Status bar -->
 	<div id="status-bar"><div class="container_12">
 	
 		<ul id="status-infos">
-			<li><a href="mailto:jonthewayne@gmail.com" class="button" title="Click to get help.">Help</a></li>
+			<li><a title="Help" class="button" href="mailto:jonthewayne@gmail.com"><span class="smaller">HELP</span></a></li>
+      <li><%= link_to '<span class="smaller">MY ACCOUNT</span>'.html_safe, edit_admin_tool_user_path(current_admin_tool_user.id), :class => 'button' %></li>      
+      <li><%= link_to '<span class="smaller">LOGOUT</span>'.html_safe, destroy_admin_tool_user_session_path, :class => 'button red' %></li>     
 		</ul>
 		
 		<ul id="breadcrumb">
       <li><%= link_to "Admin Users", admin_tool_users_path %></li>
-      <li><%= link_to "Editing #{@admin_tool_user.first_name} #{@admin_tool_user.last_name}", edit_admin_tool_user_path(@admin_tool_user) %></li>      
+      <li><a title="Editing admin user..." href="#">Editing admin user...</a></li>
 		</ul>
 	
 	</div></div>
