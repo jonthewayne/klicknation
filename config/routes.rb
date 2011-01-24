@@ -1,5 +1,7 @@
 Klicknation::Application.routes.draw do
 
+  resources :items
+
   devise_for :admin_tool_users, :path => "", :path_names => { :sign_in => 'login', :sign_out => 'logout' }
 
   resources :pieces
