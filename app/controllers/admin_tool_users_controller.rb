@@ -11,15 +11,12 @@ class AdminToolUsersController < ApplicationController
   # GET /users/1
   # GET /users/1.xml
   def show
-    #@admin_tool_user = AdminToolUser.find(params[:id])
     redirect_to(edit_admin_tool_user_url(@admin_tool_user))
   end
 
   # GET /users/new
   # GET /users/new.xml
   def new
-    #@admin_tool_user = AdminToolUser.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @admin_tool_user }
@@ -28,14 +25,14 @@ class AdminToolUsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    #@admin_tool_user = AdminToolUser.find(params[:id])
+    # when the referer isn't /users, someone clicked on the My Account button and should be 
+    # redirected back to where they came from after updating. We'll just redirect everyone to referer.
+    session['return-to'] = request.referer #unless request.referer.include? '/users'
   end
 
   # POST /users
   # POST /users.xml
   def create
-    #@admin_tool_user = AdminToolUser.new(params[:admin_tool_user])
-
     respond_to do |format|
       if @admin_tool_user.save
         format.html { redirect_to(admin_tool_users_path, :notice => 'Admin User was successfully created.') }
@@ -50,11 +47,9 @@ class AdminToolUsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.xml
   def update
-    #@admin_tool_user = AdminToolUser.find(params[:id])
-
     respond_to do |format|
       if @admin_tool_user.update_attributes(params[:admin_tool_user])
-        format.html { redirect_to(admin_tool_users_path, :notice => "Admin User was successfully updated.") }
+        format.html { redirect_to(session['return-to'], :notice => "Admin User was successfully updated.") }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -66,7 +61,6 @@ class AdminToolUsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.xml
   def destroy
-    #@admin_tool_user = AdminToolUser.find(params[:id])
     @admin_tool_user.destroy
 
     get_users

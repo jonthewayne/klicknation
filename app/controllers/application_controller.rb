@@ -4,6 +4,16 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_admin_tool_user!
   
   layout :layout
+  
+  rescue_from CanCan::AccessDenied do |exception|
+    #flash[:alert] = exception.message
+    redirect_to destroy_admin_tool_user_session_path #root_url
+  end
+  
+  # cancan expects current_user, so give it what it wants
+  def current_user
+    current_admin_tool_user
+  end
 
   private
 
@@ -12,9 +22,5 @@ class ApplicationController < ActionController::Base
     is_a?(Devise::SessionsController) ? false : "application"
     # or turn layout off for every devise controller:
     # devise_controller? && "application"
-  end
-  
-  def current_user
-    current_admin_tool_user
   end
 end
