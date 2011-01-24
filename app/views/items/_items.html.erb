@@ -1,0 +1,83 @@
+      <%= hidden_field_tag :direction, params[:direction] %>
+      <%= hidden_field_tag :sort, params[:sort] %>	
+      
+      <table class="table" cellspacing="0" width="100%">
+					<thead>
+						<tr>
+							<th scope="col" width="106">
+
+								Image
+							</th>
+							<th scope="col" width="54">
+								<span class="column-sort">
+								  <%= sortable "name", "sort-up", "Alphabetical" %>
+								  <%= sortable "name", "sort-down", "Reverse Alphabetical" %>   
+								</span>
+								Name
+							</th>              
+							<th scope="col">Description</th>
+							<th scope="col" width="60">
+								<span class="column-sort">
+								  <%= sortable "attack", "sort-up", "Least Attack Points First" %>
+								  <%= sortable "attack", "sort-down", "Most Attack Points First" %>   
+								</span>
+                
+								Attack
+							</th>   
+							<th scope="col" width="70">
+								<span class="column-sort">
+								  <%= sortable "defense", "sort-up", "Least Defense Points First" %>
+								  <%= sortable "defense", "sort-down", "Most Defense Points First" %>   
+								</span>
+                
+								Defense
+							</th>    
+							<th scope="col" width="90">
+								<span class="column-sort">
+								  <%= sortable "movement", "sort-up", "Least Movement Points First" %>
+								  <%= sortable "movement", "sort-down", "Most Movement Points First" %>   
+								</span>
+                
+								Movement
+							</th>     
+							<th scope="col" width="48">
+								<span class="column-sort">
+								  <%= sortable "cost", "sort-up", "Lowest Price First" %>
+								  <%= sortable "cost", "sort-down", "Highest Price First" %>   
+								</span>
+                
+								Cost
+							</th>                                                                                      
+							<th scope="col" width="96">
+								<span class="column-sort">
+								  <%= sortable "created_at", "sort-up", "Oldest First" %>
+								  <%= sortable "created_at", "sort-down", "Newest First" %>                  
+								</span>
+                
+								Created On
+							</th>
+							<th scope="col" class="table-actions">Actions</th>
+						</tr>
+					</thead>
+					
+					<tbody>       
+            <% @items.each do |item| %>            
+						<tr>
+							<td><%= link_to image_tag(item.image.url(:medium), :alt => "Click to see large " + "#{item.name}"), edit_item_path(item) %></td>
+							<td><%= item.name %></td>
+							<td><%= item.description %></td>
+							<td><%= item.attack %></td>
+							<td><%= item.defense %></td>
+							<td><%= item.movement %></td>
+							<td><%= item.cost %></td>
+							<td><%= item.created_at.strftime("%B %e, %Y") %></td>                                                                      
+
+							<td class="table-actions">
+        			  <%= link_to image_tag("icons/fugue/pencil.png", :size => "16x16", :alt => "Edit item"), edit_item_path(item) %>
+								<%= link_to image_tag("icons/fugue/cross-circle.png", :size => "16x16", :alt => "Delete item"), item_path(item, :direction => sort_direction, :sort => sort_column, :page => params[:page], :search => params[:search]), :confirm => 'Are you sure?', :method => :delete, :remote => true %>
+							</td>
+						</tr>
+            <% end %>
+					</tbody>
+				
+				</table>

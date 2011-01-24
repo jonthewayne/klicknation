@@ -1,5 +1,45 @@
-<h1>New item</h1>
+	<%= render 'header' %>
+  
+  <!-- Status bar -->
+	<div id="status-bar"><div class="container_12">
+	
+		<ul id="status-infos">
+			<li><a title="Help" class="button" href="mailto:jonthewayne@gmail.com"><span class="smaller">HELP</span></a></li>
+      <li><%= link_to '<span class="smaller">MY ACCOUNT</span>'.html_safe, edit_admin_tool_user_path(current_admin_tool_user.id), :class => 'button' %></li>      
+      <li><%= link_to '<span class="smaller">LOGOUT</span>'.html_safe, destroy_admin_tool_user_session_path, :class => 'button red' %></li>     
+		</ul>
+		
+		<ul id="breadcrumb">
+      <li><%= link_to "Items", items_path %></li>
+      <li><a href="#">Creating new item...</a></li>      
+		</ul>
+	
+	</div></div>
+	<!-- End status bar -->
+	
+	<div id="header-shadow"></div>
+	<!-- End header -->	
+  
+  <!-- Content -->
+	<article class="container_12">
+		
 
-<%= render 'form' %>
+		<div class="clear"></div>
+        
+    <%= render "shared/error_messages", :target => @item %>
+    
+    <!-- form -->
+		<section class="grid_6">
+		  <div class="block-border">  
+				<div class="block-content" id="edit_item">			
+          <h1>New Item</h1>
+          <%= render 'form' %>
+        </div>
+      </div>    			
+		</section>
+        
+		<div class="clear"></div>      
+		  
 
-<%= link_to 'Back', items_path %>
+
+

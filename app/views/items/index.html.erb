@@ -1,21 +1,79 @@
-<h1>Listing items</h1>
+	<%= render 'header' %>
+  
+  <!-- Status bar -->
+	<div id="status-bar"><div class="container_12">
+	
+		<ul id="status-infos">
+			<li><a title="Help" class="button" href="mailto:jonthewayne@gmail.com"><span class="smaller">HELP</span></a></li>
+      <li><%= link_to '<span class="smaller">MY ACCOUNT</span>'.html_safe, edit_admin_tool_user_path(current_admin_tool_user.id), :class => 'button' %></li>      
+      <li><%= link_to '<span class="smaller">LOGOUT</span>'.html_safe, destroy_admin_tool_user_session_path, :class => 'button red' %></li>     
+		</ul>
+		
+		<ul id="breadcrumb">
+		  <li></li>
+      <li><%= link_to "Items", items_path %></li>
+		</ul>
+	
+	</div></div>
+	<!-- End status bar -->
+	
+	<div id="header-shadow"></div>
+	<!-- End header -->	
+  
+  <!-- Content -->
+	<article class="container_12">
+		
 
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+		<div class="clear"></div>
+    
+    <% if notice %>
+    <div id="message">
+      <ul class="message success grid_12">
+			  <li><%= notice %></li>
+        <li class="close-bt"></li>
+		  </ul>
+      <div class="clear"></div>
+    </div>   	
+    <% end %>
+      	
+		<section class="grid_12">
+		  
+			<%= form_tag items_path, :method => 'get', :id => "resources_search", :class => "block-border form" do %>
+				<div class="block-content">
+        <h1>Items<%= link_to image_tag("icons/fugue/plus-circle-blue.png", :size => "16x16", :alt => "Add new game item") + " new", new_item_path %></h1>
+				
+				<div class="block-controls">
 
-<% @items.each do |item| %>
-  <tr>
-    <td><%= link_to 'Show', item %></td>
-    <td><%= link_to 'Edit', edit_item_path(item) %></td>
-    <td><%= link_to 'Destroy', item, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
+					<ul class="controls-buttons">
+            <span id="pagination"><%= render 'pagination' %></span>
+						<li class="sep"></li>		
+						<li><span class="input-type-text margin-right relative"><%= text_field_tag :search, params[:search] %><%= image_tag("icons/fugue/magnifier.png", :size => "16x16", :alt => "Search") %></span></li>					              
+					</ul>
+				</div>
 
-<br />
+				<div class="no-margin" id="resources">			
+          <%= render 'items' %>
+        </div>
+				
+				<ul class="message no-margin">
+					<li><span id="pagination-footer"><%= render 'pagination-footer' %></span></li>
+				</ul>
+      </div>        
+      			
+			<% end %>
+		</section>
 
-<%= link_to 'New Item', new_item_path %>
+        
+		<div class="clear"></div>
+
+		
+	</article>
+
+
+
+
+
+
+
+
+
