@@ -12,8 +12,8 @@
 	<nav id="main-nav">
 		<ul class="container_12">
 			<li class="home" title="Home"><a href="#" title=""></a></li>
-			<li class="shc" title="Superhero City"><a href="#" title=""></a></li>
-			<li class="users current" title="Admin Users"><%= link_to "", admin_tool_users_path %></li>
+			<% if can? :manage, @admin_tool_user %><li class="shc" title="Superhero City"><a href="#" title=""></a></li><% end %>
+			<% if can? :manage, @admin_tool_user %><li class="users current" title="Admin Users"><%= link_to "", admin_tool_users_path %></li><% end %>
 		</ul>
 	</nav>
 	<!-- End main nav -->

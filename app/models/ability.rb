@@ -13,7 +13,7 @@ class Ability
       can :manage, Item
       # allow non super admin to update their own user record
       can :update, AdminToolUser, :id => user.id
-    end   
+    end
     
     # The first argument to `can` is the action you are giving the user permission to do.
     # If you pass :manage it will apply to every action. Other common actions here are
