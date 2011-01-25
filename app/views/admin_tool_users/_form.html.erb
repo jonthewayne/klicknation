@@ -33,7 +33,9 @@
         <% end %>
         <%= hidden_field_tag "admin_tool_user[roles][]", "" %>
       </p> 
+      <p><button type="submit">Save User</button>           
+      <% else %>
+      <p><button type="submit">Save</button>          
       <% end %>
-      <p><button type="submit">Save User</button>          
   </fieldset>  
 <% end %>

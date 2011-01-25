@@ -10,8 +10,13 @@
 		</ul>
 		
 		<ul id="breadcrumb">
+      <% if can? :manage, @admin_tool_user %>
       <li><%= link_to "Admin Users", admin_tool_users_path %></li>
       <li><a title="Editing admin user..." href="#">Editing admin user...</a></li>
+      <% else %>
+      <li></li>
+      <li><a title="Editing admin user..." href="#">Editing your account...</a></li>      
+      <% end %>
 		</ul>
 	
 	</div></div>
