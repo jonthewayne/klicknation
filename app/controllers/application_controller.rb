@@ -14,6 +14,10 @@ class ApplicationController < ActionController::Base
   def current_user
     current_admin_tool_user
   end
+  
+  def is_super?
+    current_user.roles.include?('super_admin')
+  end
 
   private
 

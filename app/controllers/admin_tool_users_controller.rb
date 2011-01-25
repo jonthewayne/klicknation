@@ -33,6 +33,7 @@ class AdminToolUsersController < ApplicationController
   # POST /users
   # POST /users.xml
   def create
+    @admin_tool_user.roles = params[:admin_tool_user][:roles] if params[:admin_tool_user][:roles] && is_super?
     respond_to do |format|
       if @admin_tool_user.save
         format.html { redirect_to(admin_tool_users_path, :notice => 'Admin User was successfully created.') }
@@ -47,6 +48,7 @@ class AdminToolUsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.xml
   def update
+    @admin_tool_user.roles = params[:admin_tool_user][:roles] if params[:admin_tool_user][:roles] && is_super?
     respond_to do |format|
       if @admin_tool_user.update_attributes(params[:admin_tool_user])
         format.html { redirect_to(session['return-to'], :notice => "Admin User was successfully updated.") }
