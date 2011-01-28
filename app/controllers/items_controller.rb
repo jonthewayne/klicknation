@@ -5,7 +5,10 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.xml
   def index
+
     get_items
+    render :text => @items
+    return       
   end
 
   # GET /items/1
@@ -31,6 +34,11 @@ class ItemsController < ApplicationController
   # POST /items
   # POST /items.xml
   def create
+    
+    # set class, type based on url params
+    @class = params[:class] if params[:class]
+    @type = params[:type] if params[:type]
+    
     respond_to do |format|
       if @item.save
         format.html { redirect_to(edit_item_url(@item), :notice => 'Item was successfully created.') }
@@ -77,7 +85,7 @@ class ItemsController < ApplicationController
   end
   
   def items_search
-    # when called from destroy method, @admin_tool_users isn't created by cancan method, so create it.
+    # when called from destroy method, @items isn't created by cancan method, so create it.
     if @items    
       @items = @items.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])          
     else

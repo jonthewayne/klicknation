@@ -1,5 +1,10 @@
 <%= form_for @item, :html => { :multipart => true, :class => "form" } do |f| %>  
 
+  <% # output class and type as hidden fields %>
+  <% f.hidden_field(:class, @class) if @class %>
+  <% f.hidden_field(:type, @type) if @type %>  
+  
+
   <fieldset>    
       <p>
         <%= f.label :name %>
@@ -11,8 +16,8 @@
         <%= f.text_area :description, :class => "full-width" %>
       </p>  
       <p>
-        <%= f.label :image %>
-        <%= f.file_field :image %>
+        <%= f.label :photo %>
+        <%= f.text_field :photo, :class => "full-width" %>
       </p>
       <div class="columns">
 			  <p class="colx2-left">
@@ -26,13 +31,23 @@
 			</div>
       <div class="columns">
 			  <p class="colx2-left">
-          <%= f.label :movement %>
-          <%= f.text_field :movement %>
+          <%= f.label :agility %>
+          <%= f.text_field :agility %>
 				</p>
 			  <p class="colx2-right">
-          <%= f.label :cost %>
-          <%= f.text_field :cost %>
+          <%= f.label :price %>
+          <%= f.text_field :ability_element_id %>
 			  </p>
+      <p>
+        <%= f.label "Ability Element" %>
+        <%= f.select :ability_element_id, {"1 - Fire/Heat" => "1", "2 - Water/Ice" => "2", "3 - Air/Wind/Sound" => "3", "4 - Physical/Kinetic" => "4", "5 - Weapon/Tech" => "5", "6 - Earth/Nature" => "6", "7 - Mental/Time" => "7", "8 - Energy/Light/Electricity" => "8", "9 - Dark/Poison" => "9"}, :class => "full-width" %>
+      </p>
+      <% if @type && @type == 0 # for attack cards only %>
+      <p>
+        <%= f.label "Item Category" %>
+        <%= f.text_field :item_category_id, :class => "full-width" %>
+      </p>
+      <% end %>              
 			</div>  
       <p><button type="submit">Save Item</button>          
   </fieldset>  
