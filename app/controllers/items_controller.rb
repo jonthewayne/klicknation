@@ -1,14 +1,13 @@
 class ItemsController < ApplicationController
   load_and_authorize_resource  
   helper_method :sort_column, :sort_direction
-  
+
   # GET /items
   # GET /items.xml
   def index
-
     get_items
-    render :text => @items
-    return       
+    #render :text => @items.first.to_yaml
+    #return
   end
 
   # GET /items/1
@@ -77,7 +76,7 @@ class ItemsController < ApplicationController
   private
   
   def sort_column
-    Item.column_names.include?(params[:sort]) ? params[:sort] : "id"
+    Item.column_names.include?(params[:sort]) ? params[:sort] : "sort"
   end
   
   def sort_direction

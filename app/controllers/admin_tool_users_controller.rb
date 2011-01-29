@@ -5,7 +5,7 @@ class AdminToolUsersController < ApplicationController
   # GET /users
   # GET /users.xml
   def index
-    get_users      
+    get_users  
   end
 
   # GET /users/1

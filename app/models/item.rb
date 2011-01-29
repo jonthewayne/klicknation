@@ -2,6 +2,9 @@ class Item < ActiveRecord::Base
   # items has type column not used for single table inheritance, so change sti column
   self.inheritance_column = :item_type
   
+  # deal with other legacy column names http://bit.ly/dLECXz
+  bad_attribute_names :class
+  
   before_validation :set_defaults
   
   ### Not allowed to be null: (id and app_id are taken care of by set_defaults)
@@ -46,7 +49,7 @@ class Item < ActiveRecord::Base
   
   validates :sort, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 5}
                     
-  validates :class, :presence => true, :inclusion => { :in => %w(0 1 2 3), :message => "%{value} is not a valid class type" }
+  validates :class_name, :presence => true, :inclusion => { :in => %w(0 1 2 3), :message => "%{value} is not a valid class type" }
   
   
   ## Not used for stock merit abilities:
