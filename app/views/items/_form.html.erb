@@ -13,7 +13,7 @@
 
       <p>
         <%= f.label :description %>
-        <%= f.text_area :description, :class => "full-width" %>
+        <%= f.text_area :description, :class => "full-width", :rows => "5" %>
       </p>  
       <p>
         <%= f.label :photo %>
@@ -38,17 +38,19 @@
           <%= f.label :price %>
           <%= f.text_field :ability_element_id %>
 			  </p>
-      <p>
-        <%= f.label "Ability Element" %>
-        <%= f.select :ability_element_id, {"1 - Fire/Heat" => "1", "2 - Water/Ice" => "2", "3 - Air/Wind/Sound" => "3", "4 - Physical/Kinetic" => "4", "5 - Weapon/Tech" => "5", "6 - Earth/Nature" => "6", "7 - Mental/Time" => "7", "8 - Energy/Light/Electricity" => "8", "9 - Dark/Poison" => "9"}, :class => "full-width" %>
-      </p>
-      <% if @type && @type == 0 # for attack cards only %>
-      <p>
-        <%= f.label "Item Category" %>
-        <%= f.text_field :item_category_id, :class => "full-width" %>
-      </p>
-      <% end %>              
-			</div>  
+      </div> 
+      <div class="columns">
+        <p class="colx2-left">
+          <%= f.label "Ability Element" %>
+          <%= f.select :ability_element_id, {"1 - Fire/Heat" => "1", "2 - Water/Ice" => "2", "3 - Air/Wind/Sound" => "3", "4 - Physical/Kinetic" => "4", "5 - Weapon/Tech" => "5", "6 - Earth/Nature" => "6", "7 - Mental/Time" => "7", "8 - Energy/Light/Electricity" => "8", "9 - Dark/Poison" => "9"} %>
+        </p>
+        <% if @type && @type == 0 # for attack cards only %>
+        <p class="colx2-right">
+          <%= f.label "Item Category" %>
+          <%= f.text_field :item_category_id, :class => "full-width" %>
+        </p>
+        <% end %>     
+      </div>                 
       <p><button type="submit">Save Item</button>          
   </fieldset>  
 <% end %>		  

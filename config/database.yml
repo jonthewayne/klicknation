@@ -11,7 +11,7 @@ development:
   database: klicknation
   username: root
   password: 
-  host: 127.0.0.1 #localhost
+  host: localhost #127.0.0.1
   encoding: utf8
 
 # Warning: The database defined as "test" will be erased and

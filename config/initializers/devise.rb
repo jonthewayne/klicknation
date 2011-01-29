@@ -28,6 +28,9 @@ Devise.setup do |config|
   # Tell if authentication through HTTP Basic Auth is enabled. False by default.
   # config.http_authenticatable = false
 
+  # ie 7 & 8 somehow cause devise to try to use http auth, even when it's off. Fix here http://bit.ly/gxq2zO
+  config.navigational_formats = [:"*/*", :html]
+  
   # Set this to true to use Basic Auth for AJAX requests.  True by default.
   # config.http_authenticatable_on_xhr = true
 
