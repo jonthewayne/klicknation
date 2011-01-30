@@ -4,6 +4,16 @@ class Item < ActiveRecord::Base
   
   # deal with other legacy column names http://bit.ly/dLECXz
   bad_attribute_names :class
+
+  # give class column benign accessors
+  def klass= value
+    self[:class] = value
+  end
+
+  def klass
+    self[:class]
+  end
+
   
   before_validation :set_defaults
   
@@ -15,7 +25,6 @@ class Item < ActiveRecord::Base
                     
   validates :currency_type, :presence => true, :inclusion => { :in => %w(0 1) }
   
-  # default to 0
   validates :upkeep, :presence => true, :numericality => true
   
   validates :attack, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 6}
@@ -39,7 +48,7 @@ class Item < ActiveRecord::Base
   validates :apply_discount, :inclusion => { :in => [true, false] }
   
   
-  ### Allowed to be null:
+  ### Allowed to be null by db:
   
   validates :name, :presence => true, :length => {:minimum => 1, :maximum => 60}
                     
@@ -48,8 +57,8 @@ class Item < ActiveRecord::Base
   validates :photo, :presence => true, :length => {:minimum => 1, :maximum => 200}
   
   validates :sort, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 5}
-                    
-  validates :class_name, :presence => true, :inclusion => { :in => %w(0 1 2 3), :message => "%{value} is not a valid class type" }
+   
+  validates :klass, :presence => true, :inclusion => { :in => %w(0 1 2 3), :message => "%{value} is not a valid class type" }
   
   
   ## Not used for stock merit abilities:
@@ -79,15 +88,71 @@ class Item < ActiveRecord::Base
   end
   
   protected
-  def set_defaults
-    # app id is always 1
-    self.app_id = 1
-    self.sort = 0 # default if not a merit ability
+  
+  # this is called before item validation
+  def set_defaults(item)
+    self.app_id ||= 1 # app id is always 1
+    self.upkeep ||= 0
+    self.item_category_id ||= 0
+    self.apply_discount ||= 1  
     
     # set defaults for stock merit abilities
-    if self.currency_type && self.type && self.currency_type == 1 #&& [0, 1, 2].include? self.type
-      self.sort = 0
+    if self.currency_type == 1 
+      self.rarity ||= 2     
       
+      if self.klass == 1 && self.type == 0
+        self.sort ||= set_sort(self.klass,self.type) 
+        self.price ||= 25        
+        self.num_available ||= 7000
+        self.level ||= 1        
+      elsif self.klass == 1 && self.type == 1
+        self.sort ||= set_sort(self.klass,self.type) 
+        self.price ||= 20        
+        self.num_available ||= 7000
+        self.level ||= 1              
+      elsif self.klass == 1 && self.type == 2
+        self.sort ||= set_sort(self.klass,self.type) 
+        self.price ||= 35        
+        self.num_available ||= 3500
+        self.level ||= 1              
+      elsif self.klass == 2 && self.type == 0
+        self.sort ||= set_sort(self.klass,self.type) 
+        self.price ||= 35        
+        self.num_available ||= 3000
+        self.level ||= 40              
+      elsif self.klass == 2 && self.type == 1
+        self.sort ||= set_sort(self.klass,self.type) 
+        self.price ||= 30        
+        self.num_available ||= 3000
+        self.level ||= 40              
+      elsif self.klass == 2 && self.type == 2
+        self.sort ||= set_sort(self.klass,self.type) 
+        self.price ||= 53        
+        self.num_available ||= 3000
+        self.level ||= 40              
+      elsif self.klass == 3 && self.type == 0
+        self.sort ||= set_sort(self.klass,self.type) 
+        self.price ||= 45        
+        self.num_available ||= 3500
+        self.level ||= 80              
+      elsif self.klass == 3 && self.type == 1
+        self.sort ||= set_sort(self.klass,self.type) 
+        self.price ||= 40        
+        self.num_available ||= 3500
+        self.level ||= 80              
+      elsif self.klass == 3 && self.type == 2        
+        self.sort ||= set_sort(self.klass,self.type) 
+        self.price ||= 68        
+        self.num_available ||= 3500
+        self.level ||= 80              
+      end
+    else
+      # for non-merit abilities, will differentiate further later   
     end
   end  
+  
+  def set_sort(c, t)
+    # increment from last item of same class and type
+    self.sort = Item.where("class = ? AND type = ? AND num_available > 0", c, t).last.sort + 1
+  end
 end

@@ -1,8 +1,7 @@
 <%= form_for @item, :html => { :multipart => true, :class => "form" } do |f| %>  
 
-  <% # output class and type as hidden fields %>
-  <% f.hidden_field(:class, @class) if @class %>
-  <% f.hidden_field(:type, @type) if @type %>  
+  <% # output class, type, and currency_type as hidden fields %>
+  <%= f.hidden_field(:currency_type) if @item.currency_type %>    
   
 
   <fieldset>    
@@ -44,13 +43,47 @@
           <%= f.label "Ability Element" %>
           <%= f.select :ability_element_id, {"1 - Fire/Heat" => "1", "2 - Water/Ice" => "2", "3 - Air/Wind/Sound" => "3", "4 - Physical/Kinetic" => "4", "5 - Weapon/Tech" => "5", "6 - Earth/Nature" => "6", "7 - Mental/Time" => "7", "8 - Energy/Light/Electricity" => "8", "9 - Dark/Poison" => "9"} %>
         </p>
-        <% if @type && @type == 0 # for attack cards only %>
+        <% if @item.type && @item.type == 0 # for attack cards only %>
         <p class="colx2-right">
           <%= f.label "Item Category" %>
           <%= f.text_field :item_category_id, :class => "full-width" %>
         </p>
         <% end %>     
-      </div>                 
+      </div>                       
       <p><button type="submit">Save Item</button>          
   </fieldset>  
+      
+		  <fieldset class="grey-bg no-margin collapsed">
+				<legend><a href="#">Extra Fields</a></legend>
+          <div class="columns">
+			      <p class="colx2-left">
+              <%= f.label :class %>
+              <%= f.text_field :klass %>
+				    </p>
+			      <p class="colx2-right">
+              <%= f.label :type %>
+              <%= f.text_field :type %>
+			      </p>
+          </div> 
+          <div class="columns">
+			      <p class="colx2-left">
+              <%= f.label :sort %>
+              <%= f.text_field :sort %>
+				    </p>
+			      <p class="colx2-right">
+              <%= f.label "Quantity" %>
+              <%= f.text_field :num_available %>
+			      </p>
+          </div>    
+          <div class="columns">
+			      <p class="colx2-left">
+              <%= f.label :rarity %>
+              <%= f.text_field :rarity %>
+				    </p>
+			      <p class="colx2-right">
+              <%= f.label :level %>
+              <%= f.text_field :level %>
+			      </p>
+          </div>                  
+			</fieldset>        
 <% end %>		  

@@ -19,6 +19,7 @@ class ItemsController < ApplicationController
   # GET /items/new
   # GET /items/new.xml
   def new
+    set_defaults
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @item }
@@ -32,12 +33,7 @@ class ItemsController < ApplicationController
 
   # POST /items
   # POST /items.xml
-  def create
-    
-    # set class, type based on url params
-    @class = params[:class] if params[:class]
-    @type = params[:type] if params[:type]
-    
+  def create    
     respond_to do |format|
       if @item.save
         format.html { redirect_to(edit_item_url(@item), :notice => 'Item was successfully created.') }
@@ -74,6 +70,13 @@ class ItemsController < ApplicationController
   end
 
   private
+  
+  # set defaults for new action view
+  def set_defaults
+    @item.type = params[:t] ? params[:t] : 0 # one of 0,1,2,3,4 should aways be passed in
+    @item.klass = params[:c] ? params[:c] : 0 # for merit abilities 1,2,3 will be passed in, otherwise it's special
+    @item.currency_type = params[:ct] ? params[:ct] : 1 # 1 is the default for stock merit abilities
+  end
   
   def sort_column
     Item.column_names.include?(params[:sort]) ? params[:sort] : "sort"
