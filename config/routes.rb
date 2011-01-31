@@ -1,12 +1,14 @@
 Klicknation::Application.routes.draw do
 
-  resources :items
+  resources :items, :path => 'shc/items' 
 
   devise_for :admin_tool_users, :path => "", :path_names => { :sign_in => 'login', :sign_out => 'logout' }
 
   resources :pieces
   
   resources :admin_tool_users, :path => 'users'
+  
+  resources :item_categories, :path => 'shc/item-categories'  
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

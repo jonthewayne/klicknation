@@ -90,7 +90,7 @@ class Item < ActiveRecord::Base
   protected
   
   # this is called before item validation
-  def set_defaults(item)
+  def set_defaults
     self.app_id ||= 1 # app id is always 1
     self.upkeep ||= 0
     self.item_category_id ||= 0

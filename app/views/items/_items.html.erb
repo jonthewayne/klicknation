@@ -1,5 +1,3 @@
-      <%= hidden_field_tag :direction, params[:direction] %>
-      <%= hidden_field_tag :sort, params[:sort] %>	
 
       <table class="table" cellspacing="0" width="100%">
 					<thead>
@@ -16,9 +14,10 @@
 					</thead>
 					
 					<tbody>       
-            <% @items.each do |item| %>            
+            <% @items.each do |item| %>       
+            <% if item.klass == c && item.type == t %>     
 						<tr>
-							<td><%= link_to image_tag(item.photo, :alt => "#{item.name}"), edit_item_path(item) %></td>
+							<td><%= link_to(image_tag(item.photo, :alt => "#{item.name}"), edit_item_path(item)) if item.photo %></td>
 							<td><%= item.id %></td>
 							<td><%= item.name %></td>
 							<td><%= item.num_available %></td>
@@ -31,6 +30,7 @@
 								<%= link_to image_tag("icons/fugue/cross-circle.png", :size => "16x16", :alt => "Delete item"), item_path(item, :direction => sort_direction, :sort => sort_column, :page => params[:page], :search => params[:search]), :confirm => 'Are you sure?', :method => :delete, :remote => true %>
 							</td>
 						</tr>
+            <% end %>
             <% end %>
 					</tbody>
 				

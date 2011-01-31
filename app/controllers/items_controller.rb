@@ -2,37 +2,35 @@ class ItemsController < ApplicationController
   load_and_authorize_resource  
   helper_method :sort_column, :sort_direction
 
-  # GET /items
-  # GET /items.xml
+  # GET /shc/items
+  # GET /shc/items.xml
   def index
     get_items
-    #render :text => @items.first.to_yaml
-    #return
   end
 
-  # GET /items/1
-  # GET /items/1.xml
+  # GET /shc/items/1
+  # GET /shc/items/1.xml
   def show
     redirect_to(edit_item_url(@item))
   end
 
-  # GET /items/new
-  # GET /items/new.xml
+  # GET /shc/items/new
+  # GET /shc/items/new.xml
   def new
-    set_defaults
+    set_defaults 
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @item }
     end
   end
 
-  # GET /items/1/edit
+  # GET /shc/items/1/edit
   def edit
-
+    set_defaults       
   end
 
-  # POST /items
-  # POST /items.xml
+  # POST /shc/items
+  # POST /shc/items.xml
   def create    
     respond_to do |format|
       if @item.save
@@ -45,8 +43,8 @@ class ItemsController < ApplicationController
     end
   end
 
-  # PUT /items/1
-  # PUT /items/1.xml
+  # PUT /shc/items/1
+  # PUT /shc/items/1.xml
   def update
     respond_to do |format|
       if @item.update_attributes(params[:item])
@@ -59,13 +57,11 @@ class ItemsController < ApplicationController
     end
   end
 
-  # DELETE /items/1
-  # DELETE /items/1.xml
+  # DELETE /shc/items/1
+  # DELETE /shc/items/1.xml
   def destroy
     @item.destroy
-
-    get_items
-    
+    get_items  
     render 'items/index'    
   end
 
@@ -73,9 +69,9 @@ class ItemsController < ApplicationController
   
   # set defaults for new action view
   def set_defaults
-    @item.type = params[:t] ? params[:t] : 0 # one of 0,1,2,3,4 should aways be passed in
-    @item.klass = params[:c] ? params[:c] : 0 # for merit abilities 1,2,3 will be passed in, otherwise it's special
-    @item.currency_type = params[:ct] ? params[:ct] : 1 # 1 is the default for stock merit abilities
+    @item.type ||= params[:t] ? params[:t] : 0 # one of 0,1,2,3,4 should aways be passed in
+    @item.klass ||= params[:c] ? params[:c] : 0 # for merit abilities 1,2,3 will be passed in, otherwise it's special
+    @item.currency_type ||= params[:ct] ? params[:ct] : 1 # 1 is the default for stock merit abilities
   end
   
   def sort_column
@@ -86,28 +82,14 @@ class ItemsController < ApplicationController
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   end
   
-  def items_search
-    # when called from destroy method, @items isn't created by cancan method, so create it.
-    if @items    
-      @items = @items.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])          
-    else
-      @items = Item.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 5, :page => params[:page])                
-    end
-  end
-  
   def get_items
-    items_search
-    
-    if @items.empty? && (params[:page].to_i > 1)
-      # if @items is empty and we're specifying greater than page 1, in most cases we need the page just before
-      params[:page] = (params[:page].to_i - 1)
-      items_search
-      # if @items is still empty, we should just do the query to get the last available page
-      if @items.empty?      
-        params[:page] = @items.total_pages
-        items_search
-      end
-    end    
+    # when called from destroy method, @items isn't created by cancan method, so create it.
+    # grabbing merit abilities
+    if @items    
+      @items = @items.where("currency_type = 1 AND num_available > 0 AND (class IN (1,2,3)) AND (type IN (0,1,2)) AND (level IN (1,40,80))").order("class, sort")
+    else
+      @items = Item.where("currency_type = 1 AND num_available > 0 AND (class IN (1,2,3)) AND (type IN (0,1,2))").order("class, sort")
+    end
   end
 end
 

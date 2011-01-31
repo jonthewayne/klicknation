@@ -1,5 +1,5 @@
 	<%= render 'header' %>
-    
+
   <!-- Status bar -->
 	<div id="status-bar"><div class="container_12">
 	
@@ -10,10 +10,10 @@
 		</ul>
 		
 		<ul id="breadcrumb">
-		  <li></li>
       <li><%= link_to "Stock Merit Abilities", items_path %></li>
 		</ul>
 		<ul id="breadcrumb">
+		  <li></li>		  
       <li><%= link_to "Item Categories", item_categories_path %></li>
 		</ul>    
 	
@@ -39,10 +39,32 @@
     </div>   	
     <% end %>
       	
+		<section class="grid_12">
+		  
+			<%= form_tag item_categories_path, :method => 'get', :id => "resources_search", :class => "block-border form" do %>
+				<div class="block-content">
+        <h1>Item Categories<%= link_to image_tag("icons/fugue/plus-circle-blue.png", :size => "16x16", :alt => "Add new admin user") + " new", new_item_category_path %></h1>
+				
+				<div class="block-controls">
+
+					<ul class="controls-buttons">
+            <span id="pagination"><%= render 'pagination' %></span>
+						<li class="sep"></li>		
+						<li><span class="input-type-text margin-right relative"><%= text_field_tag :search, params[:search] %><%= image_tag("icons/fugue/magnifier.png", :size => "16x16", :alt => "Search") %></span></li>					              
+					</ul>
+				</div>
 
 				<div class="no-margin" id="resources">			
-          <%= render 'sections' %>
+          <%= render 'item_categories' %>
         </div>
+				
+				<ul class="message no-margin">
+					<li><span id="pagination-footer"><%= render 'pagination-footer' %></span></li>
+				</ul>
+      </div>        
+      			
+			<% end %>
+		</section>
 
         
 		<div class="clear"></div>

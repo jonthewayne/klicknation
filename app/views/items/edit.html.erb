@@ -10,8 +10,12 @@
 		</ul>
 		
 		<ul id="breadcrumb">
-      <li><%= link_to "Items", items_path %></li>
-      <li><a title="Editing admin user..." href="#">Editing admin user...</a></li>      
+      <li><%= link_to "Stock Merit Abilities", items_path %></li>
+      <% if @item.currency_type.to_s == "1" %>
+        <li><a title="Editing stock merit ability..." href="#">Editing stock merit ability...</a></li>      
+      <% else %>
+        <li><a title="Editing item..." href="#">Editing item...</a></li>      
+      <% end %>
 		</ul>
 	
 	</div></div>
@@ -42,7 +46,7 @@
 		<section class="grid_6">
 		  <div class="block-border">  
 				<div class="block-content" id="edit_item">			
-          <h1>Item #<%= @item.id %><%= link_to image_tag("icons/fugue/plus-circle-blue.png", :size => "16x16", :alt => "Add new item") + " new", new_item_path %></a></h1>
+          <h1><%= item_label(@item) %><%= link_to image_tag("icons/fugue/plus-circle-blue.png", :size => "16x16", :alt => "Add new item") + " new", new_item_path(:c=>@item.klass,:t=>@item.type) %></a></h1>
           <%= render 'form' %>
         </div>
       </div>    			

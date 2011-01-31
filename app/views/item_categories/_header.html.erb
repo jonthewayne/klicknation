@@ -1,0 +1,30 @@
+	<!-- Server status -->
+	<header><div class="container_12">
+		
+
+		<div class="server-info"><p id="skin-name">;-) KlickNation Admin</p></div>
+   
+		
+	</div></header>
+	<!-- End server status -->
+	
+	<!-- Main nav -->
+	<nav id="main-nav">
+		<ul class="container_12">
+			<li class="home" title="Home"><a href="#" title=""></a></li>
+			<% if can? :manage, @admin_tool_user %><li class="shc current" title="Superhero City"><%= link_to "", items_path %></li><% end %>
+			<% if can? :manage, @admin_tool_user %><li class="users" title="Admin Users"><%= link_to "", admin_tool_users_path %></li><% end %>
+		</ul>
+	</nav>
+	<!-- End main nav -->
+	
+	<!-- Sub nav -->
+	<!--<div id="sub-nav"><div class="container_12">
+	  
+		<a title="Logout" class="nav-button" href=""><b>LOGOUT</b></a>     
+		<a title="My Info" class="nav-button" href=""><b>MY INFO</b></a>
+	
+	</div></div>-->
+	<!-- End sub nav -->
+  
+  <div class="clear"></div>

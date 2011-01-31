@@ -1,0 +1,10 @@
+<%= form_for @item_category, :html => { :class => "form" } do |f| %>  
+  <fieldset>    
+      <p>
+        <%= f.label :category %>
+        <%= f.text_field :category, :class => "full-width" %>
+      </p> 
+      
+      <p><button type="submit">Save</button>          
+  </fieldset>  
+<% end %>

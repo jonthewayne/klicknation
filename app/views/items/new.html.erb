@@ -10,8 +10,12 @@
 		</ul>
 		
 		<ul id="breadcrumb">
-      <li><%= link_to "Items", items_path %></li>
-      <li><a href="#">Creating new item...</a></li>      
+      <li><%= link_to "Stock Merit Abilities", items_path %></li>
+      <% if @item.currency_type.to_s == "1" %>
+        <li><a title="Creating new stock merit ability..." href="#">Creating new stock merit ability...</a></li>      
+      <% else %>
+        <li><a title="Creating new item..." href="#">Creating new item...</a></li>      
+      <% end %>  
 		</ul>
 	
 	</div></div>
@@ -32,7 +36,7 @@
 		<section class="grid_6">
 		  <div class="block-border">  
 				<div class="block-content" id="edit_item">			
-          <h1>New Item</h1>
+          <h1><%= item_label(@item) %></h1>
           <%= render 'form' %>
         </div>
       </div>    			

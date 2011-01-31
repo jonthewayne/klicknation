@@ -1,7 +1,7 @@
 <%= form_for @item, :html => { :multipart => true, :class => "form" } do |f| %>  
 
   <% # output class, type, and currency_type as hidden fields %>
-  <%= f.hidden_field(:currency_type) if @item.currency_type %>    
+  <%= f.hidden_field(:currency_type) %>    
   
 
   <fieldset>    
@@ -21,39 +21,38 @@
       <div class="columns">
 			  <p class="colx2-left">
           <%= f.label :attack %>
-          <%= f.text_field :attack %>
+          <%= f.text_field :attack, :class => "full-width" %>
 				</p>
 			  <p class="colx2-right">
           <%= f.label :defense %>
-          <%= f.text_field :defense %>
+          <%= f.text_field :defense, :class => "full-width" %>
 			  </p>
 			</div>
       <div class="columns">
 			  <p class="colx2-left">
           <%= f.label :agility %>
-          <%= f.text_field :agility %>
+          <%= f.text_field :agility, :class => "full-width" %>
 				</p>
 			  <p class="colx2-right">
           <%= f.label :price %>
-          <%= f.text_field :ability_element_id %>
+          <%= f.text_field :price, :class => "full-width" %>
 			  </p>
       </div> 
       <div class="columns">
         <p class="colx2-left">
           <%= f.label "Ability Element" %>
-          <%= f.select :ability_element_id, {"1 - Fire/Heat" => "1", "2 - Water/Ice" => "2", "3 - Air/Wind/Sound" => "3", "4 - Physical/Kinetic" => "4", "5 - Weapon/Tech" => "5", "6 - Earth/Nature" => "6", "7 - Mental/Time" => "7", "8 - Energy/Light/Electricity" => "8", "9 - Dark/Poison" => "9"} %>
+          <%= f.select :ability_element_id, {"1 - Fire/Heat" => "1", "2 - Water/Ice" => "2", "3 - Air/Wind/Sound" => "3", "4 - Physical/Kinetic" => "4", "5 - Weapon/Tech" => "5", "6 - Earth/Nature" => "6", "7 - Mental/Time" => "7", "8 - Energy/Light/Electricity" => "8", "9 - Dark/Poison" => "9"}, :class => "full-width" %>
         </p>
-        <% if @item.type && @item.type == 0 # for attack cards only %>
+        <% if @item.type == 0 # for attack cards only %>
         <p class="colx2-right">
           <%= f.label "Item Category" %>
-          <%= f.text_field :item_category_id, :class => "full-width" %>
+          <%= f.select :item_category_id, ItemCategory.order("id desc").map {|ic| ["#{ic.id} - #{ic.category}", ic.id]}, :class => "full-width" %>                 
         </p>
         <% end %>     
       </div>                       
-      <p><button type="submit">Save Item</button>          
+      <p><button type="submit">Save Item</button>      
   </fieldset>  
-      
-		  <fieldset class="grey-bg no-margin collapsed">
+      <fieldset class="grey-bg no-margin collapsed">
 				<legend><a href="#">Extra Fields</a></legend>
           <div class="columns">
 			      <p class="colx2-left">
@@ -85,5 +84,6 @@
               <%= f.text_field :level %>
 			      </p>
           </div>                  
-			</fieldset>        
+			</fieldset>         
+     
 <% end %>		  

@@ -1,0 +1,38 @@
+      <%= hidden_field_tag :direction, params[:direction] %>
+      <%= hidden_field_tag :sort, params[:sort] %>	
+      
+      <table class="table" cellspacing="0" width="100%">
+					<thead>
+						<tr>
+							<th scope="col" width="30">
+								<span class="column-sort">
+								  <%= sortable "id", "sort-up", "Oldest First" %>
+								  <%= sortable "id", "sort-down", "Newest First" %>   
+								</span>
+								Id
+							</th>              
+							<th scope="col">
+								<span class="column-sort">
+								  <%= sortable "category", "sort-up", "Alphabetical" %>
+								  <%= sortable "category", "sort-down", "Reverse Alphabetical" %>   
+								</span>
+								Category
+							</th>                
+							<th scope="col" class="table-actions" width="50">Actions</th>
+						</tr>
+					</thead>
+					
+					<tbody>       
+            <% @item_categories.each do |item_category| %>            
+						<tr>
+							<td><%= item_category.id %></td>
+							<td><%= item_category.category %></td>                                                                 
+							<td class="table-actions">
+        			  <%= link_to image_tag("icons/fugue/pencil.png", :size => "16x16", :alt => "Edit item category"), edit_item_category_path(item_category) %>
+								<%= link_to image_tag("icons/fugue/cross-circle.png", :size => "16x16", :alt => "Delete item category"), item_category_path(item_category, :direction => sort_direction, :sort => sort_column, :page => params[:page], :search => params[:search]), :confirm => 'Are you sure?', :method => :delete, :remote => true %>
+							</td>
+						</tr>
+            <% end %>
+					</tbody>
+				
+				</table>
