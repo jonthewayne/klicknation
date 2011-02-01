@@ -19,7 +19,7 @@ class Item < ActiveRecord::Base
   
   ### Not allowed to be null: (id and app_id are taken care of by set_defaults)
 
-  validates :type, :presence => true, :inclusion => { :in => %w(0 1 2 3 4), :message => "%{value} is not a valid item type" }
+  validates :type, :presence => true, :inclusion => { :in => [0,1,2,3,4], :message => "%{value} is not a valid item type" }
                     
   validates :price, :presence => true, :numericality => true
                     
@@ -39,13 +39,13 @@ class Item < ActiveRecord::Base
                     
   validates :ability_element_id, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 6}
                     
-  validates :rarity, :presence => true, :inclusion => { :in => %w(0 1 2), :message => "%{value} is not a valid rarity type" }
+  validates :rarity, :presence => true, :inclusion => { :in => [0,1,2], :message => "%{value} is not a valid rarity type" }
 
-  # only req for attack (type = 0) merit abilities, otherwise default to 0
-  validates :item_category_id, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 3}
+  # only req for attack (type = 0) merit abilities, otherwise defaults to 0
+  validates :item_category_id, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 5}
   
   # default to 1 even though not used for stock merit abilities
-  validates :apply_discount, :inclusion => { :in => [true, false] }
+  validates :apply_discount, :inclusion => { :in => [1, 0] }
   
   
   ### Allowed to be null by db:
@@ -58,7 +58,7 @@ class Item < ActiveRecord::Base
   
   validates :sort, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 5}
    
-  validates :klass, :presence => true, :inclusion => { :in => %w(0 1 2 3), :message => "%{value} is not a valid class type" }
+  validates :klass, :presence => true, :inclusion => { :in => [0,1,2,3], :message => "%{value} is not a valid class type" }
   
   
   ## Not used for stock merit abilities:
@@ -87,64 +87,57 @@ class Item < ActiveRecord::Base
     end
   end
   
-  protected
   
   # this is called before item validation
-  def set_defaults
-    self.app_id ||= 1 # app id is always 1
-    self.upkeep ||= 0
-    self.item_category_id ||= 0
-    self.apply_discount ||= 1  
-    
-    # set defaults for stock merit abilities
-    if self.currency_type == 1 
-      self.rarity ||= 2     
-      
+  def set_defaults    
+    # set defaults for stock merit abilities. Overwriting mysql column defaults if new record, 
+    # otherwise accept edit params
+    if self.currency_type == "1"      
       if self.klass == 1 && self.type == 0
-        self.sort ||= set_sort(self.klass,self.type) 
-        self.price ||= 25        
-        self.num_available ||= 7000
-        self.level ||= 1        
+        self.sort = self.new_record? ? set_sort(self.klass,self.type) : self.sort
+        self.price = self.new_record? ? 25.0 : self.price         
+        self.num_available = self.new_record? ? 7000 : self.num_available 
+        self.level = self.new_record? ? 1 : self.level        
       elsif self.klass == 1 && self.type == 1
-        self.sort ||= set_sort(self.klass,self.type) 
-        self.price ||= 20        
-        self.num_available ||= 7000
-        self.level ||= 1              
+        self.sort = self.new_record? ? set_sort(self.klass,self.type) : self.sort 
+        self.price = self.new_record? ? 20.0 : self.price        
+        self.num_available = self.new_record? ? 7000 : self.num_available
+        self.level = self.new_record? ? 1 : self.level             
       elsif self.klass == 1 && self.type == 2
-        self.sort ||= set_sort(self.klass,self.type) 
-        self.price ||= 35        
-        self.num_available ||= 3500
-        self.level ||= 1              
+        self.sort = self.new_record? ? set_sort(self.klass,self.type) : self.sort 
+        self.price = self.new_record? ? 35.0 : self.price        
+        self.num_available = self.new_record? ? 3500 : self.num_available
+        self.level = self.new_record? ? 1 : self.level              
       elsif self.klass == 2 && self.type == 0
-        self.sort ||= set_sort(self.klass,self.type) 
-        self.price ||= 35        
-        self.num_available ||= 3000
-        self.level ||= 40              
+        self.sort = self.new_record? ? set_sort(self.klass,self.type) : self.sort 
+        self.price = self.new_record? ? 35.0 : self.price        
+        self.num_available = self.new_record? ? 3000 : self.num_available
+        self.level = self.new_record? ? 40 : self.level              
       elsif self.klass == 2 && self.type == 1
-        self.sort ||= set_sort(self.klass,self.type) 
-        self.price ||= 30        
-        self.num_available ||= 3000
-        self.level ||= 40              
+        self.sort = self.new_record? ? set_sort(self.klass,self.type) : self.sort 
+        self.price = self.new_record? ? 30.0 : self.price        
+        self.num_available = self.new_record? ? 3000 : self.num_available
+        self.level = self.new_record? ? 40 : self.level               
       elsif self.klass == 2 && self.type == 2
-        self.sort ||= set_sort(self.klass,self.type) 
-        self.price ||= 53        
-        self.num_available ||= 3000
-        self.level ||= 40              
+        self.sort = self.new_record? ? set_sort(self.klass,self.type) : self.sort 
+        self.price = self.new_record? ? 53.0 : self.price        
+        self.num_available = self.new_record? ? 3000 : self.num_available
+        self.level = self.new_record? ? 40 : self.level               
       elsif self.klass == 3 && self.type == 0
-        self.sort ||= set_sort(self.klass,self.type) 
-        self.price ||= 45        
-        self.num_available ||= 3500
-        self.level ||= 80              
+        self.sort = self.new_record? ? set_sort(self.klass,self.type) : self.sort 
+        self.price = self.new_record? ? 45.0 : self.price        
+        self.num_available = self.new_record? ? 3500 : self.num_available
+        self.level = self.new_record? ? 80 : self.level               
       elsif self.klass == 3 && self.type == 1
-        self.sort ||= set_sort(self.klass,self.type) 
-        self.price ||= 40        
-        self.num_available ||= 3500
-        self.level ||= 80              
+        self.sort = self.new_record? ? set_sort(self.klass,self.type) : self.sort 
+        self.price = self.new_record? ? 40.0 : self.price        
+        self.num_available = self.new_record? ? 3500 : self.num_available
+        self.level = self.new_record? ? 80 : self.level              
       elsif self.klass == 3 && self.type == 2        
-        self.sort ||= set_sort(self.klass,self.type) 
-        self.price ||= 68        
-        self.num_available ||= 3500
-        self.level ||= 80              
+        self.sort = self.new_record? ? set_sort(self.klass,self.type) : self.sort 
+        self.price = self.new_record? ? 68.0 : self.price        
+        self.num_available = self.new_record? ? 3500 : self.num_available
+        self.level = self.new_record? ? 80 : self.level              
       end
     else
       # for non-merit abilities, will differentiate further later   

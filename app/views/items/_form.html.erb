@@ -2,6 +2,10 @@
 
   <% # output class, type, and currency_type as hidden fields %>
   <%= f.hidden_field(:currency_type) %>    
+  <% if @item.new_record? %>
+    <%= f.hidden_field(:klass) %>    
+    <%= f.hidden_field(:type) %>      
+  <% end %>
   
 
   <fieldset>    
@@ -33,18 +37,14 @@
           <%= f.label :agility %>
           <%= f.text_field :agility, :class => "full-width" %>
 				</p>
-			  <p class="colx2-right">
-          <%= f.label :price %>
-          <%= f.text_field :price, :class => "full-width" %>
-			  </p>
-      </div> 
-      <div class="columns">
-        <p class="colx2-left">
+        <p class="colx2-right">
           <%= f.label "Ability Element" %>
           <%= f.select :ability_element_id, {"1 - Fire/Heat" => "1", "2 - Water/Ice" => "2", "3 - Air/Wind/Sound" => "3", "4 - Physical/Kinetic" => "4", "5 - Weapon/Tech" => "5", "6 - Earth/Nature" => "6", "7 - Mental/Time" => "7", "8 - Energy/Light/Electricity" => "8", "9 - Dark/Poison" => "9"}, :class => "full-width" %>
         </p>
+      </div> 
+      <div class="columns">
         <% if @item.type == 0 # for attack cards only %>
-        <p class="colx2-right">
+        <p class="colx2-left">
           <%= f.label "Item Category" %>
           <%= f.select :item_category_id, ItemCategory.order("id desc").map {|ic| ["#{ic.id} - #{ic.category}", ic.id]}, :class => "full-width" %>                 
         </p>
@@ -52,6 +52,7 @@
       </div>                       
       <p><button type="submit">Save Item</button>      
   </fieldset>  
+  <% unless @item.new_record? %>
       <fieldset class="grey-bg no-margin collapsed">
 				<legend><a href="#">Extra Fields</a></legend>
           <div class="columns">
@@ -83,7 +84,13 @@
               <%= f.label :level %>
               <%= f.text_field :level %>
 			      </p>
-          </div>                  
+          </div>  
+          <div class="columns">
+			      <p class="colx2-left">
+              <%= f.label :price %>
+              <%= f.text_field :price %>
+				    </p>
+          </div>                           
 			</fieldset>         
-     
+  <% end %>     
 <% end %>		  

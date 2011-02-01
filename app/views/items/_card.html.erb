@@ -1,2 +1,39 @@
-<!-- show ability card if there is one -->
-<% if @item.photo %><center><%= image_tag @item.photo %></center><br /><br /><% end %>
+<!-- show stock merit ability card -->
+<% if @item.currency_type == "1" %>
+  <center>
+  <div class="ability_card card_<%= type_label(@item.type).downcase %>">
+	  <div class="ability_border">
+		  
+      <div class="ability_label type_light">
+			  <div class="ability_icon">&nbsp;</div>
+				<div class="ability_class">&nbsp;</div>
+			  <div class="ability_type">&nbsp;</div>
+				<div class="upgrade_status upgrade_none ">&nbsp;</div>
+			</div>
+				
+      <div class="ability_name" id="ability_name_output"><%= @item.name ? @item.name : 'Card Title Here' %></div>
+		  
+      <div class="ability_image">
+        <% if @item.photo %>
+        <img width="150" height="150" id="item_photo_output" style="width:150px;height:150px;" src="<%= @item.photo.strip.insert(-5, '_card') %>">
+        <% end %>
+      </div>
+			
+      <div class="ability_stats">
+		    <img width="15" height="15" style="width:15px;height:15px;" alt="ATTACK" src="http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/icon_attack.png">
+        +<span id="item_attack_output"><%= @item.attack ? @item.attack : '0' %></span>
+        <img width="15" height="15" style="width:15px;height:15px;" alt="DEFENSE" src="http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/icon_defense.png"> 
+        +<span id="item_defense_output"><%= @item.defense ? @item.defense : '0' %></span>					
+        <img width="15" height="15" style="width:15px;height:15px;" alt="AGILITY" src="http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/icon_agility.png"> 
+        +<span id="item_agility_output"><%= @item.agility ? @item.agility : '0' %></span>
+      </div>
+
+		  <div class="ability_description ability_description_wide"  id="ability_description_output">
+					<%= @item.description ? @item.description : 'Card description here...' %>
+      </div>
+			</div>
+		</div>
+  </div>
+  </center>
+  <div class="clear"></div>
+<% end %>
