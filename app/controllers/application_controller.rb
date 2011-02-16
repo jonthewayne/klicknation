@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   
   rescue_from CanCan::AccessDenied do |exception|
     #flash[:alert] = exception.message
-    redirect_to destroy_admin_tool_user_session_path #root_url
+    redirect_to destroy_admin_tool_user_session_path #log user out
   end
   
   # cancan expects current_user, so give it what it wants

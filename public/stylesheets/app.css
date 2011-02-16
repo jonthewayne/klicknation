@@ -1,29 +1,36 @@
 /* styling for stock merit ability cards */
 
-.ability_card {
-background-position: 50% 50%;
-color: #666;
-font-family: Arial, Helvetica, sans-serif;
-font-size: 10px;
-font-weight: normal;
-height: 320px;
-line-height: normal;
-margin-bottom: 10px;
-margin-right: 10px;
-text-align: left;
-width: 220px;
+.ability_card
+{
+	background-position: center center;
+	color: #666;
+	font-family: Arial,Helvetica,sans-serif;
+	font-size: 10px;
+	font-weight: normal;
+	height: 320px;
+	line-height: normal;
+	margin-bottom: 10px;
+	margin-right: 10px;
+	text-align: left;
+	width: 220px;
 }
 
-.ability_border {
-background-position: 50% 50%;
-background-repeat: no-repeat;
-height: 300px;
-padding: 10px;
-width: 200px;
+.ability_class
+{
+	background-position: center top;
+	background-repeat: no-repeat;
+	float: left;
+	height: 130px;
+	width: 17px;
 }
 
-.class_omega {
-background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/border_omega.png);
+.ability_border
+{
+	background-position: center center;
+	background-repeat: no-repeat;
+	height: 300px;
+	padding: 10px;
+	width: 200px;
 }
 
 .ability_label {
@@ -32,24 +39,26 @@ height: 205px;
 width: 40px;
 }
 
-.ability_name {
-border-bottom-color: #999;
-border-bottom-style: solid;
-border-bottom-width: 1px;
-border-top-color: #999;
-border-top-style: solid;
-border-top-width: 1px;
-color: white;
-float: right;
-font-size: 12px;
-font-weight: bolder;
-margin-bottom: 5px;
-overflow: hidden;
-padding-bottom: 2px;
-padding-top: 2px;
-text-align: center;
-width: 160px;
+.ability_name
+{
+	border-bottom-color: #999;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-top-color: #999;
+	border-top-style: solid;
+	border-top-width: 1px;
+	color: #FFF;
+	float: right;
+	font-size: 12px;
+	font-weight: bolder;
+	margin-bottom: 5px;
+	overflow: hidden;
+	padding-bottom: 2px;
+	padding-top: 2px;
+	text-align: center;
+	width: 160px;
 }
+
 .ability_image {
 background-color: #101010;
 float: right;
@@ -59,42 +68,234 @@ padding: 3px;
 width: 150px;
 }
 
-.ability_stats {
-color: white;
-float: right;
-font-size: 11px;
-font-weight: bold;
-margin-bottom: 5px;
-text-align: center;
-text-decoration: none;
-width: 160px;
+.ability_stats
+{
+	color: #FFF;
+	float: right;
+	font-size: 11px;
+	font-weight: bold;
+	margin-bottom: 5px;
+	text-align: center;
+	text-decoration: none;
+	width: 160px;
 }
 
-.card_attack {
-background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/abilitiy_card_bg_attack.png);
+.ability_stats
+img
+{
+	margin-left: 4px;
 }
 
-.card_defense {
-background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/abilitiy_card_bg_defense.png);
+.ability_description
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/abilitiy_card_description.png);
+	background-position: center center;
+	color: #000;
+	float: left;
+	height: 80px;
+	margin-left: auto;
+	margin-right: auto;
+	overflow: hidden;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+	width: 180px;
+}
+.ability_description_wide
+{
+	padding: 5px;
+	width: 190px;
 }
 
-.card_movement {
-background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/abilitiy_card_bg_movement.png);
+.ability_icon
+{
+	background-position: center center;
+	background-repeat: no-repeat;
+	height: 35px;
+	margin-bottom: 5px;
+	width: 35px;
 }
 
-.ability_description {
-background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/abilitiy_card_description.png);
-background-position: 50% 50%;
-color: black;
-float: left;
-height: 80px;
-margin-left: auto;
-margin-right: auto;
-overflow: hidden;
-padding-bottom: 5px;
-padding-left: 10px;
-padding-right: 10px;
-padding-top: 5px;
-width: 180px;
+.ability_type
+{
+	background-position: center top;
+	background-repeat: no-repeat;
+	float: left;
+	height: 130px;
+	width: 17px;
 }
 
+.card_attack
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/abilitiy_card_bg_attack.png);
+}
+.card_defense
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/abilitiy_card_bg_defense.png);
+}
+.card_movement
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/abilitiy_card_bg_movement.png);
+}
+.card_trophy
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/abilitiy_card_bg_trophy.png);
+}
+.class_alpha
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/border_alpha.png);
+}
+.class_alpha
+.ability_class
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/class_alpha.png);
+}
+.class_gamma
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/border_gamma.png);
+}
+.class_gamma
+.ability_class
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/class_gamma.png);
+}
+.class_special
+.ability_class
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/class_special.png);
+}
+.class_omega
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/border_omega.png);
+}
+.class_omega
+.ability_class
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/class_omega.png);
+}
+.class_ultimate
+{
+	background-image: none;
+}
+.class_ultimate
+.ability_class
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/class_ultimate.png);
+}
+
+.type_air
+.ability_type
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/type_air.png);
+}
+.type_air
+.ability_icon
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/icon_air.png);
+}
+.type_dark
+.ability_type
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/type_dark.png);
+}
+.type_dark
+.ability_icon
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/icon_dark.png);
+}
+.type_earth
+.ability_type
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/type_earth.png);
+}
+.type_earth
+.ability_icon
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/icon_earth.png);
+}
+.type_fire
+.ability_icon
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/icon_fire.png);
+}
+.type_fire
+.ability_type
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/type_fire.png);
+}
+.type_kinetic
+.ability_icon
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/icon_kinetic.png);
+}
+.type_kinetic
+.ability_type
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/type_kinetic.png);
+}
+.type_light
+.ability_type
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/type_light.png);
+}
+.type_light
+.ability_icon
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/icon_light.png);
+}
+.type_psychic
+.ability_type
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/type_psychic.png);
+}
+.type_psychic
+.ability_icon
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/icon_psychic.png);
+}
+.type_tech
+.ability_type
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/type_tech.png);
+}
+.type_tech
+.ability_icon
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/icon_tech.png);
+}
+.type_water
+.ability_type
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/type_water.png);
+}
+.type_water
+.ability_icon
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/icon_water.png);
+}
+.upgrade_one
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/upgrade_one.png);
+}
+.upgrade_none
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/upgrade_none.png);
+}
+.upgrade_status
+{
+	background-position: center center;
+	background-repeat: no-repeat;
+	float: left;
+	height: 30px;
+	margin-top: 5px;
+	width: 40px;
+}
+.upgrade_three
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/upgrade_three.png);
+}
+.upgrade_two
+{
+	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/upgrade_two.png);
+}

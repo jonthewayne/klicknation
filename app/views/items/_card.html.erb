@@ -2,9 +2,9 @@
 <% if @item.currency_type == "1" %>
   <center>
   <div class="ability_card card_<%= type_label(@item.type).downcase %>">
-	  <div class="ability_border">
+	  <div class="ability_border class_<%= class_label(@item.klass).downcase %>">
 		  
-      <div class="ability_label type_light">
+      <div class="ability_label type_<%= ability_label(@item.ability_element_id).downcase %>">
 			  <div class="ability_icon">&nbsp;</div>
 				<div class="ability_class">&nbsp;</div>
 			  <div class="ability_type">&nbsp;</div>

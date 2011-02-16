@@ -3,6 +3,14 @@ module ItemsHelper
     %w(Attack Defense Movement)[type.to_i]
   end
   
+  def ability_label(ability_id)
+    %w(None Fire Water Air Kinetic Tech Earth Psychic Light Dark)[ability_id]
+  end  
+  
+  def class_label(klass)
+    %w(Special Alpha Gamma Omega)[klass]
+  end    
+  
   def item_id_label(item)
     if item.new_record?
       ""
