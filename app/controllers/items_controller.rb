@@ -7,6 +7,12 @@ class ItemsController < ApplicationController
   def index
     get_items
   end
+  
+  # GET /shc/items/pending
+  # GET /shc/items/pending.xml
+  def pending
+    get_pending_items
+  end  
 
   # GET /shc/items/1
   # GET /shc/items/1.xml
@@ -17,7 +23,7 @@ class ItemsController < ApplicationController
   # GET /shc/items/new
   # GET /shc/items/new.xml
   def new
-    set_defaults_from_params
+    set_defaults_from_params      
     @item.set_defaults
     set_new_view_defaults
     
@@ -34,9 +40,10 @@ class ItemsController < ApplicationController
 
   # POST /shc/items
   # POST /shc/items.xml
-  def create    
+  def create        
     respond_to do |format|
-      if @item.save
+      # certain type values can only be made by admins
+      if ((%w[0 1 2 3 4].include? @item.type.to_s) ? (can? :manage, @item) : true) && @item.save
         format.html { redirect_to(edit_item_url(@item), :notice => 'Item was successfully created.') }
         format.xml  { render :xml => @item, :status => :created, :location => @item }
       else
@@ -63,9 +70,15 @@ class ItemsController < ApplicationController
   # DELETE /shc/items/1
   # DELETE /shc/items/1.xml
   def destroy
-    @item.destroy
-    get_items  
-    render 'items/index'    
+    respond_to do |format|
+      if @item.destroy
+        format.html { redirect_to(items_url, :notice => 'Item was successfully deleted.') }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @item.errors, :status => :unprocessable_entity }
+      end
+    end   
   end
 
   private
@@ -73,8 +86,8 @@ class ItemsController < ApplicationController
   # set defaults for new action view
   def set_defaults_from_params
     # use ||= so that if new or edit reloaded after validation error, nothing is overwritten
-    @item.type ||= params[:t] ? params[:t] : 0 # one of 0,1,2,3,4 should aways be passed in
-    @item.klass ||= params[:c] ? params[:c] : 0 # for merit abilities 1,2,3 will be passed in, otherwise it's special
+    @item.type ||= params[:t] ? params[:t] : 0 # one of 0,1,2,3,4,20,21,21 will usually be passed in
+    @item.klass ||= params[:c] ? params[:c] : 1 # for merit abilities 0,1,2,3 will usually be passed in, otherwise we'll set it to 1
     @item.currency_type ||= params[:ct] # defaults to "1" from mysql
   end
   
@@ -82,7 +95,7 @@ class ItemsController < ApplicationController
     # the db gives some fields a default value, but we don't want those in the new view
     @item.attack = nil
     @item.defense = nil
-    @item.agility = nil    
+    @item.agility = nil  
   end
   
   def sort_column
@@ -97,10 +110,19 @@ class ItemsController < ApplicationController
     # when called from destroy method, @items isn't created by cancan method, so create it.
     # grabbing merit abilities
     if @items    
-      @items = @items.where("sort > 0 AND currency_type = 1 AND num_available > 0 AND (class IN (1,2,3)) AND (type IN (0,1,2)) AND (level IN (1,40,80))").order("class, sort")
+      @items = @items.production_merit_abilities
     else
-      @items = Item.where("sort > 0 AND currency_type = 1 AND num_available > 0 AND (class IN (1,2,3)) AND (type IN (0,1,2))").order("class, sort")
+      @items = Item.production_merit_abilities
     end
   end
+  def get_pending_items
+    # when called from destroy method, @items isn't created by cancan method, so create it.
+    # grabbing pending merit abilities
+    if @items    
+      @items = @items.pending_merit_abilities
+    else
+      @items = Item.pending_merit_abilities
+    end
+  end  
 end
 

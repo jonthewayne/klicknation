@@ -11,8 +11,11 @@
 		
 		<ul id="breadcrumb">
 		  <li></li>
-      <li><%= link_to "Stock Merit Abilities", items_path %></li>
+      <li><%= link_to "Production Stock Merit Abilities", items_path %></li>
 		</ul>
+		<ul id="breadcrumb">
+      <li><%= link_to "Pending Stock Merit Abilities", pending_items_path %></li>
+		</ul>       
 		<ul id="breadcrumb">
       <li><%= link_to "Item Categories", item_categories_path %></li>
 		</ul>    
@@ -38,15 +41,39 @@
       <div class="clear"></div>
     </div>   	
     <% end %>
-      	
 
-				<div class="no-margin" id="resources">			
-          <%= render 'sections' %>
+		<section class="grid_12">
+		  <div class="block-border">  
+				<div class="block-content" id="production">			
+          <h1>Production<%= link_to image_tag("icons/fugue/plus-circle-blue.png", :size => "16x16", :alt => "Add new merit ability") + " new", new_item_path %></h1>
+          <div class="columns">		    	
+            <%= render 'production_grid' %>
+          </div>          
         </div>
-
+      </div> 
+		</section>
+    
+		<div class="clear"></div>    
+    
+		<section class="grid_12">
+		  <div class="block-border">
+		    <div class="block-content" id="pending">  
+          <h1>Pending<%= link_to image_tag("icons/fugue/plus-circle-blue.png", :size => "16x16", :alt => "Add new merit ability") + " new", new_item_path %></h1>
+          <div class="columns">				
+            <%= render 'pending_grid' %>
+          </div>
+        </div>
+      </div>    					  
+		</section>    
         
-		<div class="clear"></div>
+		<div class="clear"></div>        	
 
+    <% if @view_layout == "list" %>
+				<div class="no-margin" id="resources">			
+          <%=  render 'sections' %>
+        </div>  
+		<div class="clear"></div>
+    <% end %>
 		
 	</article>
 

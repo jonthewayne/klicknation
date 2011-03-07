@@ -14,12 +14,16 @@ class Item < ActiveRecord::Base
     self[:class]
   end
 
+  scope :all_merit_abilities, where("items.sort > 0 AND items.currency_type = 1 AND items.num_available > 0 AND (items.class IN (1,2,3)) AND (items.type IN (0,1,2,20,21,22)) AND (items.level IN (1,40,80))").order("class, sort")  
+  scope :production_merit_abilities, where("items.sort > 0 AND items.currency_type = 1 AND items.num_available > 0 AND (items.class IN (1,2,3)) AND (items.type IN (0,1,2)) AND (items.level IN (1,40,80))").order("class, sort")  
+  scope :pending_merit_abilities, where("items.sort > 0 AND items.currency_type = 1 AND items.num_available > 0 AND (items.class IN (1,2,3)) AND (items.type IN (20,21,22)) AND (items.level IN (1,40,80))").order("id")  
+
   
   before_validation :set_defaults
   
   ### Not allowed to be null: (id and app_id are taken care of by set_defaults)
 
-  validates :type, :presence => true, :inclusion => { :in => [0,1,2,3,4], :message => "%{value} is not a valid item type" }
+  validates :type, :presence => true, :inclusion => { :in => [0,1,2,3,4,20,21,22], :message => "%{value} is not a valid item type" }
                     
   validates :price, :presence => true, :numericality => true
                     

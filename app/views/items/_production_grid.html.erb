@@ -1,0 +1,54 @@
+<!-- Left column -->
+<div class="colx3-left">
+  <div class="fieldset-grid with-legend lite-grey-gradient clearfix">
+    <div class="legend">Class 1 Attack</div>
+    <%= render :partial => 'items_grid', :locals => { :c => 1, :t => 0} %>
+  </div>
+
+  <div class="fieldset-grid with-legend lite-grey-gradient clearfix">
+    <div class="legend">Class 2 Attack</div>
+    <%= render :partial => 'items_grid', :locals => { :c => 2, :t => 0} %>
+  </div>
+  
+  <div class="fieldset-grid with-legend lite-grey-gradient clearfix">
+    <div class="legend">Class 3 Attack</div>
+    <%= render :partial => 'items_grid', :locals => { :c => 3, :t => 0} %>
+  </div>  
+</div>
+
+     
+<!-- Right column -->
+<div class="colx3-center">    
+  <div class="fieldset-grid with-legend lite-grey-gradient clearfix">
+    <div class="legend">Class 1 Defense</div>
+    <%= render :partial => 'items_grid', :locals => { :c => 1, :t => 1} %>
+  </div>
+
+  <div class="fieldset-grid with-legend lite-grey-gradient clearfix">
+    <div class="legend">Class 2 Defense</div>
+    <%= render :partial => 'items_grid', :locals => { :c => 2, :t => 1} %>
+  </div>
+
+  <div class="fieldset-grid with-legend lite-grey-gradient clearfix">
+    <div class="legend">Class 3 Defense</div>
+    <%= render :partial => 'items_grid', :locals => { :c => 3, :t => 1} %>
+  </div>
+</div>
+
+<!-- Right column -->
+<div class="colx3-right">    
+  <div class="fieldset-grid with-legend lite-grey-gradient clearfix">
+    <div class="legend">Class 1 Movement</div>
+    <%= render :partial => 'items_grid', :locals => { :c => 1, :t => 2} %>
+  </div>
+  
+  <div class="fieldset-grid with-legend lite-grey-gradient clearfix">
+    <div class="legend">Class 2 Movement</div>
+    <%= render :partial => 'items_grid', :locals => { :c => 2, :t => 2} %>
+  </div>  
+  
+  <div class="fieldset-grid with-legend lite-grey-gradient clearfix">
+    <div class="legend">Class 3 Movement</div>
+    <%= render :partial => 'items_grid', :locals => { :c => 3, :t => 2} %>
+  </div>
+</div>

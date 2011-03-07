@@ -299,3 +299,13 @@ img
 {
 	background-image: url(http://assets100.klicknation.com/apps/heros/assets/style_themes/new/images/abilities/upgrade_two.png);
 }
+
+/* special admin styling that overwrites admin theme */
+.fieldset-grid {
+    position: relative;
+    z-index: 89;
+    -moz-border-radius: 0.25em 0.25em 0.25em 0.25em;
+    border: 1px solid #D9D9D9;
+    margin-bottom: 1.667em;
+    padding: 1.667em 1em 1em;
+}

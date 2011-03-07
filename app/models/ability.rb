@@ -13,9 +13,15 @@ class Ability
       can :manage, Item
       # allow non super admin to update their own user record
       can :update, AdminToolUser, :id => user.id
+    elsif user.roles.include?('superhero_city_contributor')
+      can :contribute_to_shc, :all
+      can :read, Item
+      # allow contributors to manage pending items only
+      can [:create, :update, :destroy], Item, :type => 20..22
     else
       # allow non super admin to update their own user record
       can :update, AdminToolUser, :id => user.id      
+      can :read, Item
     end
     
     # The first argument to `can` is the action you are giving the user permission to do.

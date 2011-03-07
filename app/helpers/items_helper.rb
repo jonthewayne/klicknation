@@ -1,6 +1,6 @@
 module ItemsHelper
   def type_label(type)
-    %w(Attack Defense Movement)[type.to_i]
+    %w(Attack Defense Movement).insert(20,"Attack","Defense","Movement")[type.to_i]
   end
   
   def ability_label(ability_id)
@@ -22,9 +22,9 @@ module ItemsHelper
   def item_label(item)
     # for merit abilities
     if item.currency_type.to_s == "1"
-      "Class #{item.klass} #{type_label(item.type)}#{item_id_label(item)}"
+      (item.new_record?) ? "New Class #{item.klass} #{type_label(item.type)}#{item_id_label(item)}" : "Editing Class #{item.klass} #{type_label(item.type)}#{item_id_label(item)}"
     else
-      "Item #{item_id_label(item)}"
+      (item.new_record?) ? "New Item #{item_id_label(item)}" : "Editing Item #{item_id_label(item)}"
     end
   end
 end

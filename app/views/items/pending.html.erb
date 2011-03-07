@@ -1,0 +1,63 @@
+	<%= render 'header' %>
+    
+  <!-- Status bar -->
+	<div id="status-bar"><div class="container_12">
+	
+		<ul id="status-infos">
+			<li><a title="Help" class="button" href="mailto:jonthewayne@gmail.com"><span class="smaller">HELP</span></a></li>
+      <li><%= link_to '<span class="smaller">MY ACCOUNT</span>'.html_safe, edit_admin_tool_user_path(current_admin_tool_user.id), :class => 'button' %></li>      
+      <li><%= link_to '<span class="smaller">LOGOUT</span>'.html_safe, destroy_admin_tool_user_session_path, :class => 'button red' %></li>     
+		</ul>
+		
+		<ul id="breadcrumb">
+      <li><%= link_to "Production Stock Merit Abilities", items_path %></li>  
+		</ul>
+		<ul id="breadcrumb">
+		  <li></li>      
+      <li><%= link_to "Pending Stock Merit Abilities", pending_items_path %></li>
+		</ul>    
+		<ul id="breadcrumb">
+      <li><%= link_to "Item Categories", item_categories_path %></li>
+		</ul>    
+	
+	</div></div>
+	<!-- End status bar -->
+	
+	<div id="header-shadow"></div>
+	<!-- End header -->	
+  
+  <!-- Content -->
+	<article class="container_12">
+		
+
+		<div class="clear"></div>
+    
+    <% if notice %>
+    <div id="message">
+      <ul class="message success grid_12">
+			  <li><%= notice %></li>
+        <li class="close-bt"></li>
+		  </ul>
+      <div class="clear"></div>
+    </div>   	
+    <% end %>
+      	
+
+				<div class="no-margin" id="resources">			
+          <%= render 'pending_sections' %>
+        </div>
+
+        
+		<div class="clear"></div>
+
+		
+	</article>
+
+
+
+
+
+
+
+
+

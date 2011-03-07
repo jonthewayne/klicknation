@@ -15,7 +15,7 @@
 					
 					<tbody>       
             <% @items.each do |item| %>       
-            <% if item.klass == c && item.type == t %>     
+            <% if (item.klass == c && item.type == t) or ((%w[20 21 22].include? item.type.to_s) && item.type == t)  %>     
 						<tr>
 							<td><%= link_to(image_tag(item.photo, :alt => "#{item.name}"), edit_item_path(item)) if item.photo %></td>
 							<td><%= item.id %></td>

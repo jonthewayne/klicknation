@@ -1,6 +1,10 @@
 Klicknation::Application.routes.draw do
 
-  resources :items, :path => 'shc/items' 
+  resources :items, :path => 'shc/items' do
+    collection do
+      get 'pending'
+    end
+  end
 
   devise_for :admin_tool_users, :path => "", :path_names => { :sign_in => 'login', :sign_out => 'logout' }
 

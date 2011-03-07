@@ -1,0 +1,24 @@
+<!-- Left column -->
+<div class="colx3-left">
+  <div class="fieldset-grid with-legend lite-grey-gradient clearfix">
+    <div class="legend">Attack</div>
+    <%= render :partial => 'items_grid', :locals => { :c => 1, :t => 0} %>
+  </div>
+</div>
+
+     
+<!-- Right column -->
+<div class="colx3-center">    
+  <div class="fieldset-grid with-legend lite-grey-gradient clearfix">
+    <div class="legend">Defense</div>
+    <%= render :partial => 'items_grid', :locals => { :c => 1, :t => 1} %>
+  </div>
+</div>
+
+<!-- Right column -->
+<div class="colx3-right">    
+  <div class="fieldset-grid with-legend lite-grey-gradient clearfix">
+    <div class="legend">Movement</div>
+    <%= render :partial => 'items_grid', :locals => { :c => 1, :t => 2} %>
+  </div>
+</div>
