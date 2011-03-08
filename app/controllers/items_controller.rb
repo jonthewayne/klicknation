@@ -11,7 +11,8 @@ class ItemsController < ApplicationController
   # GET /shc/items/pending
   # GET /shc/items/pending.xml
   def pending
-    get_pending_items
+    #get_pending_items
+    redirect_to items_url
   end  
 
   # GET /shc/items/1

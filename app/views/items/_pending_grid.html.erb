@@ -2,7 +2,7 @@
 <div class="colx3-left">
   <div class="fieldset-grid with-legend lite-grey-gradient clearfix">
     <div class="legend">Attack</div>
-    <%= render :partial => 'items_grid', :locals => { :c => 1, :t => 0} %>
+    <%= render :partial => 'items_grid', :locals => { :c => 10, :t => 20, :tipdir => 'right'} %>
   </div>
 </div>
 
@@ -11,7 +11,7 @@
 <div class="colx3-center">    
   <div class="fieldset-grid with-legend lite-grey-gradient clearfix">
     <div class="legend">Defense</div>
-    <%= render :partial => 'items_grid', :locals => { :c => 1, :t => 1} %>
+    <%= render :partial => 'items_grid', :locals => { :c => 10, :t => 21, :tipdir => 'right'} %>
   </div>
 </div>
 
@@ -19,6 +19,6 @@
 <div class="colx3-right">    
   <div class="fieldset-grid with-legend lite-grey-gradient clearfix">
     <div class="legend">Movement</div>
-    <%= render :partial => 'items_grid', :locals => { :c => 1, :t => 2} %>
+    <%= render :partial => 'items_grid', :locals => { :c => 10, :t => 22, :tipdir => 'left'} %>
   </div>
 </div>
