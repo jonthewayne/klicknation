@@ -14,7 +14,7 @@
       <div class="ability_name" id="ability_name_output"><%= @item.name ? @item.name : 'Card Title Here' %></div>
 		  
       <div class="ability_image">
-        <% if @item.photo %>
+        <% if @item.photo && @item.photo != "" %>
         <img width="150" height="150" id="item_photo_output" style="width:150px;height:150px;" src="<%= @item.photo.strip.insert(-5, '_card') %>">
         <% end %>
       </div>

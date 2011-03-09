@@ -18,54 +18,64 @@ class Item < ActiveRecord::Base
   scope :production_merit_abilities, where("items.sort > 0 AND items.currency_type = 1 AND items.num_available > 0 AND (items.class IN (1,2,3)) AND (items.type IN (0,1,2)) AND (items.level IN (1,40,80))").order("class, sort")  
   scope :pending_merit_abilities, where("items.sort > 0 AND items.currency_type = 1 AND items.num_available > 0 AND (items.class IN (1,2,3)) AND (items.type IN (20,21,22)) AND (items.level IN (1,40,80))").order("id")  
 
-  
-  before_validation :set_defaults
-  
-  ### Not allowed to be null: (id and app_id are taken care of by set_defaults)
+  before_validation :set_pending_defaults, :if => "!production?"  
+  before_validation :set_production_defaults, :if => :production?
+
+  ### Not allowed to be null: (id and app_id are taken care of by mysql default)
 
   validates :type, :presence => true, :inclusion => { :in => [0,1,2,3,4,20,21,22], :message => "%{value} is not a valid item type" }
-                    
-  validates :price, :presence => true, :numericality => true
-                    
-  validates :currency_type, :presence => true, :inclusion => { :in => %w(0 1) }
   
-  validates :upkeep, :presence => true, :numericality => true
+  # mysql defaults to 0.00
+  validates :price, :presence => true, :numericality => true 
   
-  validates :attack, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 6}
-                    
-  validates :defense, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 5}  
+  # mysql defaults to 1
+  validates :currency_type, :presence => true, :inclusion => { :in => %w(0 1) } 
+  
+  # mysql defaults to 0.00
+  validates :upkeep, :presence => true, :numericality => true 
+  
+  # mysql defaults to 0 
+  validates :attack, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 6} 
 
+  # mysql defaults to 0                   
+  validates :defense, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 5} 
+
+  # mysql defaults to 0 
   validates :agility, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 6}
-                    
-  validates :num_available, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 6}
-                    
-  validates :level, :presence => true, :numericality => { :only_integer => true }
-                    
-  validates :ability_element_id, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 6}
-                    
-  validates :rarity, :presence => true, :inclusion => { :in => [0,1,2], :message => "%{value} is not a valid rarity type" }
-
-  # only req for attack (type = 0) merit abilities, otherwise defaults to 0
-  validates :item_category_id, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 5}
   
-  # default to 1 even though not used for stock merit abilities
+  # mysql defaults to -1
+  validates :num_available, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 6} 
+  
+  # mysql defaults to 1
+  validates :level, :presence => true, :numericality => { :only_integer => true } 
+
+  # mysql defaults to 0
+  validates :ability_element_id, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 6} 
+  
+  # mysql defaults to 2
+  validates :rarity, :presence => true, :inclusion => { :in => [0,1,2], :message => "%{value} is not a valid rarity type" } 
+
+  # only req for attack (type = 0) merit abilities, otherwise mysql defaults to 0
+  validates :item_category_id, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 5} 
+  
+  # mysql defaults to 1 even though not used for stock merit abilities
   validates :apply_discount, :inclusion => { :in => [1, 0] }
   
   
-  ### Allowed to be null by db:
+  ### Allowed to be null by db, but needed for stock merit abilities:
   
   validates :name, :presence => true, :length => {:minimum => 1, :maximum => 60}
                     
-  validates :description, :presence => true
-                    
-  validates :photo, :presence => true, :length => {:minimum => 1, :maximum => 200}
+  validates :description, :presence => true, :if => :production?
+                                
+  validates :photo, :presence => true, :length => {:minimum => 1, :maximum => 200}, :if => :production?
   
-  validates :sort, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 5}
+  validates :sort, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 5}, :if => :production?
    
   validates :klass, :presence => true, :inclusion => { :in => [0,1,2,3], :message => "%{value} is not a valid class type" }
   
   
-  ## Not used for stock merit abilities:
+  ## Allowed to be null, not used for stock merit abilities:
 
   #validates :available_on, :presence => true
                     
@@ -81,6 +91,10 @@ class Item < ActiveRecord::Base
                     
   #validates :sell_isolated, :inclusion => { :in => [true, false] }
          
+         
+  def production?
+    %w[0 1 2 3 4].include? type.to_s
+  end
 
 
   def self.search(search)
@@ -91,65 +105,83 @@ class Item < ActiveRecord::Base
     end
   end
   
+  def set_pending_defaults
+    # num_available mysql defaults to -1. We need a number greater than 0 for our index view query to work well
+    # if doesn't matter if we hardcode this value for pending items since this value will default to something else
+    # when the item is turned into a production item later.
+    self.num_available = 1
+    self.sort = 1
+    self.attack ||= 1
+    self.defense ||= 1
+    self.agility ||= 1    
+  end
   
   # this is called before item validation
-  def set_defaults    
+  def set_production_defaults    
     # set defaults for stock merit abilities. Overwriting mysql column defaults if new record, 
     # otherwise accept edit params
-    if self.currency_type == "1"      
+    if self.currency_type == "1" && (self.new_record? or class_or_type_change?)
       if self.klass == 1 && self.type == 0
-        self.sort = self.new_record? ? set_sort(self.klass,self.type) : self.sort
-        self.price = self.new_record? ? 25.0 : self.price         
-        self.num_available = self.new_record? ? 7000 : self.num_available 
-        self.level = self.new_record? ? 1 : self.level        
+        self.sort = set_sort(self.klass,self.type)
+        self.price = 25.0         
+        self.num_available = 7000
+        self.level = 1       
       elsif self.klass == 1 && self.type == 1
-        self.sort = self.new_record? ? set_sort(self.klass,self.type) : self.sort 
-        self.price = self.new_record? ? 20.0 : self.price        
-        self.num_available = self.new_record? ? 7000 : self.num_available
-        self.level = self.new_record? ? 1 : self.level             
+        self.sort = set_sort(self.klass,self.type) 
+        self.price = 20.0        
+        self.num_available = 7000
+        self.level = 1            
       elsif self.klass == 1 && self.type == 2
-        self.sort = self.new_record? ? set_sort(self.klass,self.type) : self.sort 
-        self.price = self.new_record? ? 35.0 : self.price        
-        self.num_available = self.new_record? ? 3500 : self.num_available
-        self.level = self.new_record? ? 1 : self.level              
+        self.sort = set_sort(self.klass,self.type) 
+        self.price = 35.0        
+        self.num_available = 3500
+        self.level = 1             
       elsif self.klass == 2 && self.type == 0
-        self.sort = self.new_record? ? set_sort(self.klass,self.type) : self.sort 
-        self.price = self.new_record? ? 35.0 : self.price        
-        self.num_available = self.new_record? ? 3000 : self.num_available
-        self.level = self.new_record? ? 40 : self.level              
+        self.sort = set_sort(self.klass,self.type) 
+        self.price = 35.0        
+        self.num_available = 3000
+        self.level = 40             
       elsif self.klass == 2 && self.type == 1
-        self.sort = self.new_record? ? set_sort(self.klass,self.type) : self.sort 
-        self.price = self.new_record? ? 30.0 : self.price        
-        self.num_available = self.new_record? ? 3000 : self.num_available
-        self.level = self.new_record? ? 40 : self.level               
+        self.sort = set_sort(self.klass,self.type) 
+        self.price = 30.0        
+        self.num_available = 3000
+        self.level = 40              
       elsif self.klass == 2 && self.type == 2
-        self.sort = self.new_record? ? set_sort(self.klass,self.type) : self.sort 
-        self.price = self.new_record? ? 53.0 : self.price        
-        self.num_available = self.new_record? ? 3000 : self.num_available
-        self.level = self.new_record? ? 40 : self.level               
+        self.sort = set_sort(self.klass,self.type) 
+        self.price = 53.0        
+        self.num_available = 3000
+        self.level = 40              
       elsif self.klass == 3 && self.type == 0
-        self.sort = self.new_record? ? set_sort(self.klass,self.type) : self.sort 
-        self.price = self.new_record? ? 45.0 : self.price        
-        self.num_available = self.new_record? ? 3500 : self.num_available
-        self.level = self.new_record? ? 80 : self.level               
+        self.sort = set_sort(self.klass,self.type) 
+        self.price = 45.0        
+        self.num_available = 3500
+        self.level = 80              
       elsif self.klass == 3 && self.type == 1
-        self.sort = self.new_record? ? set_sort(self.klass,self.type) : self.sort 
-        self.price = self.new_record? ? 40.0 : self.price        
-        self.num_available = self.new_record? ? 3500 : self.num_available
-        self.level = self.new_record? ? 80 : self.level              
+        self.sort = set_sort(self.klass,self.type) 
+        self.price = 40.0        
+        self.num_available = 3500
+        self.level = 80             
       elsif self.klass == 3 && self.type == 2        
-        self.sort = self.new_record? ? set_sort(self.klass,self.type) : self.sort 
-        self.price = self.new_record? ? 68.0 : self.price        
-        self.num_available = self.new_record? ? 3500 : self.num_available
-        self.level = self.new_record? ? 80 : self.level              
+        self.sort = set_sort(self.klass,self.type) 
+        self.price = 68.0        
+        self.num_available = 3500
+        self.level = 80             
       end
     else
       # for non-merit abilities, will differentiate further later   
     end
   end  
   
+  def class_or_type_change?
+    # compare to this item's last saved type
+    last_save = Item.where("id = ?", self.id).first
+    (![self.type].include? last_save.type) or (![self.klass].include? last_save.klass)
+  end
+  
   def set_sort(c, t)
-    # increment from last item of same class and type
+    # increment from last item of same class and type. 
     self.sort = Item.where("class = ? AND type = ? AND num_available > 0", c, t).last.sort + 1
+    # There should always be a last item in production, but we'll default to 70
+    self.sort ||= 70
   end
 end

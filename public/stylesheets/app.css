@@ -307,7 +307,7 @@ img
     -moz-border-radius: 0.25em 0.25em 0.25em 0.25em;
     border: 1px solid #D9D9D9;
     margin-bottom: 1.667em;
-    padding: 1.667em 1em 1em;
+    padding: 1.667em 1em .867em;
 }
 
 /* tooltip styling. by default the element to be styled is .tooltip  */

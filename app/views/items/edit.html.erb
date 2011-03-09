@@ -47,7 +47,9 @@
 		  <div class="block-border">  
 				<div class="block-content" id="edit_item">			
           <h1><%= item_label(@item) %>
+          <% if (can? :manage, @item) or (%w[20 21 22].include? @item.type.to_s) %>                      
             <%= link_to image_tag("icons/fugue/cross-circle.png", :size => "16x16", :alt => "Delete item") + " delete", item_path(@item), :confirm => 'Are you sure?', :method => :delete %>
+          <% end %>                      
           </h1>
           <%= render 'form' %>
         </div>

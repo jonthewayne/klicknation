@@ -45,7 +45,7 @@
 		<section class="grid_12">
 		  <div class="block-border">  
 				<div class="block-content" id="production">			
-          <h1>Production<%= link_to image_tag("icons/fugue/plus-circle-blue.png", :size => "16x16", :alt => "Add new merit ability") + " new", new_item_path %></h1>
+          <h1>Production<% if @current_admin_tool_user.roles.include?('super_admin') or @current_admin_tool_user.roles.include?('superhero_city_admin') %><%= link_to image_tag("icons/fugue/plus-circle-blue.png", :size => "16x16", :alt => "Add new merit ability") + " new", new_item_path %><% end %></h1>
           <div class="columns">		    	
             <%= render 'production_grid' %>
           </div>          
@@ -58,7 +58,7 @@
 		<section class="grid_12">
 		  <div class="block-border">
 		    <div class="block-content" id="pending">  
-          <h1>Pending<%= link_to image_tag("icons/fugue/plus-circle-blue.png", :size => "16x16", :alt => "Add new merit ability") + " new", new_item_path %></h1>
+          <h1>Pending<%= link_to image_tag("icons/fugue/plus-circle-blue.png", :size => "16x16", :alt => "Add new merit ability") + " new", new_item_path(:t=>20) %></h1>
           <div class="columns">				
             <%= render 'pending_grid' %>
           </div>

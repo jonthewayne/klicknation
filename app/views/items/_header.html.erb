@@ -12,7 +12,7 @@
 	<nav id="main-nav">
 		<ul class="container_12">
 			<li class="home" title="Home"><a href="#" title=""></a></li>
-			<% if can? :manage, @admin_tool_user %><li class="shc current" title="Superhero City"><%= link_to "", items_path %></li><% end %>
+			<% if can? :read, Item %><li class="shc current" title="Superhero City"><%= link_to "", items_path %></li><% end %>
 			<% if can? :manage, @admin_tool_user %><li class="users" title="Admin Users"><%= link_to "", admin_tool_users_path %></li><% end %>
 		</ul>
 	</nav>

@@ -25,7 +25,6 @@ class ItemsController < ApplicationController
   # GET /shc/items/new.xml
   def new
     set_defaults_from_params      
-    @item.set_defaults
     set_new_view_defaults
     
     respond_to do |format|
@@ -43,8 +42,8 @@ class ItemsController < ApplicationController
   # POST /shc/items.xml
   def create        
     respond_to do |format|
-      # certain type values can only be made by admins
-      if ((%w[0 1 2 3 4].include? @item.type.to_s) ? (can? :manage, @item) : true) && @item.save
+      # certain type values can only be used by admins
+      if @item.save # ((%w[0 1 2 3 4].include? @item.type.to_s) ? (can? :manage, @item) : true) && @item.save
         format.html { redirect_to(edit_item_url(@item), :notice => 'Item was successfully created.') }
         format.xml  { render :xml => @item, :status => :created, :location => @item }
       else
@@ -58,7 +57,8 @@ class ItemsController < ApplicationController
   # PUT /shc/items/1.xml
   def update
     respond_to do |format|
-      if @item.update_attributes(params[:item])
+      # certain type values can only be used by admins      
+      if @item.update_attributes(params[:item]) #((%w[0 1 2 3 4].include? @item.type.to_s) ? (can? :manage, @item) : true) && @item.update_attributes(params[:item])
         format.html { redirect_to(edit_item_url(@item), :notice => 'Item was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -87,7 +87,7 @@ class ItemsController < ApplicationController
   # set defaults for new action view
   def set_defaults_from_params
     # use ||= so that if new or edit reloaded after validation error, nothing is overwritten
-    @item.type ||= params[:t] ? params[:t] : 0 # one of 0,1,2,3,4,20,21,21 will usually be passed in
+    @item.type ||= (can? :manage, @item) ? (params[:t] ? params[:t] : 0) : 20 # one of 0,1,2,3,4,20,21,21 will usually be passed in. If not, use 0 for admins and 20 for contributors.
     @item.klass ||= params[:c] ? params[:c] : 1 # for merit abilities 0,1,2,3 will usually be passed in, otherwise we'll set it to 1
     @item.currency_type ||= params[:ct] # defaults to "1" from mysql
   end
@@ -111,9 +111,9 @@ class ItemsController < ApplicationController
     # when called from destroy method, @items isn't created by cancan method, so create it.
     # grabbing merit abilities
     if @items    
-      @items = @items.production_merit_abilities
+      @items = @items.all_merit_abilities
     else
-      @items = Item.production_merit_abilities
+      @items = Item.all_merit_abilities
     end
   end
   def get_pending_items

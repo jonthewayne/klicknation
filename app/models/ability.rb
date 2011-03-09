@@ -5,6 +5,12 @@ class Ability
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)
+
+    # Cancan by default maps :create to cover the new and create actions- :update covers edit and update actions
+    # In this app, we often let users view the new or edit actions, but not be able to use create or update controller actions
+    # We have to set custom aliases to allow this behavior 
+    alias_action :new, :to => :view_new
+    alias_action :edit, :to => :view_edit
     
     # give super admins complete access
     if user.roles.include?('super_admin')
@@ -14,10 +20,11 @@ class Ability
       # allow non super admin to update their own user record
       can :update, AdminToolUser, :id => user.id
     elsif user.roles.include?('superhero_city_contributor')
-      can :contribute_to_shc, :all
-      can :read, Item
+      #can :read, Item
+      can [:read, :view_new, :view_edit], Item
       # allow contributors to manage pending items only
-      can [:create, :update, :destroy], Item, :type => 20..22
+      can [:destroy, :create, :update], Item, :type => 20..22
+      #can [:destroy], Item, :type => 20..22      
     else
       # allow non super admin to update their own user record
       can :update, AdminToolUser, :id => user.id      
