@@ -24,7 +24,17 @@ class AdminToolUser < ActiveRecord::Base
   
   def self.search(search)
     if search
-      where('last_name LIKE ?', "%#{search}%") 
+      # postgre db on heroku uses ILIKE for case-insensitive searching
+      if Rails.env.production?
+        # on heroku I can check to see if we're using postgre 
+        if ENV['DATABASE_URL'].include? 'postgre'
+          where('last_name ILIKE ?', "%#{search}%")
+        else # otherwise we're using klicknation's mysql server
+          where('last_name LIKE ?', "%#{search}%")
+        end
+      elsif Rails.env.development?
+        where('last_name LIKE ?', "%#{search}%")
+      end
     else
       scoped
     end

@@ -1,5 +1,12 @@
 <% @items.each do |item| %>       
-  <% if (item.klass == c && item.type == t) or ((%w[20 21 22].include? item.type.to_s) && item.type == t) %>     
-    <%= link_to(image_tag(item.photo, :size => "70x70", :class => "with-tip tip-#{tipdir}", :alt => "#{item.name} ", :title => "#{item.name} // ID:#{item.id} // Quantity:#{item.num_available} // Sort:#{item.sort}"), edit_item_path(item)) if item.photo %>
+  <% if (item.klass == c && item.type == t) or ((%w[20 21 22].include? item.type.to_s) && item.type == t) %> 
+    <span class="img-wrapper">
+      <% if item.photo && item.photo != "" %>
+        <%= link_to(image_tag(item.photo, :size => "70x70", :class => "with-tip tip-#{tipdir}", :alt => "#{item.name} ", :title => "#{item.name} // ID:#{item.id} // Quantity:#{item.num_available} // Sort:#{item.sort}"), edit_item_path(item)) %>
+      <% else %>
+        <%= link_to(image_tag("/images/icons/blockdevice.png", :size => "70x70", :class => "with-tip tip-#{tipdir}", :alt => "#{item.name} ", :title => "#{item.name} // ID:#{item.id}"), edit_item_path(item)) %>      
+      <% end %>  
+      <% unless (%w[20 21 22].include? item.type.to_s) %><span class="superscript"><%= item.num_available %></span><% end %>
+    </span>      
   <% end %>
 <% end %>
