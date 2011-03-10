@@ -1,4 +1,4 @@
-	<%= render 'header' %>
+	<%= render 'shared/header', :current => 'shc' %>
     
   <!-- Status bar -->
 	<div id="status-bar"><div class="container_12">
@@ -10,15 +10,9 @@
 		</ul>
 		
 		<ul id="breadcrumb">
-		  <li></li>
-      <li><%= link_to "Production Stock Merit Abilities", items_path %></li>
+		  <li><%= link_to "Dashboard", shc_path %></li>
+      <li><a title="Viewing Stock Merit Abilities" href="#">Viewing Stock Merit Abilities</a></li>
 		</ul>
-		<ul id="breadcrumb">
-      <li><%= link_to "Pending Stock Merit Abilities", pending_items_path %></li>
-		</ul>       
-		<ul id="breadcrumb">
-      <li><%= link_to "Item Categories", item_categories_path %></li>
-		</ul>    
 	
 	</div></div>
 	<!-- End status bar -->

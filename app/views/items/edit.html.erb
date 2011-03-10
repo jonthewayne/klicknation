@@ -1,4 +1,4 @@
-	<%= render 'header' %>
+	<%= render 'shared/header', :current => 'shc' %>
   
   <!-- Status bar -->
 	<div id="status-bar"><div class="container_12">
@@ -10,11 +10,12 @@
 		</ul>
 		
 		<ul id="breadcrumb">
+		  <li><%= link_to "Dashboard", shc_path %></li>
       <li><%= link_to "Stock Merit Abilities", items_path %></li>
       <% if @item.currency_type.to_s == "1" %>
-        <li><a title="Editing stock merit ability..." href="#">Editing stock merit ability...</a></li>      
+        <li><a title="Editing Stock Merit Ability" href="#">Editing Stock Merit Ability</a></li>      
       <% else %>
-        <li><a title="Editing item..." href="#">Editing item...</a></li>      
+        <li><a title="Editing Item" href="#">Editing Item</a></li>      
       <% end %>
 		</ul>
 	

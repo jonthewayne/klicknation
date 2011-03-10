@@ -1,18 +1,20 @@
 Klicknation::Application.routes.draw do
 
-  resources :items, :path => 'shc/items' do
-    collection do
-      get 'pending'
+  scope "/shc" do
+    resources :items do
+      get 'pending', :on => :collection
     end
   end
-
+  
+  resources :item_categories, :path => 'shc/item-categories' 
+  
   devise_for :admin_tool_users, :path => "", :path_names => { :sign_in => 'login', :sign_out => 'logout' }
 
-  resources :pieces
-  
   resources :admin_tool_users, :path => 'users'
   
-  resources :item_categories, :path => 'shc/item-categories'  
+  resources :pieces 
+  
+  match 'shc' => 'dashboard#shc'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -63,7 +65,7 @@ Klicknation::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => "items#index"
+  root :to => redirect('/shc') #'dashboard#shc' 
 
   # See how all your routes lay out with "rake routes"
 

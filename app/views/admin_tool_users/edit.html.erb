@@ -1,4 +1,4 @@
-	<%= render 'header' %>
+	<%= render 'shared/header', :current => 'users' %>
   
   <!-- Status bar -->
 	<div id="status-bar"><div class="container_12">
@@ -12,10 +12,10 @@
 		<ul id="breadcrumb">
       <% if can? :manage, @admin_tool_user %>
       <li><%= link_to "Admin Users", admin_tool_users_path %></li>
-      <li><a title="Editing admin user..." href="#">Editing admin user...</a></li>
+      <li><a title="Editing Admin User" href="#">Editing Admin User</a></li>
       <% else %>
       <li></li>
-      <li><a title="Editing admin user..." href="#">Editing your account...</a></li>      
+      <li><a title="Editing Your Account" href="#">Editing Your Account</a></li>      
       <% end %>
 		</ul>
 	
