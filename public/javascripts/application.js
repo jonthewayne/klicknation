@@ -1,4 +1,5 @@
 $(function() {
+  // index view js
   $("#resources th a, #pagination a").live("click", function() {
     $.getScript(this.href);
     return false;
@@ -8,6 +9,7 @@ $(function() {
     return false;
   });
   
+  // live update the item card display
   $('#item_name').keyup(function() {
       $('#ability_name_output').text($(this).val());
   });
@@ -22,5 +24,43 @@ $(function() {
   });    
   $('#item_agility').keyup(function() {
       $('#item_agility_output').text($(this).val());
+  });   
+  
+  // create come helper functions
+  function type_label(type) {
+    return "attack defense movement 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 attack defense movement".split(" ")[type]
+    // a = new Array(17); a.splice(0, 0, 'attack', 'defense', 'movement'); a.push('attack', 'defense', 'movement'); a[type]
+  }
+  function ability_label(ability_id) {
+    return "none fire water air kinetic tech earth psychic light dark".split(" ")[ability_id]
+  }
+  function class_label(klass) {
+    return "special alpha gamma omega".split(" ")[klass]
+  }
+  
+  $('#item_type').change(function() {
+    // hide or show item category dropdown depending on the item type dropdown
+    var x = $(this).val();
+    if (x != 0 && x != 20) {
+        $('label[for=item_Item Category], #item_item_category_id').hide();
+    } 
+    else {
+        $('label[for=item_Item Category], #item_item_category_id').show();
+    }  
+    
+    // change the card display type class depending on the item type dropdown
+    $('#ability_card_type').removeClass().addClass('ability_card card_' + type_label(x));
+  });  
+  
+  $('#item_klass').change(function() {
+    var x = $(this).val();
+    // change the card display border class depending on the item klass dropdown
+    $('#ability_card_border').removeClass().addClass('ability_border class_' + class_label(x));    
+  }); 
+  
+  $('#item_ability_element_id').change(function() {
+    var x = $(this).val();
+    // change the card display label class depending on the item type dropdown
+    $('#ability_card_label').removeClass().addClass('ability_label type_' + ability_label(x));   
   });     
 });
