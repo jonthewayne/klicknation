@@ -4,7 +4,9 @@ module ItemsHelper
   end
   
   def ability_label(ability_id)
-    %w(None Fire Water Air Kinetic Tech Earth Psychic Light Dark)[ability_id]
+    # there is no 0 ability id, but when it is nil, it selects the 0 index, so we'll use it to match with 
+    # the drop down default of Fire 
+    %w(Fire Fire Water Air Kinetic Tech Earth Psychic Light Dark)[ability_id]
   end  
   
   def class_label(klass)
