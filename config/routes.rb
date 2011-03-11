@@ -63,9 +63,9 @@ Klicknation::Application.routes.draw do
   #     resources :products
   #   end
 
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
-  root :to => redirect('/shc') #'dashboard#shc' 
+  # redirect('/shc') goes to dashboard. 'dashboard#shc' goes to same place but doesn't show it in url
+  # I'm redirecting to items index for now, since that is the most used feature.
+  root :to => redirect('/shc/items')
 
   # See how all your routes lay out with "rake routes"
 
