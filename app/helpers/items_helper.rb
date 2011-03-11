@@ -4,8 +4,8 @@ module ItemsHelper
   end
   
   def ability_label(ability_id)
-    # there is no 0 ability id, but when it is nil, it selects the 0 index, so we'll use it to match with 
-    # the drop down default of Fire 
+    # this mysql defaults to 0, but the first value is 1, so let's make 0 index dup index 1 so it matches 
+    # the drop down in the view
     %w(Fire Fire Water Air Kinetic Tech Earth Psychic Light Dark)[ability_id]
   end  
   
