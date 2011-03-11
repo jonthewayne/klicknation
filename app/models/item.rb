@@ -14,7 +14,17 @@ class Item < ActiveRecord::Base
     self[:class]
   end
   
-  mount_uploader :photo, PhotoUploader
+  # map image attr to photo attr so I can store a full custom url in photo, and yet 
+  def image= value
+    full_url = "http://assets100.klicknation.com/apps/heros/assets/abilities/" + %w(attack defense movement).insert(20,"attack","defense","movement")[self[:type].to_i] + "/#{value}" 
+    self[:photo] = full_url
+  end
+
+  def image
+    self[:photo].split('/').last
+  end
+  
+  mount_uploader :image, ImageUploader
 
   scope :all_merit_abilities, where("items.sort > 0 AND items.currency_type = 1 AND items.num_available > 0 AND (items.class IN (1,2,3)) AND (items.type IN (0,1,2,20,21,22)) AND (items.level IN (1,40,80))").order("class, sort")  
   scope :production_merit_abilities, where("items.sort > 0 AND items.currency_type = 1 AND items.num_available > 0 AND (items.class IN (1,2,3)) AND (items.type IN (0,1,2)) AND (items.level IN (1,40,80))").order("class, sort")  
