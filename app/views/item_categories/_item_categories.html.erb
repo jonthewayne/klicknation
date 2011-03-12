@@ -18,7 +18,7 @@
 								</span>
 								Category
 							</th>                
-							<th scope="col" class="table-actions" width="50">Actions</th>
+							<% if can? :manage, ItemCategory %><th scope="col" class="table-actions" width="50">Actions</th><% end %>
 						</tr>
 					</thead>
 					
@@ -27,10 +27,12 @@
 						<tr>
 							<td><%= link_to item_category.id, edit_item_category_path(item_category) %></td>
 							<td><%= item_category.category %></td>                                                                 
-							<td class="table-actions">
+							<% if can? :manage, ItemCategory %>
+              <td class="table-actions">
         			  <%= link_to image_tag("icons/fugue/pencil.png", :size => "16x16", :alt => "Edit item category"), edit_item_category_path(item_category) %>
 								<%= link_to image_tag("icons/fugue/cross-circle.png", :size => "16x16", :alt => "Delete item category"), item_category_path(item_category, :direction => sort_direction, :sort => sort_column, :page => params[:page], :search => params[:search]), :confirm => 'Are you sure?', :method => :delete, :remote => true %>
 							</td>
+              <% end %>
 						</tr>
             <% end %>
 					</tbody>

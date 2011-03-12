@@ -43,8 +43,8 @@
                   Item Related
                 </div>
                 <ul class="bullet-list">
-                  <li><%= link_to "Stock Merit Abilities", items_path %></li>
-                  <li><%= link_to "Item Categories", item_categories_path %></li>
+                  <% if can? :read, Item %><li><%= link_to "Stock Merit Abilities", items_path %></li><% end %>
+                  <% if can? :read, ItemCategory %><li><%= link_to "Item Categories", item_categories_path %></li><% end %>
                 </ul>
               </div> 
             </div>
