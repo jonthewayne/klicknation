@@ -17,10 +17,11 @@ class Ability
       can :manage, :all
     elsif user.roles.include?('superhero_city_admin')
       can :manage, Item
+      can :manage, ItemCategory
       # allow non super admin to update their own user record
       can :update, AdminToolUser, :id => user.id
     elsif user.roles.include?('superhero_city_contributor')
-      #can :read, Item
+      can :read, ItemCategory
       can [:read, :view_new, :view_edit], Item
       # allow contributors to manage pending items only
       can [:destroy, :create, :update], Item, :type => 20..22
