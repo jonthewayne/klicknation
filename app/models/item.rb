@@ -16,7 +16,8 @@ class Item < ActiveRecord::Base
   
   # map image attr to photo attr so I can store a full custom url in photo, and yet 
   def image= value
-    full_url = "http://assets100.klicknation.com/apps/heros/assets/abilities/" + %w(attack defense movement).insert(20,"attack","defense","movement")[self[:type].to_i] + "/#{value}" 
+    # For storing on klicknation use assets100.klicknation.com instead of s3.amazonaws.com
+    full_url = "http://s3.amazonaws.com/apps/heros/assets/abilities/" + %w(attack defense movement).insert(20,"attack","defense","movement")[self[:type].to_i] + "/#{value}"     
     self[:photo] = full_url
   end
 

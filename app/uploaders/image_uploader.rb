@@ -13,7 +13,8 @@ class ImageUploader < CarrierWave::Uploader::Base
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    #"uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    "apps/heros/assets/abilities/" + %w(attack defense movement).insert(20,"attack","defense","movement")[model.type.to_i]
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
@@ -43,5 +44,26 @@ class ImageUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
-
 end
+
+# monkey patch version.rb so that I can have file versions saved as filename_version.ext instead of version_filename.ext
+module CarrierWave
+  module Uploader
+    module Versions
+      private
+      def full_filename(for_file)
+        # [version_name, super(for_file)].compact.join('_') 
+        the_filename = super(for_file)
+        version_name ? (the_filename.split('.').first + "_" + version_name + "." + the_filename.split('.').last) : the_filename
+      end
+
+      def full_original_filename
+        # [version_name, super].compact.join('_')
+        the_filename = super
+        version_name ? (the_filename.split('.').first + "_" + version_name + "." + the_filename.split('.').last) : the_filename        
+      end
+    end # Versions
+  end # Uploader
+end # CarrierWave
+    end
+
