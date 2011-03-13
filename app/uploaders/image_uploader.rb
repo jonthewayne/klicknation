@@ -65,5 +65,5 @@ module CarrierWave
     end # Versions
   end # Uploader
 end # CarrierWave
-    end
+
 
