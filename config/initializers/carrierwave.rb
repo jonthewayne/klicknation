@@ -1,4 +1,7 @@
 CarrierWave.configure do |config|
+  config.root = Rails.root.join('tmp') # for carrierwave to work on heroku
+  config.cache_dir = 'uploads' # for carrierwave to work on heroku
+  
   config.s3_access_key_id = '0AB2FSRPBZ089M8Q87G2' # klicknation: AKIAJWZ76CTUQP7JPEYQ
   config.s3_secret_access_key = '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' # klicknation: vcMvUSIeD24QO6RWkSjmDjPvaejbMCBbg6WbrX8t
   config.s3_bucket = 'klicknation-test' # klicknation: assets100.klicknation.com

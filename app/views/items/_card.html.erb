@@ -15,7 +15,9 @@
 		  
       <div class="ability_image">
         <% if @item.photo && @item.photo.to_s != "" %>
-        <img width="150" height="150" id="item_photo_output" style="width:150px;height:150px;" src="<%= @item.photo.strip.insert(-5, '_card') %>">
+          <img width="150" height="150" id="item_photo_output" style="width:150px;height:150px;" src="<%= @item.photo.strip.insert(-5, '_card') %>">
+        <% elsif @item.image? %>
+          <%= image_tag(@item.image_url, :size => "70x70") %>
         <% end %>
       </div>
 			
