@@ -42,9 +42,10 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   # Override the filename of the uploaded files:
-  # def filename
-  #   "something.jpg" if original_filename
-  # end
+  def filename
+    @tempname ||= ActiveSupport::SecureRandom.hex
+    "#{File.extname(original_filename).downcase}#{@tempname}" if original_filename
+  end
 end
 
 # monkey patch version.rb so that I can have file versions saved as filename_version.ext instead of version_filename.ext
