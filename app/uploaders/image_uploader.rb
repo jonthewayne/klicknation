@@ -25,16 +25,20 @@ class ImageUploader < CarrierWave::Uploader::Base
   # end
 
   # Process files as they are uploaded:
-  #process :resize_to_fill => [150,150]
+  #process :resize_to_fill => [90,90]
 
   # def scale(width, height)
   #   # do something
   # end
 
   # Create different versions of your uploaded files:
-  #version :card do
-  #  process :resize_to_fill => [150,150]
-  #end
+  version :original do
+    #process :resize_to_fill => [90,90]
+  end
+  
+  version :card do
+    #process :resize_to_fill => [90,90]
+  end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
@@ -44,26 +48,38 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   # Override the filename of the uploaded files:
   def filename
-    @last_item = model.new_record? ? Item.last.id + 1 : model.id
-    "#{@last_item}-#{Digest::MD5.hexdigest("#{@last_item}")[0,6]}.#{original_filename.split('.').last}" if original_filename
-  end
-end
-
-module CarrierWave
-  module Mount
-    class Mounter
-      # this allows me to store the full url in the photo column, instead of just the file name
-      def write_identifier
-        if remove?
-          record.write_uploader(serialization_column, '')
-        elsif not uploader.identifier.blank?
-          f = CarrierWave::Storage::S3::File.new(uploader, self, uploader.store_path)
-          record.write_uploader(serialization_column, f.public_url)
-        end
+    if original_filename
+      if model.new_record?
+        # last id + 1 will always be an id that's as yet unassociated with any other item
+        "#{Digest::MD5.hexdigest("#{Item.last.id + 1}")[0,10]}.#{original_filename.split('.').last}"
+      else
+        # for exisiting records, use current photo's name or create a name off model id if photo's empty
+        (model[:photo] && model[:photo] != '') ? model[:photo].split('/').last : "#{Digest::MD5.hexdigest("#{model.id + 1}")[0,10]}.#{original_filename.split('.').last}"
       end
     end
   end
+  
+  # override identifier to store full url instead of just filename
+  def identifier
+    url
+  end
 end
+
+#module CarrierWave
+#  module Mount
+#    class Mounter
+      # this allows me to store the full url in the photo column, instead of just the file name
+#      def write_identifier
+#        if remove?
+#          record.write_uploader(serialization_column, '')
+#        elsif not uploader.identifier.blank?
+#          f = CarrierWave::Storage::S3::File.new(uploader, self, uploader.store_path)
+#          record.write_uploader(serialization_column, f.public_url)
+#        end
+#      end
+#    end
+#  end
+#end
 
 module CarrierWave
   module Storage   
@@ -76,24 +92,20 @@ module CarrierWave
   end # Storage
 end # CarrierWave
 
-# monkey patch version.rb so that I can have file versions saved as filename_version.ext instead of version_filename.ext
 module CarrierWave
   module Uploader
-    module Versions
-      private
-      def full_filename(for_file)
-        [version_name, super(for_file)].compact.join('_') 
-        #the_filename = super(for_file)
-        #version_name ? (the_filename.split('.').first + "_" + version_name + "." + the_filename.split('.').last) : the_filename
+    module Store
+      def store_path(for_file=filename)
+        the_filename = full_filename(for_file)
+        if (the_version_name = version_name.to_s) != ''
+          # remove version_ from beginning of filename
+          the_filename = the_filename.split("#{the_version_name}_").last
+          the_version_name = (the_version_name.include? "original") ? "" : "_#{the_version_name}"
+          File.join([store_dir, "#{the_filename.split('.').first}#{the_version_name}.#{the_filename.split('.').last}"].compact)
+        else
+          File.join([store_dir, the_filename].compact)
+        end
       end
-
-      def full_original_filename
-        [version_name, super].compact.join('_')
-        #the_filename = super
-        #version_name ? (the_filename.split('.').first + "_" + version_name + "." + the_filename.split('.').last) : the_filename        
-      end
-    end # Versions
+    end # Store
   end # Uploader
-end # CarrierWave 
-
-
+end # CarrierWave
