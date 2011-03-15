@@ -15,8 +15,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
     #"uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
-    #"apps/heros/assets/abilities/" + %w(attack defense movement).insert(20,"attack","defense","movement")[model.type.to_i]
-    "uploads"
+    "apps/heros/assets/abilities/" + %w(attack defense movement).insert(20,"attack","defense","movement")[model.type.to_i]
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
@@ -32,19 +31,19 @@ class ImageUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  version :original do
-    #process :resize_to_fill => [90,90]
+  version :card do
+    #process :resize_to_fill => [150,150]
   end
   
-  version :card do
+  version :original do
     #process :resize_to_fill => [90,90]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
-  #def extension_white_list
-    #%w(jpg jpeg png x-png)
-  #end
+  def extension_white_list
+    %w(jpg jpeg png x-png)
+  end
 
   # Override the filename of the uploaded files:
   def filename
