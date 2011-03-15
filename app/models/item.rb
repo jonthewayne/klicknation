@@ -14,19 +14,25 @@ class Item < ActiveRecord::Base
     self[:class]
   end
   
+  mount_uploader :photo, ImageUploader
+  
+  #before_save :add_url_to_photo
+  
   # map image attr to photo attr so I can store a full custom url in photo, and yet 
-  def image= value
+  #def image= value
     # For storing on klicknation use assets100.klicknation.com instead of s3.amazonaws.com
-    full_url = "http://s3.amazonaws.com/apps/heros/assets/abilities/" + %w(attack defense movement).insert(20,"attack","defense","movement")[self[:type].to_i] + "/#{value}"     
-    self[:photo] = full_url
-  end
+  #  full_url = "http://s3.amazonaws.com/apps/heros/assets/abilities/" + %w(attack defense movement).insert(20,"attack","defense","movement")[self[:type].to_i] + "/#{value}"     
+  #  self[:photo] = full_url
+  #end
 
-  def image
-    self[:photo].split('/').last
+  #def image
+  #  self[:photo].split('/').last
+  #end
+  
+  def add_url_to_photo
+    full_url = "http://s3.amazonaws.com/apps/heros/assets/abilities/" + %w(attack defense movement).insert(20,"attack","defense","movement")[self[:type].to_i] + "/#{value}"     
   end
   
-  mount_uploader :image, ImageUploader
-
   scope :all_merit_abilities, where("items.sort > 0 AND items.currency_type = 1 AND items.num_available > 0 AND (items.class IN (1,2,3)) AND (items.type IN (0,1,2,20,21,22)) AND (items.level IN (1,40,80))").order("class, sort")  
   scope :production_merit_abilities, where("items.sort > 0 AND items.currency_type = 1 AND items.num_available > 0 AND (items.class IN (1,2,3)) AND (items.type IN (0,1,2)) AND (items.level IN (1,40,80))").order("class, sort")  
   scope :pending_merit_abilities, where("items.sort > 0 AND items.currency_type = 1 AND items.num_available > 0 AND (items.class IN (1,2,3)) AND (items.type IN (20,21,22)) AND (items.level IN (1,40,80))").order("id")  
@@ -81,7 +87,7 @@ class Item < ActiveRecord::Base
                     
   validates :description, :presence => true, :if => :production?
                                 
-  validates :photo, :presence => true, :length => {:minimum => 1, :maximum => 200}, :if => :production?
+  validates :photo, :presence => true, :if => :production_photo?
   
   validates :sort, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 5}, :if => :production?
    
@@ -108,6 +114,10 @@ class Item < ActiveRecord::Base
   def production?
     %w[0 1 2 3 4].include? type.to_s
   end
+  
+  def production_photo?
+    production? && !(self[:photo] && self[:photo] != '')
+  end  
 
 
   def self.search(search)

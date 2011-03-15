@@ -14,10 +14,8 @@
       <div class="ability_name" id="ability_name_output"><%= @item.name ? @item.name : 'Card Title Here' %></div>
 		  
       <div class="ability_image">
-        <% if @item.photo && @item.photo.to_s != "" %>
-          <img width="150" height="150" id="item_photo_output" style="width:150px;height:150px;" src="<%= @item.photo.strip.insert(-5, '_card') %>">
-        <% elsif @item.image? %>
-          <%= image_tag(@item.image_url, :size => "70x70") %>
+        <% if @item[:photo] && @item[:photo] != '' %>
+          <%= image_tag(@item[:photo].strip.insert(-5, '_card'), :size => "150x150", :id => 'item_photo_output') %>
         <% end %>
       </div>
 			

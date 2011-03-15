@@ -2,9 +2,9 @@
 
   <% # output class, type, and currency_type as hidden fields %>
   <%= f.hidden_field(:currency_type) %>   
-  <%= f.hidden_field :image_cache %>
+  <%= f.hidden_field :photo_cache %>
    
-
+  <%= ap @item[:photo] %>
   <fieldset>    
       <p>
         <%= f.label :name %>
@@ -16,7 +16,7 @@
         <%= f.text_area :description, :class => "full-width", :rows => "5" %>
       </p>  
       <p>
-        <%= f.label ((@item.image?) ? "Photo (already uloaded)" : "Photo") %>
+        <%= f.label ((@item.photo?) ? "Photo (already uploaded)" : "Photo") %>
         <%= f.file_field :photo, :class => "full-width" %>
       </p>    
       <div class="columns">
