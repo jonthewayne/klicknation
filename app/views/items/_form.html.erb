@@ -16,7 +16,7 @@
         <%= f.text_area :description, :class => "full-width", :rows => "5" %>
       </p>  
       <p>
-        <%= f.label ((@item.photo?) ? "Photo (already uploaded)" : "Photo") %>
+        <%= f.label ((@item.photo?) ? "Photo (last upload cached)" : "Photo") %>
         <%= f.file_field :photo, :class => "full-width" %>
       </p>    
       <div class="columns">

@@ -34,6 +34,10 @@ group :development, :test do
    #gem 'sqlite3-ruby', :require => 'sqlite3'
 end
 
+group :production do
+   gem 'rmagick', :require => 'RMagick' 
+end
+
 # gem "paperclip", "2.3.5" 
 gem "paperclip", :git => "git://github.com/lightyear/paperclip.git"
 gem "aws-s3", :require => 'aws/s3'
@@ -43,4 +47,5 @@ gem 'cancan'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'fog'
+
 
