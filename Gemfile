@@ -35,7 +35,7 @@ group :development, :test do
 end
 
 group :production do
-   gem 'rmagick', :require => 'RMagick' 
+   #gem 'rmagick', :require => 'RMagick' 
 end
 
 # gem "paperclip", "2.3.5" 

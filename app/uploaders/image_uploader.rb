@@ -8,8 +8,8 @@ class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
-  #storage :file
-  storage :s3
+  storage :file
+  #storage :s3
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
@@ -82,9 +82,9 @@ end
 
 module CarrierWave
   module Storage   
-    # I just need to strip the path from my newly changed identifier so that store_path only gets passed a filename
     class S3 < Abstract
       def retrieve!(identifier)
+        # Strip the path from the identifier so that store_path only gets passed the filename it's used to
         CarrierWave::Storage::S3::File.new(uploader, self, uploader.store_path(identifier.split('/').last))
       end  
     end # S3
