@@ -6,12 +6,20 @@
 #  pool: 5
 #  timeout: 5000
 
+#development:
+#  adapter: mysql2
+#  database: klicknation
+#  username: root
+#  password: 
+#  host: localhost #127.0.0.1
+#  encoding: utf8
+  
 development:
   adapter: mysql2
-  database: klicknation
-  username: root
-  password: 
-  host: localhost #127.0.0.1
+  database: 328441_klicknation
+  username: 328441_kn
+  password: 1AppleJack
+  host: 209.61.159.156
   encoding: utf8
 
 # Warning: The database defined as "test" will be erased and
