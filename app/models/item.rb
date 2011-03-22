@@ -54,28 +54,28 @@ class Item < ActiveRecord::Base
   validates :upkeep, :presence => true, :numericality => true 
   
   # mysql defaults to 0 
-  #validates :attack, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 6} 
+  validates :attack, :presence => true, :numericality => { :only_integer => true } #, :length => {:minimum => 1, :maximum => 6} 
 
   # mysql defaults to 0                   
-  #validates :defense, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 5} 
+  validates :defense, :presence => true, :numericality => { :only_integer => true } #, :length => {:minimum => 1, :maximum => 5} 
 
   # mysql defaults to 0 
-  #validates :agility, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 6}
+  validates :agility, :presence => true, :numericality => { :only_integer => true } #, :length => {:minimum => 1, :maximum => 6}
   
   # mysql defaults to -1
-  #validates :num_available, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 6} 
+  validates :num_available, :presence => true, :numericality => { :only_integer => true } #, :length => {:minimum => 1, :maximum => 6} 
   
   # mysql defaults to 1
   validates :level, :presence => true, :numericality => { :only_integer => true } 
 
   # mysql defaults to 0
-  #validates :ability_element_id, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 6} 
+  validates :ability_element_id, :presence => true, :numericality => { :only_integer => true } #, :length => {:minimum => 1, :maximum => 6} 
   
   # mysql defaults to 2
   validates :rarity, :presence => true, :inclusion => { :in => [0,1,2], :message => "%{value} is not a valid rarity type" } 
 
   # only req for attack (type = 0) merit abilities, otherwise mysql defaults to 0
-  #validates :item_category_id, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 5} 
+  validates :item_category_id, :presence => true, :numericality => { :only_integer => true } #, :length => {:minimum => 1, :maximum => 5} 
   
   # mysql defaults to 1 even though not used for stock merit abilities
   validates :apply_discount, :inclusion => { :in => [1, 0] }
@@ -91,7 +91,7 @@ class Item < ActiveRecord::Base
   
   validates :sort, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 5}, :if => :production?
    
-  #validates :klass, :presence => true, :inclusion => { :in => [0,1,2,3], :message => "%{value} is not a valid class type" }
+  validates :klass, :presence => true #, :inclusion => { :in => [0,1,2,3], :message => "%{value} is not a valid class type" }
   
   
   ## Allowed to be null, not used for stock merit abilities:
