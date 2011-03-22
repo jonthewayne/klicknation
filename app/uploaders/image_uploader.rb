@@ -58,10 +58,6 @@ class ImageUploader < CarrierWave::Uploader::Base
     end
   end
   
-  # override identifier to store full url instead of just filename
-  #def identifier
-  #  url.sub(url.split('/').last,'') + filename
-  #end
 end
 
 module CarrierWave
