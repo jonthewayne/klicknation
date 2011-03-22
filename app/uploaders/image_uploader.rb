@@ -59,26 +59,26 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
   
   # override identifier to store full url instead of just filename
-  def identifier
-    url.sub(url.split('/').last,'') + filename
-  end
+  #def identifier
+  #  url.sub(url.split('/').last,'') + filename
+  #end
 end
 
-#module CarrierWave
-#  module Mount
-#    class Mounter
+module CarrierWave
+  module Mount
+    class Mounter
       # this allows me to store the full url in the photo column, instead of just the file name
-#      def write_identifier
-#        if remove?
-#          record.write_uploader(serialization_column, '')
-#        elsif not uploader.identifier.blank?
-#          f = CarrierWave::Storage::S3::File.new(uploader, self, uploader.store_path)
-#          record.write_uploader(serialization_column, f.public_url)
-#        end
-#      end
-#    end
-#  end
-#end
+      def write_identifier
+        if remove?
+          record.write_uploader(serialization_column, '')
+        elsif not uploader.identifier.blank?
+          f = CarrierWave::Storage::S3::File.new(uploader, self, uploader.store_path)
+          record.write_uploader(serialization_column, f.public_url)
+        end
+      end
+    end
+  end
+end
 
 module CarrierWave
   module Storage   
