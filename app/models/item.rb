@@ -89,9 +89,10 @@ class Item < ActiveRecord::Base
                                 
   validates :photo, :presence => true, :if => :production?
   
-  validates :sort, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 5}, :if => :production?
+  validates :sort, :presence => true, :numericality => { :only_integer => true }, :if => :production?
    
-  validates :klass, :presence => true #, :inclusion => { :in => [0,1,2,3], :message => "%{value} is not a valid class type" }
+  # neither validation would work on heroku. 
+  #validates :klass, :presence => true , :inclusion => { :in => [0,1,2,3], :message => "%{value} is not a valid class type" }
   
   
   ## Allowed to be null, not used for stock merit abilities:
