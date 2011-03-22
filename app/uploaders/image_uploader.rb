@@ -8,8 +8,8 @@ class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
-  #storage :file
-  storage :s3
+  storage :file
+  #storage :s3
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
@@ -31,13 +31,13 @@ class ImageUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-  version :card do
-    process :resize_to_fill => [150,150]
-  end
+  #version :card do
+   # process :resize_to_fill => [150,150]
+  #end
   
-  version :original do
-    process :resize_to_fill => [90,90]
-  end
+  #version :original do
+  #  process :resize_to_fill => [90,90]
+  #end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
@@ -52,8 +52,8 @@ class ImageUploader < CarrierWave::Uploader::Base
         # last id + 1 will always be an id that's as yet unassociated with any other item
         "#{Digest::MD5.hexdigest("#{Item.last.id + 1}")[0,10]}.#{original_filename.split('.').last}"
       else
-        # for exisiting records, use current photo's name or create a name off model id if photo's empty
-        (model[:photo] && model[:photo] != '') ? model[:photo].split('/').last : "#{Digest::MD5.hexdigest("#{model.id}")[0,10]}.#{original_filename.split('.').last}"
+        # create a name off model id if photo's empty
+        "#{Digest::MD5.hexdigest("#{model.id}")[0,10]}.#{original_filename.split('.').last}"
       end
     end
   end
