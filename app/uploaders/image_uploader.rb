@@ -8,8 +8,8 @@ class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
-  #storage :file
-  storage :s3
+  storage :file
+  #storage :s3
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
@@ -60,7 +60,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   
   # override identifier to store full url instead of just filename
   def identifier
-    url
+    url.sub(url.split('/').last,'') + filename
   end
 end
 
