@@ -53,7 +53,7 @@ class ImageUploader < CarrierWave::Uploader::Base
         "#{Digest::MD5.hexdigest("#{Item.last.id + 1}")[0,10]}.#{original_filename.split('.').last}"
       else
         # for exisiting records, use current photo's name or create a name off model id if photo's empty
-        (model[:photo] && model[:photo] != '') ? model[:photo].split('/').last : "#{Digest::MD5.hexdigest("#{model.id + 1}")[0,10]}.#{original_filename.split('.').last}"
+        (model[:photo] && model[:photo] != '') ? model[:photo].split('/').last : "#{Digest::MD5.hexdigest("#{model.id}")[0,10]}.#{original_filename.split('.').last}"
       end
     end
   end
@@ -97,7 +97,7 @@ module CarrierWave
       def store_path(for_file=filename)
         the_filename = full_filename(for_file)
         if (the_version_name = version_name.to_s) != ''
-          # remove version_ from beginning of filename
+          # remove version_ from beginning of filename and add it to the end, removing it if "original" version
           the_filename = the_filename.split("#{the_version_name}_").last
           the_version_name = (the_version_name.include? "original") ? "" : "_#{the_version_name}"
           File.join([store_dir, "#{the_filename.split('.').first}#{the_version_name}.#{the_filename.split('.').last}"].compact)
