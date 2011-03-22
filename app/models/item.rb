@@ -87,7 +87,7 @@ class Item < ActiveRecord::Base
                     
   validates :description, :presence => true, :if => :production?
                                 
-  validates :photo, :presence => true, :if => :production_photo?
+  validates :photo, :presence => true, :if => :production?
   
   validates :sort, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 5}, :if => :production?
    
@@ -114,11 +114,6 @@ class Item < ActiveRecord::Base
   def production?
     %w[0 1 2 3 4].include? type.to_s
   end
-  
-  def production_photo?
-    production? && !(self[:photo] && self[:photo] != '')
-  end  
-
 
   def self.search(search)
     if search
