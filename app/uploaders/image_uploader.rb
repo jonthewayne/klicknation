@@ -52,33 +52,29 @@ class ImageUploader < CarrierWave::Uploader::Base
         # last id + 1 will always be an id that's as yet unassociated with any other item
         "#{Digest::MD5.hexdigest("#{Item.last.id + 1}")[0,10]}.#{original_filename.split('.').last}"
       else
-        # for exisiting records, use current photo's name or create a name off model id if photo's empty
-        (model[:photo] && model[:photo] != '') ? model[:photo].split('/').last : "#{Digest::MD5.hexdigest("#{model.id + 1}")[0,10]}.#{original_filename.split('.').last}"
+        # create a name off model id if photo's empty
+        "#{Digest::MD5.hexdigest("#{model.id}")[0,10]}.#{original_filename.split('.').last}"
       end
     end
   end
   
-  # override identifier to store full url instead of just filename
-  def identifier
-    url
-  end
 end
 
-#module CarrierWave
-#  module Mount
-#    class Mounter
+module CarrierWave
+  module Mount
+    class Mounter
       # this allows me to store the full url in the photo column, instead of just the file name
-#      def write_identifier
-#        if remove?
-#          record.write_uploader(serialization_column, '')
-#        elsif not uploader.identifier.blank?
-#          f = CarrierWave::Storage::S3::File.new(uploader, self, uploader.store_path)
-#          record.write_uploader(serialization_column, f.public_url)
-#        end
-#      end
-#    end
-#  end
-#end
+      def write_identifier
+        if remove?
+          record.write_uploader(serialization_column, '')
+        elsif not uploader.identifier.blank?
+          f = CarrierWave::Storage::S3::File.new(uploader, self, uploader.store_path)
+          record.write_uploader(serialization_column, f.public_url)
+        end
+      end
+    end
+  end
+end
 
 module CarrierWave
   module Storage   
@@ -97,7 +93,7 @@ module CarrierWave
       def store_path(for_file=filename)
         the_filename = full_filename(for_file)
         if (the_version_name = version_name.to_s) != ''
-          # remove version_ from beginning of filename
+          # remove version_ from beginning of filename and add it to the end, removing it if "original" version
           the_filename = the_filename.split("#{the_version_name}_").last
           the_version_name = (the_version_name.include? "original") ? "" : "_#{the_version_name}"
           File.join([store_dir, "#{the_filename.split('.').first}#{the_version_name}.#{the_filename.split('.').last}"].compact)

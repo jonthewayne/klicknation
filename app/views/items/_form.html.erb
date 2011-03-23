@@ -1,10 +1,10 @@
 <%= form_for @item, :html => { :multipart => true, :class => "form" } do |f| %>  
 
-  <% # output class, type, and currency_type as hidden fields %>
+  <% # output currency_type as hidden fields %>
   <%= f.hidden_field(:currency_type) %>   
-  <%= f.hidden_field :photo_cache %>
+  <% # f.hidden_field :photo_cache %>
    
-  <%= ap @item[:photo] %>
+
   <fieldset>    
       <p>
         <%= f.label :name %>
@@ -16,7 +16,7 @@
         <%= f.text_area :description, :class => "full-width", :rows => "5" %>
       </p>  
       <p>
-        <%= f.label ((@item.photo?) ? "Photo (last upload cached)" : "Photo") %>
+        <%= f.label ("Photo") %>
         <%= f.file_field :photo, :class => "full-width" %>
       </p>    
       <div class="columns">

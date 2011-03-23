@@ -16,22 +16,6 @@ class Item < ActiveRecord::Base
   
   mount_uploader :photo, ImageUploader
   
-  #before_save :add_url_to_photo
-  
-  # map image attr to photo attr so I can store a full custom url in photo, and yet 
-  #def image= value
-    # For storing on klicknation use assets100.klicknation.com instead of s3.amazonaws.com
-  #  full_url = "http://s3.amazonaws.com/apps/heros/assets/abilities/" + %w(attack defense movement).insert(20,"attack","defense","movement")[self[:type].to_i] + "/#{value}"     
-  #  self[:photo] = full_url
-  #end
-
-  #def image
-  #  self[:photo].split('/').last
-  #end
-  
-  def add_url_to_photo
-    full_url = "http://s3.amazonaws.com/apps/heros/assets/abilities/" + %w(attack defense movement).insert(20,"attack","defense","movement")[self[:type].to_i] + "/#{value}"     
-  end
   
   scope :all_merit_abilities, where("items.sort > 0 AND items.currency_type = 1 AND items.num_available > 0 AND (items.class IN (1,2,3)) AND (items.type IN (0,1,2,20,21,22)) AND (items.level IN (1,40,80))").order("class, sort")  
   scope :production_merit_abilities, where("items.sort > 0 AND items.currency_type = 1 AND items.num_available > 0 AND (items.class IN (1,2,3)) AND (items.type IN (0,1,2)) AND (items.level IN (1,40,80))").order("class, sort")  
@@ -54,28 +38,28 @@ class Item < ActiveRecord::Base
   validates :upkeep, :presence => true, :numericality => true 
   
   # mysql defaults to 0 
-  validates :attack, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 6} 
+  validates :attack, :presence => true, :numericality => { :only_integer => true }
 
   # mysql defaults to 0                   
-  validates :defense, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 5} 
+  validates :defense, :presence => true, :numericality => { :only_integer => true } 
 
   # mysql defaults to 0 
-  validates :agility, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 6}
+  validates :agility, :presence => true, :numericality => { :only_integer => true } 
   
   # mysql defaults to -1
-  validates :num_available, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 6} 
+  validates :num_available, :presence => true, :numericality => { :only_integer => true } 
   
   # mysql defaults to 1
   validates :level, :presence => true, :numericality => { :only_integer => true } 
 
   # mysql defaults to 0
-  validates :ability_element_id, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 6} 
+  validates :ability_element_id, :presence => true, :numericality => { :only_integer => true }
   
   # mysql defaults to 2
   validates :rarity, :presence => true, :inclusion => { :in => [0,1,2], :message => "%{value} is not a valid rarity type" } 
 
   # only req for attack (type = 0) merit abilities, otherwise mysql defaults to 0
-  validates :item_category_id, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 5} 
+  validates :item_category_id, :presence => true, :numericality => { :only_integer => true }
   
   # mysql defaults to 1 even though not used for stock merit abilities
   validates :apply_discount, :inclusion => { :in => [1, 0] }
@@ -87,11 +71,12 @@ class Item < ActiveRecord::Base
                     
   validates :description, :presence => true, :if => :production?
                                 
-  validates :photo, :presence => true, :if => :production_photo?
+  validates :photo, :presence => true, :if => :production?
   
-  validates :sort, :presence => true, :numericality => { :only_integer => true }, :length => {:minimum => 1, :maximum => 5}, :if => :production?
+  validates :sort, :presence => true, :numericality => { :only_integer => true }, :if => :production?
    
-  validates :klass, :presence => true, :inclusion => { :in => [0,1,2,3], :message => "%{value} is not a valid class type" }
+  # neither validation would work on heroku. 
+  #validates :klass, :presence => true , :inclusion => { :in => [0,1,2,3], :message => "%{value} is not a valid class type" }
   
   
   ## Allowed to be null, not used for stock merit abilities:
@@ -114,11 +99,6 @@ class Item < ActiveRecord::Base
   def production?
     %w[0 1 2 3 4].include? type.to_s
   end
-  
-  def production_photo?
-    production? && !(self[:photo] && self[:photo] != '')
-  end  
-
 
   def self.search(search)
     if search
