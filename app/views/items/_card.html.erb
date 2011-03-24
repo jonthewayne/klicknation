@@ -15,7 +15,7 @@
 		  
       <div class="ability_image">
         <% if @item[:photo] && @item[:photo] != '' %>
-          <%= image_tag(@item[:photo].strip.insert(-5, '_card'), :size => "150x150", :id => 'item_photo_output') %>
+          <%= image_tag(@item[:photo].strip.gsub(".#{@item[:photo].strip.split('.').last}","_card.#{@item[:photo].strip.split('.').last}"), :size => "150x150", :id => 'item_photo_output') %>
         <% end %>
       </div>
 			

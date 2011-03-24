@@ -35,6 +35,7 @@ class Item < ActiveRecord::Base
                     :s3_credentials => { :access_key_id => ENV['S3_KEY'] , :secret_access_key => ENV['S3_SECRET']  },
                     :bucket => ENV['S3_BUCKET'],
                     :path => "apps/heros/assets/abilities/:stockitemtype/:stockitemname.:extension",
+                    :url => ":s3_alias_url",
                     :default_url => '/images/icons/fugue/question-white.png'
                     
   validates_attachment_size :image, :less_than => 5.megabytes
