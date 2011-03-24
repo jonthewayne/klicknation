@@ -14,7 +14,23 @@ class Item < ActiveRecord::Base
     self[:class]
   end
   
-  mount_uploader :photo, ImageUploader
+  # below is for carrierwave
+  #mount_uploader :photo, ImageUploader
+  
+  # paperclip
+  has_attached_file :image, :styles => { :small => "50x50>", :medium => "100x100>" }, :storage => :s3,
+                    :s3_credentials => { :access_key_id => ENV['S3_KEY'] , :secret_access_key => ENV['S3_SECRET']  },
+                    :bucket => ENV['S3_BUCKET'],
+                    :path => ":class/:attachment/:style/:id.:extension",
+                    :default_url => '/images/icons/fugue/question-white.png'
+
+
+  #validates_attachment_presence :image
+  validates_attachment_size :image, :less_than => 5.megabytes
+  validates_attachment_content_type :image, :content_type => ['image/jpeg', 'image/png', 'image/pjpeg', 'image/x-png' ] 
+  
+  
+  
   
   
   scope :all_merit_abilities, where("items.sort > 0 AND items.currency_type = 1 AND items.num_available > 0 AND (items.class IN (1,2,3)) AND (items.type IN (0,1,2,20,21,22)) AND (items.level IN (1,40,80))").order("class, sort")  
