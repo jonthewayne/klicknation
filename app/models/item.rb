@@ -21,14 +21,16 @@ class Item < ActiveRecord::Base
   # create accessors for paperclip's image_file_name that maps to our photo column, allowing us to store the full url
   def image_file_name= value
     # For storing on klicknation use assets100.klicknation.com instead of klicknation-test.s3.amazonaws.com
-    bucket = (ENV['S3_BUCKET'] == assets100.klicknation.com) ? ENV['S3_BUCKET'] : "#{ENV['S3_BUCKET']}.s3.amazonaws.com"
+    bucket = (ENV['S3_BUCKET'] == "assets100.klicknation.com") ? ENV['S3_BUCKET'] : "#{ENV['S3_BUCKET']}.s3.amazonaws.com"
     full_url = "http://#{bucket}/apps/heros/assets/abilities/" + %w(attack defense movement).insert(20,"attack","defense","movement")[self[:type].to_i] + "/#{value}"
     self[:photo] = full_url
   end
 
   def image_file_name
-    self[:photo].split('/').last
+    self[:photo].blank? ? nil : self[:photo].split('/').last
   end  
+  
+  attr_accessor :image_file_size, :image_content_type, :image_updated_at
   
   # paperclip
   has_attached_file :image, :styles => { :original => "1000x1000>", :card => "150x150#", :small => "90x90#" }, :storage => :s3,
@@ -41,7 +43,7 @@ class Item < ActiveRecord::Base
   validates_attachment_size :image, :less_than => 5.megabytes
   validates_attachment_content_type :image, :content_type => ['image/jpeg', 'image/png', 'image/pjpeg', 'image/x-png' ] 
   
-  before_create :randomize_file_name  
+  before_post_process :randomize_file_name  
   
   scope :all_merit_abilities, where("items.sort > 0 AND items.currency_type = 1 AND items.num_available > 0 AND (items.class IN (1,2,3)) AND (items.type IN (0,1,2,20,21,22)) AND (items.level IN (1,40,80))").order("class, sort")  
   scope :production_merit_abilities, where("items.sort > 0 AND items.currency_type = 1 AND items.num_available > 0 AND (items.class IN (1,2,3)) AND (items.type IN (0,1,2)) AND (items.level IN (1,40,80))").order("class, sort")  
@@ -229,10 +231,10 @@ class Item < ActiveRecord::Base
   def randomize_file_name
     extension = File.extname(image_file_name).downcase
     # use the old filename sans ext if it exists, otherwise generate new random filename
-    file_name = (photo_changed? && !photo_change[0].blank?) ? "#{photo_change[0].split('/').last.split('.').first}" : ActiveSupport::SecureRandom.hex(4)
-    # add the _style if there is one - style will return the filename sans extension if there is no _style
-    style = image_file_name.split('.').first.split('_').last
-    file_name = (style != image_file_name.split('.').first) ? "#{file_name}_#{style}" : file_name
+    file_name = photo_change[0].blank? ? ActiveSupport::SecureRandom.hex(4) : "#{photo_change[0].split('/').last.split('.').first}"
+    # add the _style if there is one, else style is the filename sans extension "t_card.png".split('.').first.split('_').last
+    #style = image_file_name.split('.').first.split('_').last
+    #file_name = (style != image_file_name.split('.').first) ? "#{file_name}_#{style}" : file_name
     self.image.instance_write(:file_name, "#{file_name}#{extension}")
   end  
 end

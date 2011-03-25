@@ -4,5 +4,5 @@ end
 
 Paperclip.interpolates :stockitemname do |attachment, style|
   # any style but "small" gets the _style added to the basename
-  style == :small ? "#{basename}" : "#{basename}_#{style.to_s}"
+  style == :small ? "#{basename(attachment, style)}" : "#{basename(attachment, style)}_#{style.to_s}"
 end
