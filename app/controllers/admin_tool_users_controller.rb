@@ -25,9 +25,9 @@ class AdminToolUsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    # when the referer isn't /users, someone clicked on the My Account button and should be 
-    # redirected back to where they came from after updating. We'll just redirect everyone to referer.
-    session['return-to'] = request.referer #unless request.referer.include? '/users'
+    # Redirect everyone to referer so that when people click on the My Account button they are
+    # redirected back to where they came from.   
+    session['return-to'] ||= request.referer
   end
 
   # POST /users
@@ -52,9 +52,20 @@ class AdminToolUsersController < ApplicationController
     # protect roles
     @admin_tool_user.roles = params[:admin_tool_user][:roles] if params[:admin_tool_user][:roles] && is_super?
     
+    #render :text => params.to_yaml
+    #return
+    
+    #if params[:admin_tool_user][:password].blank? || params[:admin_tool_user][:password_confirmation].blank?
+    #  params[:admin_tool_user].delete(:password) 
+    #  params[:admin_tool_user].delete(:password_confirmation) 
+    #end
+    
     respond_to do |format|
       if @admin_tool_user.update_attributes(params[:admin_tool_user])
-        format.html { redirect_to(session['return-to'], :notice => "Admin User was successfully updated.") }
+        # set session['return-to'] to nil so user can go back to edit their account and this session var will get reset as it should
+        previous_location = session['return-to']
+        session['return-to'] = nil
+        format.html { redirect_to(previous_location, :notice => "Admin User was successfully updated.") }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

@@ -7,7 +7,12 @@ class AdminToolUser < ActiveRecord::Base
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :registerable, :lockable and :timeoutable
-  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable  
+  devise :database_authenticatable, :recoverable, :rememberable, :trackable
+  
+  # I'm not using devise validation because I want users to be not have to submit current pw on pw change
+  validates_presence_of :password, :if => :password_required?
+  validates_confirmation_of :password, :if => :password_required?
+  validates_length_of :password, :within => 6..30, :allow_blank => true, :if => :password_required?
   
   
   scope :with_role, lambda { |role| where("roles_mask & #{2**ROLES.index(role.to_s)} > 0") }
@@ -40,8 +45,8 @@ class AdminToolUser < ActiveRecord::Base
     end
   end
   
-protected
+  protected
   def password_required?
-    !persisted? || password.present? || password_confirmation.present?
-  end
+    !persisted? || (password.present? && password_confirmation.present?)
+  end  
 end
