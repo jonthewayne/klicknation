@@ -115,14 +115,14 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
-  aws-s3
-  cancan
-  carrierwave
-  devise
-  fog
-  mini_magick
-  mysql2
+  aws-s3 (= 0.6.2)
+  cancan (= 1.6.2)
+  carrierwave (= 0.5.2)
+  devise (= 1.1.8)
+  fog (= 0.7.1)
+  mini_magick (= 3.2)
+  mysql2 (= 0.2.6)
   paperclip!
   rails (= 3.0.3)
-  safe_attributes
+  safe_attributes (= 1.0.4)
   will_paginate (= 3.0.pre2)

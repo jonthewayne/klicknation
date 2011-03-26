@@ -7,8 +7,9 @@ class AdminToolUser < ActiveRecord::Base
   
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :registerable, :lockable and :timeoutable
-  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable  
+  devise :database_authenticatable, :recoverable, :rememberable, :trackable
   
+  validate :password_must_exist, :password_must_match, :if => :password_required?
   
   scope :with_role, lambda { |role| where("roles_mask & #{2**ROLES.index(role.to_s)} > 0") }
   
@@ -40,8 +41,15 @@ class AdminToolUser < ActiveRecord::Base
     end
   end
   
-protected
+  protected
   def password_required?
-    !persisted? || password.present? || password_confirmation.present?
+    !persisted? || (password.present? && password_confirmation.present?)
+  end  
+  def password_must_exist
+    errors.add(:password, "can't be blank") if password.blank?
   end
+ 
+  def password_must_match
+    errors.add(:password, "doesn't match confirmation") if password != password_confirmation
+  end  
 end
