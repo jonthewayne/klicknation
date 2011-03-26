@@ -52,14 +52,6 @@ class AdminToolUsersController < ApplicationController
     # protect roles
     @admin_tool_user.roles = params[:admin_tool_user][:roles] if params[:admin_tool_user][:roles] && is_super?
     
-    #render :text => params.to_yaml
-    #return
-    
-    #if params[:admin_tool_user][:password].blank? || params[:admin_tool_user][:password_confirmation].blank?
-    #  params[:admin_tool_user].delete(:password) 
-    #  params[:admin_tool_user].delete(:password_confirmation) 
-    #end
-    
     respond_to do |format|
       if @admin_tool_user.update_attributes(params[:admin_tool_user])
         # set session['return-to'] to nil so user can go back to edit their account and this session var will get reset as it should
