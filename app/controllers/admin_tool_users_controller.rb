@@ -27,7 +27,7 @@ class AdminToolUsersController < ApplicationController
   def edit
     # Redirect everyone to referer so that when people click on the My Account button they are
     # redirected back to where they came from.   
-    session['return-to'] ||= request.referer
+    session['return-to'] = request.referer if session['return-to'].blank?
   end
 
   # POST /users
