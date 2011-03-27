@@ -28,7 +28,6 @@ class AdminToolUsersController < ApplicationController
     # Redirect everyone to referer so that when people click on the My Account button they are
     # redirected back to where they came from. Don't reset var if we have a form error.
     session['return-to'] = request.referer unless @admin_tool_user.errors.count > 0
-    puts "From edit: #{session['return-to']}"
   end
 
   # POST /users
@@ -57,12 +56,9 @@ class AdminToolUsersController < ApplicationController
       params[:admin_tool_user].delete(:password) 
       params[:admin_tool_user].delete(:password_confirmation) 
     end
-    
-    puts "From update: #{session['return-to']}"
 
     respond_to do |format|
       if @admin_tool_user.update_attributes(params[:admin_tool_user])
-        puts "From update after set to nil: #{session['return-to']}"
         format.html { redirect_to(session['return-to'], :notice => "Admin User was successfully updated.") }
         format.xml  { head :ok }
       else
