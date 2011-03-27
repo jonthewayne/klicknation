@@ -9,7 +9,7 @@ class AdminToolUser < ActiveRecord::Base
   # :token_authenticatable, :confirmable, :registerable, :lockable and :timeoutable
   devise :database_authenticatable, :recoverable, :rememberable, :trackable
   
-  validate :password_must_exist, :password_must_match, :if => :password_required?
+  validate :password_must_exist, :password_must_match, :password_length, :if => :password_required?
   
   scope :with_role, lambda { |role| where("roles_mask & #{2**ROLES.index(role.to_s)} > 0") }
   
@@ -52,4 +52,7 @@ class AdminToolUser < ActiveRecord::Base
   def password_must_match
     errors.add(:password, "doesn't match confirmation") if password != password_confirmation
   end  
+  def password_length
+    errors.add(:password, "must be at least 6 characters long (and less than 30)") if (password.split(//).size < 6 || password.split(//).size > 29)
+  end    
 end
