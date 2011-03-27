@@ -57,6 +57,11 @@ class AdminToolUsersController < ApplicationController
       params[:admin_tool_user].delete(:password_confirmation) 
     end
     
+    if params[:admin_tool_user][:password].blank? || params[:admin_tool_user][:password_confirmation].blank?
+      params[:admin_tool_user].delete(:password) 
+      params[:admin_tool_user].delete(:password_confirmation) 
+    end
+    
     respond_to do |format|
       if @admin_tool_user.update_attributes(params[:admin_tool_user])
         # set session['return-to'] to nil so user can go back to edit their account and this session var will get reset as it should
