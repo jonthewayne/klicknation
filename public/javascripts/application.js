@@ -63,4 +63,21 @@ $(function() {
     // change the card display label class depending on the item type dropdown
     $('#ability_card_label').removeClass().addClass('ability_label type_' + ability_label(x));   
   });     
+  
+  // alert user if they are creating a pending item and have no animation selected
+  $("form[id *= '_item']").submit(function(f) {
+    var t = $('#item_type').val();
+    var a = $('#item_item_category_id').val();
+    if (t == 0 && a == 0) {
+      if (confirm("Are you sure you want to save this production attack ability without selecting an animation from the Item category drop-down box?")) {
+        // form submits
+      }
+      else {
+        f.preventDefault();
+      }        
+    } 
+    else {
+        return true;
+    } 
+  });  
 });
