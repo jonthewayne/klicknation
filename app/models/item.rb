@@ -20,8 +20,8 @@ class Item < ActiveRecord::Base
   
   # create accessors for paperclip's image_file_name that maps to our photo column, allowing us to store the full url
   def image_file_name= value
-    # For storing on klicknation use assets100.klicknation.com instead of klicknation-test.s3.amazonaws.com
-    bucket = (ENV['S3_BUCKET'] == "assets100.klicknation.com") ? ENV['S3_BUCKET'] : "#{ENV['S3_BUCKET']}.s3.amazonaws.com"
+    # Unless storing in buckets with subdomains (like assets100.klicknation.com), use this syntax: klicknation-test.s3.amazonaws.com
+    bucket = ENV['S3_BUCKET'].include? "." ? ENV['S3_BUCKET'] : "#{ENV['S3_BUCKET']}.s3.amazonaws.com"
     full_url = "http://#{bucket}/apps/heros/assets/abilities/" + %w(attack defense movement).insert(20,"attack","defense","movement")[self[:type].to_i] + "/#{value}"
     self[:photo] = full_url
   end
@@ -37,7 +37,6 @@ class Item < ActiveRecord::Base
                     :s3_credentials => { :access_key_id => ENV['S3_KEY'] , :secret_access_key => ENV['S3_SECRET']  },
                     :bucket => ENV['S3_BUCKET'],
                     :path => "apps/heros/assets/abilities/:stockitemtype/:stockitemname.:extension",
-                    :url => ":s3_alias_url",
                     :default_url => '/images/icons/fugue/question-white.png'
                     
   validates_attachment_size :image, :less_than => 5.megabytes
