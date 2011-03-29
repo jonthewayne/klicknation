@@ -20,7 +20,8 @@ class Item < ActiveRecord::Base
   
   # create accessors for paperclip's image_file_name that maps to our photo column, allowing us to store the full url
   def image_file_name= value
-    bucket = ENV['S3_BUCKET']
+    # Unless storing in buckets with subdomains (like assets100.klicknation.com), use this syntax: klicknation-test.s3.amazonaws.com
+    bucket = ENV['S3_BUCKET'].include? "." ? ENV['S3_BUCKET'] : "#{ENV['S3_BUCKET']}.s3.amazonaws.com"
     full_url = "http://#{bucket}/apps/heros/assets/abilities/" + %w(attack defense movement).insert(20,"attack","defense","movement")[self[:type].to_i] + "/#{value}"
     self[:photo] = full_url
   end
