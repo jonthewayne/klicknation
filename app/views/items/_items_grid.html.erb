@@ -1,12 +1,9 @@
 <% @items.each do |item| %>       
   <% if (item.klass == c && item.type == t) or ((%w[20 21 22].include? item.type.to_s) && item.type == t) %> 
     <span class="img-wrapper">
-      <% if item[:photo] && item[:photo] != '' %>
-        <%= link_to(image_tag(item[:photo], :size => "70x70", :class => "with-tip tip-#{tipdir}", :alt => "#{item.name} ", :title => "#{item.name} // ID:#{item.id} // Sort:#{item.sort}"), edit_item_path(item)) %>
-      <% else %>
-        <%= link_to(image_tag("/images/icons/blockdevice.png", :size => "70x70", :class => "with-tip tip-#{tipdir}", :alt => "#{item.name} ", :title => "#{item.name} // ID:#{item.id}"), edit_item_path(item)) %>      
-      <% end %>  
+      <%= link_to(image_tag((item[:photo].blank? ? "/images/icons/blockdevice.png" : item[:photo]), :size => "70x70", :class => "with-tip tip-#{tipdir}", :alt => "#{item.name} ", :title => "#{item.name} // ID:#{item.id}#{(%w[20 21 22].include? item.type.to_s) ? '' : ' // Sort: ' + item.sort.to_s }#{(item.type.to_s == "20" && item.item_category_id.to_s == "0") ? ' // No Animation Selected!' : ''}"), edit_item_path(item)) %>       
       <% unless (%w[20 21 22].include? item.type.to_s) %><span class="superscript"><%= item.num_available %></span><% end %>
+      <% if (item.type.to_s == "20" && item.item_category_id.to_s == "0") %><span class="superscript yellow">!</span><% end %>      
     </span>      
   <% end %>
 <% end %>

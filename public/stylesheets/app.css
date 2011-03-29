@@ -381,3 +381,23 @@ img
 		);
 		color: #999999;
 	}
+	.superscript.yellow {
+		background: #FFFF00 url(../images/old-browsers-bg/nb-events-other-bg.png) repeat-x top;
+		-webkit-background-size: 100% 100%;
+		-moz-background-size: 100% 100%;
+		-o-background-size: 100% 100%;
+		background-size: 100% 100%;
+		background: -moz-linear-gradient(
+			top,
+			#FAF8CC,
+			#FFFF00
+		);
+		background: -webkit-gradient(
+			linear,
+			left top, left bottom,
+			from(#FAF8CC),
+			to(#FFFF00)
+		);
+		color: #000000;
+    font-size: 0.75em;
+	}  
