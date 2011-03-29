@@ -2,7 +2,6 @@
 
   <% # output currency_type as hidden field %>
   <%= f.hidden_field(:currency_type) %>   
-  <% # f.hidden_field :photo_cache %>
    
 
   <fieldset>    
@@ -52,7 +51,7 @@
         <% if (%w[0 20].include? @item.type.to_s) # for attack cards only %>
         <p class="colx2-right">
           <%= f.label "Item Category" %>
-          <%= f.select :item_category_id, ItemCategory.order("id desc").map {|ic| ["#{ic.id} - #{ic.category}", ic.id]}, {},{:class => "full-width"} %>                 
+          <%= f.select :item_category_id, (ItemCategory.order("id desc").map {|ic| ["#{ic.id} - #{ic.category}", ic.id]}).unshift(["0 - No Animation", 0]), {},{:class => "full-width"} %>                 
         </p>
         <% end %>  
       </div>      
