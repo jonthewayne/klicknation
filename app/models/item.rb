@@ -39,10 +39,11 @@ class Item < ActiveRecord::Base
                     :path => "apps/heros/assets/abilities/:stockitemtype/:stockitemname.:extension",
                     :default_url => '/images/icons/fugue/question-white.png'
                     
+  # delete old images if they exist, create random filename for new image
+  before_post_process :randomize_file_name    
+                    
   validates_attachment_size :image, :less_than => 5.megabytes
   validates_attachment_content_type :image, :content_type => ['image/jpeg', 'image/png', 'image/pjpeg', 'image/x-png' ] 
-  
-  before_post_process :randomize_file_name  
   
   scope :all_merit_abilities, where("items.sort > 0 AND items.currency_type = 1 AND items.num_available > 0 AND (items.class IN (1,2,3)) AND (items.type IN (0,1,2,20,21,22)) AND (items.level IN (1,40,80))").order("class, sort")  
   scope :production_merit_abilities, where("items.sort > 0 AND items.currency_type = 1 AND items.num_available > 0 AND (items.class IN (1,2,3)) AND (items.type IN (0,1,2)) AND (items.level IN (1,40,80))").order("class, sort")  
