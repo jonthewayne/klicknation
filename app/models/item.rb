@@ -39,7 +39,7 @@ class Item < ActiveRecord::Base
                     :path => "apps/heros/assets/abilities/:stockitemtype/:stockitemname.:extension",
                     :default_url => '/images/icons/fugue/question-white.png'
                     
-  # delete old images if they exist, create random filename for new image
+  # create random filename for new image
   before_post_process :randomize_file_name    
                     
   validates_attachment_size :image, :less_than => 5.megabytes
@@ -232,9 +232,6 @@ class Item < ActiveRecord::Base
     extension = File.extname(image_file_name).downcase
     # use the old filename sans ext if it exists, otherwise generate new random filename
     file_name = photo_change[0].blank? ? ActiveSupport::SecureRandom.hex(4) : "#{photo_change[0].split('/').last.split('.').first}"
-    # add the _style if there is one, else style is the filename sans extension "t_card.png".split('.').first.split('_').last
-    #style = image_file_name.split('.').first.split('_').last
-    #file_name = (style != image_file_name.split('.').first) ? "#{file_name}_#{style}" : file_name
     self.image.instance_write(:file_name, "#{file_name}#{extension}")
   end  
 end
