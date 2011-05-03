@@ -321,15 +321,14 @@ img
 	color:#fff;	
 }
 
-/* special admin styling that adds to admin theme */
+/* special admin styling that adds thumbnail superscripts to admin theme */
 .img-wrapper {
 	display: inline-block;
 	position: relative;
 }
+
 .superscript {
 	position: absolute;
-	right: -5px;
-	top: -5px;
 	height: 1.333em;
 	text-align: center;
 	font-size: 0.75em;
@@ -362,42 +361,60 @@ img
 	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 	}
-	.superscript.grey {
-		background: #dfdfdf url(../images/old-browsers-bg/nb-events-other-bg.png) repeat-x top;
-		-webkit-background-size: 100% 100%;
-		-moz-background-size: 100% 100%;
-		-o-background-size: 100% 100%;
-		background-size: 100% 100%;
-		background: -moz-linear-gradient(
-			top,
-			#f6f6f6,
-			#dfdfdf
-		);
-		background: -webkit-gradient(
-			linear,
-			left top, left bottom,
-			from(#f6f6f6),
-			to(#dfdfdf)
-		);
-		color: #999999;
-	}
-	.superscript.yellow {
-		background: #FFFF00 url(../images/old-browsers-bg/nb-events-other-bg.png) repeat-x top;
-		-webkit-background-size: 100% 100%;
-		-moz-background-size: 100% 100%;
-		-o-background-size: 100% 100%;
-		background-size: 100% 100%;
-		background: -moz-linear-gradient(
-			top,
-			#FAF8CC,
-			#FFFF00
-		);
-		background: -webkit-gradient(
-			linear,
-			left top, left bottom,
-			from(#FAF8CC),
-			to(#FFFF00)
-		);
-		color: #000000;
-    font-size: 0.75em;
-	}  
+  
+.superscript.left {
+	left: -1px;
+}
+
+.superscript.right {
+	right: -1px;
+}
+
+.superscript.top {
+	top: -7px;
+}
+
+.superscript.bottom {
+	bottom: -6px;
+}
+
+.superscript.grey {
+	background: #dfdfdf url(../images/old-browsers-bg/nb-events-other-bg.png) repeat-x top;
+	-webkit-background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	-o-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background: -moz-linear-gradient(
+		top,
+		#f6f6f6,
+		#dfdfdf
+	);
+	background: -webkit-gradient(
+		linear,
+		left top, left bottom,
+		from(#f6f6f6),
+		to(#dfdfdf)
+	);
+	color: #999999;
+}
+
+.superscript.yellow {
+	background: #FFFF00 url(../images/old-browsers-bg/nb-events-other-bg.png) repeat-x top;
+	-webkit-background-size: 100% 100%;
+	-moz-background-size: 100% 100%;
+	-o-background-size: 100% 100%;
+	background-size: 100% 100%;
+	background: -moz-linear-gradient(
+		top,
+		#FAF8CC,
+		#FFFF00
+	);
+	background: -webkit-gradient(
+		linear,
+		left top, left bottom,
+		from(#FAF8CC),
+		to(#FFFF00)
+	);
+	color: #000000;
+  font-size: 0.75em;
+}  
