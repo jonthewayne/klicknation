@@ -5,6 +5,16 @@ class Item < ActiveRecord::Base
   # deal with other legacy column names http://bit.ly/dLECXz
   bad_attribute_names :class
 
+
+  # scopes
+  scope :all_merit_abilities, where("items.sort > 0 AND items.currency_type = 1 AND items.num_available > 0 AND (items.class IN (1,2,3)) AND (items.type IN (0,1,2,20,21,22)) AND (items.level IN (1,40,80))").order("class, sort")  
+  scope :production_merit_abilities, where("items.sort > 0 AND items.currency_type = 1 AND items.num_available > 0 AND (items.class IN (1,2,3)) AND (items.type IN (0,1,2)) AND (items.level IN (1,40,80))").order("class, sort")  
+  scope :pending_merit_abilities, where("items.sort > 0 AND items.currency_type = 1 AND items.num_available > 0 AND (items.class IN (1,2,3)) AND (items.type IN (20,21,22)) AND (items.level IN (1,40,80))").order("id")  
+
+  # associations
+  has_many :admin_tool_claims, :as => :claimable, :dependent => :destroy
+  
+  
   # give class column benign accessors
   def klass= value
     self[:class] = value
@@ -14,8 +24,29 @@ class Item < ActiveRecord::Base
     self[:class]
   end
   
-  # below is for carrierwave
-  #mount_uploader :photo, ImageUploader
+  def ability_manager
+    @ability_manager ||= admin_tool_claims.where(:tag => "ability").first
+  end  
+  
+  def ability_manager=(v)
+    if ability_manager
+      ability_manager.admin_tool_user_id = v
+    else
+      admin_tool_claims.build(:admin_tool_user_id => v, :tag => "ability")
+    end
+  end
+  
+  def animation_manager
+    @animation_manager ||= admin_tool_claims.where(:tag => "animation").first
+  end   
+  
+  def animation_manager=(v)
+    if animation_manager
+      animation_manager.admin_tool_user_id = v
+    else
+      admin_tool_claims.build(:admin_tool_user_id => v, :tag => "animation")
+    end
+  end
   
   
   # create accessors for paperclip's image_file_name that maps to our photo column, allowing us to store the full url
@@ -41,17 +72,15 @@ class Item < ActiveRecord::Base
                     
   # create random filename for new image
   before_post_process :randomize_file_name    
-                    
-  validates_attachment_size :image, :less_than => 5.megabytes
-  validates_attachment_content_type :image, :content_type => ['image/jpeg', 'image/png', 'image/pjpeg', 'image/x-png' ] 
   
-  scope :all_merit_abilities, where("items.sort > 0 AND items.currency_type = 1 AND items.num_available > 0 AND (items.class IN (1,2,3)) AND (items.type IN (0,1,2,20,21,22)) AND (items.level IN (1,40,80))").order("class, sort")  
-  scope :production_merit_abilities, where("items.sort > 0 AND items.currency_type = 1 AND items.num_available > 0 AND (items.class IN (1,2,3)) AND (items.type IN (0,1,2)) AND (items.level IN (1,40,80))").order("class, sort")  
-  scope :pending_merit_abilities, where("items.sort > 0 AND items.currency_type = 1 AND items.num_available > 0 AND (items.class IN (1,2,3)) AND (items.type IN (20,21,22)) AND (items.level IN (1,40,80))").order("id")  
-
+  
   before_validation :set_pending_defaults, :if => "!production?"  
   before_validation :set_production_defaults, :if => :production?
 
+  # paperclip validations                  
+  validates_attachment_size :image, :less_than => 5.megabytes
+  validates_attachment_content_type :image, :content_type => ['image/jpeg', 'image/png', 'image/pjpeg', 'image/x-png' ] 
+  
   ### Not allowed to be null: (id and app_id are taken care of by mysql default)
 
   validates :type, :presence => true, :inclusion => { :in => [0,1,2,3,4,20,21,22], :message => "%{value} is not a valid item type" }
@@ -123,7 +152,13 @@ class Item < ActiveRecord::Base
                     
   #validates :sell_isolated, :inclusion => { :in => [true, false] }
          
-         
+  after_update :save_claims
+  
+  def save_claims
+    ability_manager.save(false)
+    animation_manager.save(false)
+  end
+  
   def production?
     %w[0 1 2 3 4].include? type.to_s
   end

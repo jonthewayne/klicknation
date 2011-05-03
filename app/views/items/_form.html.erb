@@ -3,6 +3,28 @@
   <% # output currency_type as hidden field %>
   <%= f.hidden_field(:currency_type) %>   
    
+  <fieldset class="grey-bg no-margin collapsed">
+    <legend><a href="#">Manager Settings</a></legend>
+      <div class="columns">
+			  <p class="colx2-left">
+          <%= f.label "Ability Manager" %>
+          <%= select_tag "item[ability_manager]", options_for_select((AdminToolUser.order("first_name asc").map {|atu| ["#{atu.first_name} #{atu.last_name}", atu.id]}).unshift(["Choose one:", 0]), @ability_manager), {:class => "full-width"} %>                 
+
+				</p>
+        <% if (%w[20].include? @item.type.to_s) # for pending attack cards only %>
+        <p class="colx2-right">
+          <%= f.label "Animation Manager" %>
+          <%= select_tag "item[animation_manager]", options_for_select((AdminToolUser.order("first_name asc").map {|atu| ["#{atu.first_name} #{atu.last_name}", atu.id]}).unshift(["Choose one:", 0]), @animation_manager), {:class => "full-width"} %>                 
+        </p>
+        <% else %>
+        <p class="colx2-right">
+          <%= f.label "Animation Manager", :style => "display: none" %>
+          <%= select_tag "item[animation_manager]", options_for_select((AdminToolUser.order("first_name asc").map {|atu| ["#{atu.first_name} #{atu.last_name}", atu.id]}).unshift(["Choose one:", 0]), @animation_manager), {:class => "full-width", :style => "display: none"} %>                                  
+        </p>        
+        <% end %>  
+      </div>                            
+	</fieldset>     
+
 
   <fieldset>    
       <p>

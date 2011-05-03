@@ -43,9 +43,11 @@ $(function() {
     var x = $(this).val();
     if (x != 0 && x != 20) {
         $('label[for=item_Item Category], #item_item_category_id').hide();
+        $('label[for=item_Animation Manager], #item_animation_manager').hide();        
     } 
     else {
         $('label[for=item_Item Category], #item_item_category_id').show();
+        $('label[for=item_Animation Manager], #item_animation_manager').show();         
     }  
     
     // change the card display type class depending on the item type dropdown
