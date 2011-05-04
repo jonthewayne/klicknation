@@ -11,7 +11,7 @@
           <%= select_tag "item[ability_manager]", options_for_select((AdminToolUser.order("first_name asc").map {|atu| ["#{atu.first_name} #{atu.last_name}", atu.id]}).unshift(["Choose one:", 0]), @ability_manager), {:class => "full-width"} %>                 
 
 				</p>
-        <% if (%w[20].include? @item.type.to_s) # for pending attack cards only %>
+        <% if (%w[0 20].include? @item.type.to_s) # for attack cards only %>
         <p class="colx2-right">
           <%= f.label "Animation Manager" %>
           <%= select_tag "item[animation_manager]", options_for_select((AdminToolUser.order("first_name asc").map {|atu| ["#{atu.first_name} #{atu.last_name}", atu.id]}).unshift(["Choose one:", 0]), @animation_manager), {:class => "full-width"} %>                 
