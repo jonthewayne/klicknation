@@ -29,4 +29,16 @@ module ItemsHelper
       (item.new_record?) ? "New Item #{item_id_label(item)}" : "Editing Item #{item_id_label(item)}"
     end
   end
+  
+  def ability_manager(item)
+    @ability_manager = item.admin_tool_claims.select { |claim| claim.tag == 'ability' }.first
+  end
+  
+  def animation_manager(item)
+    @animation_manager = item.admin_tool_claims.select { |claim| claim.tag == 'animation' }.first
+  end
+  
+  def manager_name(manager)
+    "#{manager.admin_tool_user.first_name[0,8]}" + "#{manager.admin_tool_user.first_name.length > 8 ? "." : ""}" + " #{manager.admin_tool_user.last_name[0,1]}."
+  end
 end

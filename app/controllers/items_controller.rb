@@ -27,6 +27,8 @@ class ItemsController < ApplicationController
     set_defaults_from_params      
     set_new_view_defaults
     
+    set_claimants
+    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @item }
@@ -35,7 +37,7 @@ class ItemsController < ApplicationController
 
   # GET /shc/items/1/edit
   def edit
-
+    set_claimants
   end
 
   # POST /shc/items
@@ -55,7 +57,7 @@ class ItemsController < ApplicationController
 
   # PUT /shc/items/1
   # PUT /shc/items/1.xml
-  def update
+  def update  
     respond_to do |format|
       # certain type values can only be used by admins      
       if @item.update_attributes(params[:item]) #((%w[0 1 2 3 4].include? @item.type.to_s) ? (can? :manage, @item) : true) && @item.update_attributes(params[:item])
@@ -125,5 +127,9 @@ class ItemsController < ApplicationController
       @items = Item.pending_merit_abilities
     end
   end  
+  def set_claimants 
+    @ability_manager = @item.ability_manager ? @item.ability_manager.admin_tool_user_id : 0
+    @animation_manager = @item.animation_manager ? @item.animation_manager.admin_tool_user_id : 0
+  end
 end
 

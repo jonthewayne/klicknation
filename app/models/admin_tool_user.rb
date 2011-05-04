@@ -2,6 +2,9 @@ class AdminToolUser < ActiveRecord::Base
   # Setup accessible (or protected) attributes for the model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name
   
+  # associations
+  has_many :admin_tool_claims, :dependent => :destroy
+  
   validates_presence_of :first_name, :last_name
   validates_presence_of :roles_mask, :message => "can't be unchecked"
   

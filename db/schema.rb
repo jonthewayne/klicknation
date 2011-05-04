@@ -10,7 +10,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110114202556) do
+ActiveRecord::Schema.define(:version => 20110405190019) do
+
+  create_table "admin_tool_claims", :force => true do |t|
+    t.integer  "claimable_id"
+    t.string   "claimable_type"
+    t.integer  "admin_tool_user_id"
+    t.string   "tag"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "admin_tool_users", :force => true do |t|
     t.string   "email",                               :default => "", :null => false
@@ -35,42 +44,47 @@ ActiveRecord::Schema.define(:version => 20110114202556) do
   add_index "admin_tool_users", ["reset_password_token"], :name => "index_admin_tool_users_on_reset_password_token", :unique => true
 
   create_table "cities", :force => true do |t|
-    t.string   "name",                  :limit => 20,  :default => "", :null => false
-    t.string   "long_name",             :limit => 40,  :default => "", :null => false
-    t.string   "description",           :limit => 360, :default => "", :null => false
+    t.string   "name",                  :limit => 20,  :null => false
+    t.string   "long_name",             :limit => 40,  :null => false
+    t.string   "description",           :limit => 360, :null => false
     t.integer  "job_id",                :limit => 8
-    t.string   "battle_background_url", :limit => 200, :default => "", :null => false
+    t.string   "battle_background_url", :limit => 200, :null => false
     t.datetime "available_on"
     t.datetime "available_until"
   end
 
+  create_table "item_categories", :force => true do |t|
+    t.integer "app",      :limit => 1,   :default => 1, :null => false
+    t.string  "category", :limit => 100,                :null => false
+  end
+
   create_table "items", :force => true do |t|
-    t.integer  "app_id",                                                          :default => 1,     :null => false
+    t.integer  "app_id",                                                          :default => 1,   :null => false
     t.string   "name",               :limit => 60
     t.text     "description"
-    t.integer  "type",                                                                               :null => false
-    t.decimal  "price",                             :precision => 8, :scale => 2, :default => 0.0,   :null => false
-    t.string   "currency_type",      :limit => 6,                                 :default => "1",   :null => false
-    t.decimal  "upkeep",                            :precision => 5, :scale => 2, :default => 0.0,   :null => false
-    t.integer  "attack",             :limit => 2,                                 :default => 0,     :null => false
-    t.integer  "defense",                                                         :default => 0,     :null => false
-    t.integer  "agility",            :limit => 2,                                 :default => 0,     :null => false
-    t.integer  "num_available",                                                   :default => -1,    :null => false
+    t.integer  "type",                                                                             :null => false
+    t.decimal  "price",                             :precision => 8, :scale => 2, :default => 0.0, :null => false
+    t.string   "currency_type",      :limit => 6,                                 :default => "1", :null => false
+    t.decimal  "upkeep",                            :precision => 5, :scale => 2, :default => 0.0, :null => false
+    t.integer  "attack",             :limit => 2,                                 :default => 0,   :null => false
+    t.integer  "defense",                                                         :default => 0,   :null => false
+    t.integer  "agility",            :limit => 2,                                 :default => 0,   :null => false
+    t.integer  "num_available",                                                   :default => -1,  :null => false
     t.datetime "available_on"
     t.datetime "available_until"
-    t.integer  "level",                                                           :default => 1,     :null => false
-    t.integer  "ability_element_id", :limit => 2,                                 :default => 0,     :null => false
-    t.integer  "rarity",                                                          :default => 2,     :null => false
+    t.integer  "level",                                                           :default => 1,   :null => false
+    t.integer  "ability_element_id", :limit => 2,                                 :default => 0,   :null => false
+    t.integer  "rarity",                                                          :default => 2,   :null => false
     t.string   "photo",              :limit => 200
     t.string   "swf"
-    t.integer  "item_category_id",                                                :default => 0,     :null => false
+    t.integer  "item_category_id",                                                :default => 0,   :null => false
     t.integer  "city"
     t.integer  "sort"
     t.integer  "class"
-    t.integer  "force_show_card",    :limit => 1,                                 :default => 0
+    t.integer  "force_show_card",    :limit => 1
     t.integer  "i_can_has",          :limit => 2
-    t.boolean  "sell_isolated",                                                   :default => false
-    t.integer  "apply_discount",     :limit => 1,                                 :default => 1,     :null => false
+    t.boolean  "sell_isolated"
+    t.integer  "apply_discount",     :limit => 1,                                 :default => 1,   :null => false
   end
 
   add_index "items", ["ability_element_id"], :name => "ability_element_id"
@@ -80,7 +94,7 @@ ActiveRecord::Schema.define(:version => 20110114202556) do
   add_index "items", ["rarity"], :name => "rarity"
 
   create_table "pieces", :force => true do |t|
-    t.string   "name",               :default => "", :null => false
+    t.string   "name",               :null => false
     t.text     "description"
     t.integer  "attack"
     t.integer  "defense"

@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  claimable_id: 1
+  claimable_type: MyString
+  admin_tool_user_id: 1
+  tag: MyString
+
+two:
+  claimable_id: 1
+  claimable_type: MyString
+  admin_tool_user_id: 1
+  tag: MyString
