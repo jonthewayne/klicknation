@@ -26,7 +26,7 @@ $(function() {
       $('#item_agility_output').text($(this).val());
   });   
   
-  // create come helper functions
+  // helper functions
   function type_label(type) {
     return "attack defense movement 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 attack defense movement".split(" ")[type]
     // a = new Array(17); a.splice(0, 0, 'attack', 'defense', 'movement'); a.push('attack', 'defense', 'movement'); a[type]
