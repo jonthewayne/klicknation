@@ -1,6 +1,6 @@
 module ApplicationHelper
   # app version
-  APP_VERSION = "1.5.5"
+  APP_VERSION = "1.5.6"
   
   def sortable(column, css_class, title)
     direction = css_class == "sort-down" ? "desc" : "asc"    
