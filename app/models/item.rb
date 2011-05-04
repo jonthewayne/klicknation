@@ -266,7 +266,10 @@ class Item < ActiveRecord::Base
   def randomize_file_name
     extension = File.extname(image_file_name).downcase
     # use the old filename sans ext if it exists, otherwise generate new random filename
-    file_name = photo_change[0].blank? ? ActiveSupport::SecureRandom.hex(4) : "#{photo_change[0].split('/').last.split('.').first}"
+    #file_name = photo_change[0].blank? ? ActiveSupport::SecureRandom.hex(4) : "#{photo_change[0].split('/').last.split('.').first}"
+    
+    # use the original filename plus a timestamp for randomness. Edit _card out of original filename
+    file_name = "#{(image_file_name.include? "_card") ?  image_file_name.split('_card').first : image_file_name.split('.').first}_#{Time.now.utc.strftime("%Y%m%d%H%M%S").to_i}"
     self.image.instance_write(:file_name, "#{file_name}#{extension}")
   end  
 end
