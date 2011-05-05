@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.7'
+gem 'rails', '3.0.3'
 
 gem 'mysql2', '0.2.6'
 
@@ -17,7 +17,7 @@ gem "will_paginate", "3.0.pre2"
 
 gem 'devise', '1.1.8'
 
-gem 'cancan', '1.6.2'
+gem 'cancan', '1.6.4'
 
 gem 'carrierwave', '0.5.2'
 
