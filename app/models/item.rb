@@ -47,19 +47,20 @@ class Item < ActiveRecord::Base
       admin_tool_claims.build(:admin_tool_user_id => v, :tag => "animation")
     end
   end
-  
+   
   
   # create accessors for paperclip's image_file_name that maps to our photo column, allowing us to store the full url
   def image_file_name= value
     # Unless storing in buckets with subdomains (like assets100.klicknation.com), use this syntax: klicknation-test.s3.amazonaws.com
     bucket = (ENV['S3_BUCKET'].include? ".") ? ENV['S3_BUCKET'] : "#{ENV['S3_BUCKET']}.s3.amazonaws.com"
-    full_url = "http://#{bucket}/apps/heros/assets/abilities/" + %w(attack defense movement).insert(20,"attack","defense","movement")[self[:type].to_i] + "/#{value}"
+    # use params[:safe_type] in next line because self.type is not available yet
+    full_url = "http://#{bucket}/apps/heros/assets/abilities/" + %w(attack defense movement).insert(20,"attack","defense","movement")[params[:safe_type].to_i] + "/#{value}"
     self[:photo] = full_url
   end
 
   def image_file_name
     self[:photo].blank? ? nil : self[:photo].split('/').last
-  end  
+  end   
   
   attr_accessor :image_file_size, :image_content_type, :image_updated_at
   
@@ -76,6 +77,7 @@ class Item < ActiveRecord::Base
   
   before_validation :set_pending_defaults, :if => "!production?"  
   before_validation :set_production_defaults, :if => :production?
+  before_validation :get_remote_image_if_necessary
 
   # paperclip validations                  
   validates_attachment_size :image, :less_than => 5.megabytes
@@ -152,11 +154,11 @@ class Item < ActiveRecord::Base
                     
   #validates :sell_isolated, :inclusion => { :in => [true, false] }
          
-  after_update :save_claims
+  after_update :save_claims 
   
   def save_claims
-    ability_manager.save(false)
-    animation_manager.save(false)
+    ability_manager.save(:validate => false)
+    animation_manager.save(:validate => false)
   end
   
   def production?
@@ -250,8 +252,10 @@ class Item < ActiveRecord::Base
   
   def class_or_type_change?
     # compare to this item's last saved type
-    last_save = Item.where("id = ?", self.id).first
-    (![self.type].include? last_save.type) or (![self.klass].include? last_save.klass)
+    #@last_save ||= Item.where("id = ?", self.id).first
+    #(![self.type].include? @last_save.type) or (![self.klass].include? @last_save.klass)
+    return false if self.new_record?
+    (self.class_changed? or self.type_changed?) ? true : false    
   end
   
   def set_sort(c, t)
@@ -263,13 +267,29 @@ class Item < ActiveRecord::Base
   
   private 
   
+  def get_remote_image_if_necessary
+    if !self.photo.blank? && !self.photo_changed? && self.type_changed?
+      self.image = do_download_remote_image(self.photo.strip.gsub(".#{self.photo.strip.split('.').last}","_card.#{self.photo.strip.split('.').last}")) 
+    end
+  end
+  
+  def do_download_remote_image(photo_url)
+    io = open(URI.parse(photo_url))
+    def io.original_filename; base_uri.path.split('/').last; end
+    io.original_filename.blank? ? nil : io
+  rescue # catch url errors with validations instead of exceptions (Errno::ENOENT, OpenURI::HTTPError, etc...)
+  end  
+  
   def randomize_file_name
     extension = File.extname(image_file_name).downcase
     # use the old filename sans ext if it exists, otherwise generate new random filename
     #file_name = photo_change[0].blank? ? ActiveSupport::SecureRandom.hex(4) : "#{photo_change[0].split('/').last.split('.').first}"
     
+    # when I upload via url I need to remove the _timestamp part (always a 14 digit string like in test_20110405190019_card.jpg)
+    file_name = image_file_name.gsub(/[_]\d{14}/, '') 
+
     # use the original filename plus a timestamp for randomness. Edit _card out of original filename
-    file_name = "#{(image_file_name.include? "_card") ?  image_file_name.split('_card').first : image_file_name.split('.').first}_#{Time.now.utc.strftime("%Y%m%d%H%M%S").to_i}"
+    file_name = "#{(file_name.include? "_card") ? file_name.split('_card').first : file_name.split('.').first}_#{Time.now.utc.strftime("%Y%m%d%H%M%S").to_i}"
     self.image.instance_write(:file_name, "#{file_name}#{extension}")
   end  
 end

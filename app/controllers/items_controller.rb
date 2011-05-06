@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
-  load_and_authorize_resource  
+  before_filter :special_resource_load, :only => [:create, :update, :destroy]
+  load_and_authorize_resource :only => [:index, :pending, :show, :new, :edit]
+   
   helper_method :sort_column, :sort_direction
 
   # GET /shc/items
@@ -44,8 +46,8 @@ class ItemsController < ApplicationController
   # POST /shc/items.xml
   def create        
     respond_to do |format|
-      # certain type values can only be used by admins
-      if @item.save # ((%w[0 1 2 3 4].include? @item.type.to_s) ? (can? :manage, @item) : true) && @item.save
+      # certain type values can only be used by admins, but that's taken care of in ability model
+      if @item.save
         format.html { redirect_to(edit_item_url(@item), :notice => 'Item was successfully created.') }
         format.xml  { render :xml => @item, :status => :created, :location => @item }
       else
@@ -57,10 +59,10 @@ class ItemsController < ApplicationController
 
   # PUT /shc/items/1
   # PUT /shc/items/1.xml
-  def update  
+  def update     
     respond_to do |format|
-      # certain type values can only be used by admins      
-      if @item.update_attributes(params[:item]) #((%w[0 1 2 3 4].include? @item.type.to_s) ? (can? :manage, @item) : true) && @item.update_attributes(params[:item])
+      # certain type values can only be used by admins, but that's taken care of in ability model
+      if @item.update_attributes(params[:item])
         format.html { redirect_to(edit_item_url(@item), :notice => 'Item was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -72,7 +74,7 @@ class ItemsController < ApplicationController
 
   # DELETE /shc/items/1
   # DELETE /shc/items/1.xml
-  def destroy
+  def destroy 
     respond_to do |format|
       if @item.destroy
         format.html { redirect_to(items_url, :notice => 'Item was successfully deleted.') }
@@ -85,6 +87,18 @@ class ItemsController < ApplicationController
   end
 
   private
+  
+  def special_resource_load  
+    # for create and update, set safe_type param early (before loading @item resource) so that 
+    # image_file_name= in model can access it. params[:item][:type] doesn't exist on destroy
+    params[:safe_type] = params[:item][:type] unless (params[:action] == "destroy")
+    @item = (params[:action] == "create") ? Item.new(params[:item]) : Item.find(params[:id])
+    
+    # set the safe_type differently if on destroy action - for some reason image_file_name= 
+    # not called as early for destroy 
+    params[:safe_type] = (params[:action] == "destroy") ? @item.type : params[:safe_type]
+    authorize! params[:action], @item
+  end
   
   # set defaults for new action view
   def set_defaults_from_params
