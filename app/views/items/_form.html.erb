@@ -88,7 +88,7 @@
         <p><em>There's no Save button because you don't have permission to make changes to production items. </em></p>
       <% end %>
   </fieldset>  
-  <% unless @item.new_record? %>
+  <% unless @item.new_record? or (%w[20 21 22].include? @item.type.to_s) %>
       <fieldset class="grey-bg no-margin collapsed">
 				<legend><a href="#">Extra Fields</a></legend>
           <div class="columns">
