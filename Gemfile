@@ -8,8 +8,8 @@ gem 'awesome_print'
 
 gem 'safe_attributes', '1.0.4'
 
-# gem "paperclip", "2.3.5" 
-gem "paperclip", :git => "git://github.com/lightyear/paperclip.git"
+# gem "paperclip", :git => "git://github.com/lightyear/paperclip.git"
+gem "paperclip", "2.3.11" 
 
 gem "aws-s3", '0.6.2', :require => 'aws/s3'
 

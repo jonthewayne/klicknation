@@ -262,7 +262,8 @@ class Item < ActiveRecord::Base
   
   def correct_type
     # provide paperclip the correct item type for new and old images. The old image is deleted before the new is saved
-    if @prev_type or !self.type_changed?
+    if @prev_type or !self.type_changed? or self.photo_changed?
+      logger.debug "!!!!!!!!!PHOTO CHANGE - #{self.photo_changed?}" 
       logger.debug "!!!!!!!!!DIRTY? - #{self.changed?}"
       logger.debug "!!!!!!!!!FIRST - self type: #{self.type}"
       self.type
@@ -284,6 +285,7 @@ class Item < ActiveRecord::Base
   
   def get_remote_image_if_necessary
     if !self.photo.blank? && !self.photo_changed? && self.type_changed?
+      logger.debug "!!!!!!!!!GETTING IMAGE VIA URL"
       self.image = do_download_remote_image(self.photo.strip.gsub(".#{self.photo.strip.split('.').last}","_card.#{self.photo.strip.split('.').last}")) 
     end
   end
