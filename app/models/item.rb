@@ -25,7 +25,8 @@ class Item < ActiveRecord::Base
   end
   
   def ability_manager
-    @ability_manager ||= admin_tool_claims.where(:tag => "ability").first
+    @admin_tool_claims ||= admin_tool_claims.all
+    @ability_manager ||= @admin_tool_claims.select { |claim| claim.tag == 'ability' }.first
   end  
   
   def ability_manager=(v)
@@ -37,7 +38,8 @@ class Item < ActiveRecord::Base
   end
   
   def animation_manager
-    @animation_manager ||= admin_tool_claims.where(:tag => "animation").first
+    @admin_tool_claims ||= admin_tool_claims.all    
+    @animation_manager ||= @admin_tool_claims.select { |claim| claim.tag == 'animation' }.first
   end   
   
   def animation_manager=(v)
@@ -256,6 +258,19 @@ class Item < ActiveRecord::Base
     #(![self.type].include? @last_save.type) or (![self.klass].include? @last_save.klass)
     return false if self.new_record?
     (self.class_changed? or self.type_changed?) ? true : false    
+  end
+  
+  def correct_type
+    # provide paperclip the correct item type for new and old images. The old image is deleted before the new is saved
+    if @prev_type or !self.type_changed?
+      logger.debug "!!!!!!!!!DIRTY? - #{self.changed?}"
+      logger.debug "!!!!!!!!!FIRST - self type: #{self.type}"
+      self.type
+    elsif self.type_changed?
+      logger.debug "!!!!!!!!!DIRTY? - #{self.changed?}"
+      logger.debug "!!!!!!!!!LAST - old type: #{self.type_was}"      
+      @prev_type = self.type_was
+    end
   end
   
   def set_sort(c, t)
