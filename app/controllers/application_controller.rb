@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
   layout :layout
   
   rescue_from CanCan::AccessDenied do |exception|
-    #flash[:alert] = exception.message
     redirect_to "/"
   end
   
