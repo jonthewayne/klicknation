@@ -1,5 +1,5 @@
 Paperclip.interpolates :stockitemtype do |attachment, style|
-  %w(attack defense movement).insert(20,"attack","defense","movement")[attachment.instance.type.to_i]
+  %w(attack defense movement).insert(20,"attack","defense","movement")[attachment.instance.correct_type.to_i]
 end
 
 Paperclip.interpolates :stockitemname do |attachment, style|

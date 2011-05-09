@@ -25,7 +25,8 @@ class Item < ActiveRecord::Base
   end
   
   def ability_manager
-    @ability_manager ||= admin_tool_claims.where(:tag => "ability").first
+    @admin_tool_claims ||= admin_tool_claims.all
+    @ability_manager ||= @admin_tool_claims.select { |claim| claim.tag == 'ability' }.first
   end  
   
   def ability_manager=(v)
@@ -37,7 +38,8 @@ class Item < ActiveRecord::Base
   end
   
   def animation_manager
-    @animation_manager ||= admin_tool_claims.where(:tag => "animation").first
+    @admin_tool_claims ||= admin_tool_claims.all    
+    @animation_manager ||= @admin_tool_claims.select { |claim| claim.tag == 'animation' }.first
   end   
   
   def animation_manager=(v)
@@ -73,11 +75,11 @@ class Item < ActiveRecord::Base
                     
   # create random filename for new image
   before_post_process :randomize_file_name    
-  
+ 
   
   before_validation :set_pending_defaults, :if => "!production?"  
   before_validation :set_production_defaults, :if => :production?
-  before_validation :get_remote_image_if_necessary
+  before_validation :get_remote_image_if_necessary   
 
   # paperclip validations                  
   validates_attachment_size :image, :less_than => 5.megabytes
@@ -258,6 +260,10 @@ class Item < ActiveRecord::Base
     (self.class_changed? or self.type_changed?) ? true : false    
   end
   
+  def correct_type
+    self.type
+  end
+  
   def set_sort(c, t)
     # increment from last item of same class and type. 
     self.sort = Item.where("class = ? AND type = ? AND num_available > 0", c, t).last.sort + 1
@@ -268,7 +274,9 @@ class Item < ActiveRecord::Base
   private 
   
   def get_remote_image_if_necessary
+    #logger.debug "!!!!!!!!!GETTING IMAGE VIA URL? NO - PHOTO CHANGE? - #{self.photo_changed?}"
     if !self.photo.blank? && !self.photo_changed? && self.type_changed?
+      #logger.debug "!!!!!!!!!GETTING IMAGE VIA URL? YES - PHOTO CHANGE? - #{self.photo_changed?}"
       self.image = do_download_remote_image(self.photo.strip.gsub(".#{self.photo.strip.split('.').last}","_card.#{self.photo.strip.split('.').last}")) 
     end
   end
@@ -288,7 +296,7 @@ class Item < ActiveRecord::Base
     # when I upload via url I need to remove the _timestamp part (always a 14 digit string like in test_20110405190019_card.jpg)
     file_name = image_file_name.gsub(/[_]\d{14}/, '') 
 
-    # use the original filename plus a timestamp for randomness. Edit _card out of original filename
+    # use the original filename plus a timestamp for randomness w/ readability. Edit _card out of original filename
     file_name = "#{(file_name.include? "_card") ? file_name.split('_card').first : file_name.split('.').first}_#{Time.now.utc.strftime("%Y%m%d%H%M%S").to_i}"
     self.image.instance_write(:file_name, "#{file_name}#{extension}")
   end  
