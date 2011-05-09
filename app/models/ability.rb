@@ -22,10 +22,11 @@ class Ability
       can :update, AdminToolUser, :id => user.id
     elsif user.roles.include?('superhero_city_contributor')
       can :read, ItemCategory
-      can [:read, :view_new, :view_edit], Item
       # allow contributors to manage pending items only
-      can [:destroy, :create, :update], Item, :type => 20..22
-      #can [:destroy], Item, :type => 20..22      
+      #can [:destroy, :create, :update], Item, :type => 20..22      
+      can :manage, Item, :type => 20..22      
+      can [:read, :view_new, :view_edit], Item
+      can :update, AdminToolUser, :id => user.id 
     else
       # allow non super admin to update their own user record
       can :update, AdminToolUser, :id => user.id      

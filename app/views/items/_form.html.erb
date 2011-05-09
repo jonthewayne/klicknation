@@ -62,7 +62,7 @@
 			  <p class="colx2-right">
           <%= f.label :type %>
           <% # show non-pending types only if user is admin or we're in the edit view for production item. In latter case, contributor will see non-pending type but not be able to save the changes. %>
-          <%= f.select :type, (can? :manage, @item) ? {"0 - Production Attack" => "0", "1 - Production Defense" => "1", "2 - Production Movement" => "2", "20 - Pending Attack" => "20", "21 - Pending Defense" => "21", "22 - Pending Movement" => "22"} : ((%w[0 1 2 3 4].include? @item.type.to_s) ? {"0 - Attack" => "0", "1 - Defense" => "1", "2 - Movement" => "2", "20 - Pending Attack" => "20", "21 - Pending Defense" => "21", "22 - Pending Movement" => "22"} : {"20 - Pending Attack" => "20", "21 - Pending Defense" => "21", "22 - Pending Movement" => "22"}), {},{:class => "full-width"} %>                    
+          <%= f.select :type, (can? :manage, Item.new) ? {"0 - Production Attack" => "0", "1 - Production Defense" => "1", "2 - Production Movement" => "2", "20 - Pending Attack" => "20", "21 - Pending Defense" => "21", "22 - Pending Movement" => "22"} : ((%w[0 1 2 3 4].include? @item.type.to_s) ? {"0 - Attack" => "0", "1 - Defense" => "1", "2 - Movement" => "2", "20 - Pending Attack" => "20", "21 - Pending Defense" => "21", "22 - Pending Movement" => "22"} : {"20 - Pending Attack" => "20", "21 - Pending Defense" => "21", "22 - Pending Movement" => "22"}), {},{:class => "full-width"} %>                    
 			  </p>
       </div>         
       <div class="columns">
